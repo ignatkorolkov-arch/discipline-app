@@ -15,37 +15,30 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,'Segoe UI',Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none}
 body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(255,255,255,1) 0%,transparent 45%),radial-gradient(circle at 85% 20%,rgba(180,180,200,.9) 0%,transparent 50%),radial-gradient(circle at 50% 90%,rgba(160,160,180,.8) 0%,transparent 55%),radial-gradient(circle at 90% 70%,rgba(220,220,240,.7) 0%,transparent 50%);background-attachment:fixed;color:#1a1a1a;padding:24px 20px;max-width:440px;margin:0 auto;min-height:100vh;line-height:1.5}
-
-/* СТЕКЛО */
 .glass{background:linear-gradient(135deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(40px) saturate(200%) brightness(1.1);-webkit-backdrop-filter:blur(40px) saturate(200%) brightness(1.1);border:1px solid rgba(255,255,255,.7);border-radius:32px;box-shadow:0 8px 32px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95);position:relative;overflow:hidden}
 .glass::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,1),transparent);pointer-events:none}
 
-/* РЕГИСТРАЦИЯ */
 .auth-overlay{position:fixed;inset:0;background:rgba(200,200,208,.4);backdrop-filter:blur(50px) saturate(200%);-webkit-backdrop-filter:blur(50px) saturate(200%);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .4s}
 .auth-overlay.hidden{opacity:0;pointer-events:none;display:none}
-.auth-card{max-width:400px;width:100%;padding:40px 30px;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.35) 100%);backdrop-filter:blur(50px) saturate(200%);-webkit-backdrop-filter:blur(50px) saturate(200%);border:1px solid rgba(255,255,255,.9);border-radius:40px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,1)}
+.auth-card{max-width:400px;width:100%;padding:40px 30px;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.35) 100%);backdrop-filter:blur(50px) saturate(200%);border:1px solid rgba(255,255,255,.9);border-radius:40px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,1)}
 .auth-card h1{font-size:22px;color:#1a1a1a;margin-bottom:8px;font-weight:600;letter-spacing:1.5px}
 .auth-card .subtitle{color:#777;font-size:13px;margin-bottom:32px;font-weight:400}
 .auth-btn{width:100%;padding:16px;border-radius:24px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.7);backdrop-filter:blur(20px);color:#1a1a1a;font-size:14px;font-weight:500;cursor:pointer;transition:all .25s;margin-bottom:12px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,1)}
-.auth-btn:hover,.auth-btn:active{transform:translateY(-2px);background:rgba(255,255,255,.9);box-shadow:0 8px 24px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,1)}
+.auth-btn:hover,.auth-btn:active{transform:translateY(-2px);background:rgba(255,255,255,.9)}
 .auth-btn.apple{background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);color:#fff;border-color:rgba(255,255,255,.2)}
-.auth-btn.apple:hover{background:linear-gradient(135deg,rgba(40,40,40,.95) 0%,rgba(60,60,60,.9) 100%)}
-.auth-btn .icon{font-size:18px}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:#999;font-size:11px}
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.08)}
 .auth-input{width:100%;padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);backdrop-filter:blur(20px);color:#1a1a1a;font-size:14px;outline:none;margin-bottom:12px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9);transition:all .2s}
 .auth-input:focus{border-color:rgba(255,255,255,1);background:rgba(255,255,255,.8)}
 .auth-input::placeholder{color:#999}
 .auth-terms{font-size:11px;color:#999;margin-top:16px;line-height:1.5}
-.auth-terms a{color:#1a1a1a;text-decoration:none;font-weight:500}
 
-/* СТАРТОВЫЙ ЭКРАН */
-.welcome-overlay{position:fixed;inset:0;background:rgba(200,200,208,.4);backdrop-filter:blur(50px) saturate(200%);-webkit-backdrop-filter:blur(50px) saturate(200%);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .4s}
+.welcome-overlay{position:fixed;inset:0;background:rgba(200,200,208,.4);backdrop-filter:blur(50px) saturate(200%);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .4s}
 .welcome-overlay.hidden{opacity:0;pointer-events:none;display:none}
 .welcome-card{max-width:400px;width:100%;padding:40px 30px;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.35) 100%);backdrop-filter:blur(50px) saturate(200%);border:1px solid rgba(255,255,255,.9);border-radius:40px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,1)}
 .welcome-card h1{font-size:20px;color:#1a1a1a;margin-bottom:6px;font-weight:600;letter-spacing:2px}
 .welcome-card .subtitle{color:#777;font-size:13px;margin-bottom:28px;font-weight:400}
-.trial-badge{display:inline-block;padding:10px 22px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);border-radius:24px;font-size:12px;color:#1a1a1a;margin-bottom:28px;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,1)}
+.trial-badge{display:inline-block;padding:10px 22px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);border-radius:24px;font-size:12px;color:#1a1a1a;margin-bottom:28px;font-weight:600}
 .features{text-align:left;margin-bottom:28px}
 .feature{display:flex;align-items:center;padding:10px 0;font-size:13px;color:#555;font-weight:400}
 .feature .check{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;font-size:12px;margin-right:12px;flex-shrink:0;font-weight:600}
@@ -54,7 +47,6 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .welcome-skip{background:rgba(255,255,255,.4);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.7);color:#666;font-size:12px;cursor:pointer;padding:12px 24px;border-radius:20px;font-family:inherit;font-weight:500}
 .price-note{font-size:11px;color:#999;margin-top:16px}
 
-/* ПЕЙВОЛЛ */
 .paywall-overlay{position:fixed;inset:0;background:rgba(200,200,208,.5);backdrop-filter:blur(50px);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px}
 .paywall-overlay.show{display:flex}
 .paywall-card{max-width:400px;width:100%;padding:40px 30px;background:linear-gradient(135deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.4) 100%);backdrop-filter:blur(50px);border:1px solid rgba(255,255,255,.9);border-radius:40px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.15)}
@@ -64,12 +56,9 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .paywall-price{font-size:32px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
 .paywall-price-sub{font-size:12px;color:#888;margin-bottom:28px}
 
-/* ШАПКА */
 .header{text-align:center;margin-bottom:28px;padding-top:8px}
 .header h1{font-size:18px;color:#1a1a1a;margin-bottom:4px;font-weight:600;letter-spacing:2.5px}
 .header p{color:#888;font-size:12px;font-weight:400}
-
-/* УРОВЕНЬ */
 .level-card{padding:26px;margin-bottom:16px}
 .level-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .level-header .lvl{font-size:15px;font-weight:700;color:#1a1a1a}
@@ -77,14 +66,10 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .xp-bar{background:rgba(0,0,0,.1);height:8px;border-radius:4px;overflow:hidden;margin-bottom:14px;box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
 .xp-fill{background:linear-gradient(90deg,#333,#666);height:100%;width:0%;border-radius:4px;transition:width .5s}
 .streak{font-size:12px;color:#777;font-weight:400}
-
-/* СТАТИСТИКА */
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
 .stat-box{padding:18px 10px;text-align:center}
 .stat-box .num{font-size:20px;font-weight:700;color:#1a1a1a;display:block;margin-bottom:4px}
 .stat-box .label{font-size:10px;color:#888;font-weight:500;letter-spacing:.3px}
-
-/* ЦЕЛЬ */
 .goal-card{padding:26px;margin-bottom:16px}
 .goal-card .goal-title{font-size:11px;color:#888;margin-bottom:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase}
 .goal-name{font-size:17px;color:#1a1a1a;font-weight:600;margin-bottom:16px}
@@ -92,30 +77,23 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .goal-bar{background:rgba(0,0,0,.1);height:8px;border-radius:4px;overflow:hidden;margin-bottom:18px;box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
 .goal-fill{background:linear-gradient(90deg,#333,#666);height:100%;width:0%;border-radius:4px;transition:width .4s}
 .goal-done-btn{width:100%;padding:15px;border-radius:24px;border:1px solid rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 50%,rgba(26,26,26,.95) 100%);color:#fff;font-size:13px;cursor:pointer;font-weight:600;transition:all .25s;margin-bottom:10px;font-family:inherit;box-shadow:0 8px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.2)}
-.goal-done-btn:hover,.goal-done-btn:active{transform:translateY(-2px)}
 .goal-done-btn.done{background:rgba(255,255,255,.5);color:#888;cursor:default;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
 .goal-edit{width:100%;padding:12px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.4);backdrop-filter:blur(20px);color:#666;font-size:12px;cursor:pointer;font-family:inherit;font-weight:500;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-
-/* ЗАДАНИЯ */
 .tasks{padding:26px;margin-bottom:16px}
 .tasks-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .tasks h2{font-size:14px;color:#1a1a1a;font-weight:600}
 .tasks-header button{background:rgba(255,255,255,.5);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.85);color:#333;padding:9px 16px;border-radius:16px;font-size:11px;cursor:pointer;font-weight:600;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-.task{display:flex;align-items:center;padding:15px 16px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95)}
+.task{display:flex;align-items:center;padding:15px 16px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95)}
 .task-check{width:24px;height:24px;border-radius:50%;border:1.5px solid #999;margin-right:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;flex-shrink:0;background:rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,1);transition:all .2s}
 .task-check.done{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
 .task-text{flex:1;font-size:13px;color:#333;font-weight:400}
 .task-text.done{text-decoration:line-through;color:#aaa}
 .task-xp{color:#888;font-size:11px;font-weight:600}
-
-/* ПОДПИСКА */
 .subscribe-card{padding:28px;margin-bottom:16px;text-align:center}
 .subscribe-card h3{font-size:17px;color:#1a1a1a;margin-bottom:8px;font-weight:600}
 .subscribe-card p{font-size:12px;color:#777;margin-bottom:20px;font-weight:400}
 .subscribe-btn{width:100%;padding:16px;border-radius:24px;border:1px solid rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 50%,rgba(26,26,26,.95) 100%);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .subscribe-btn.active{background:rgba(255,255,255,.5);color:#555;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-
-/* ИИ */
 .ai-section{display:none}
 .ai-section.active{display:block}
 .ai-header{text-align:center;margin-bottom:24px;padding-top:8px}
@@ -126,13 +104,9 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .ai-card p{font-size:12px;color:#777;margin-bottom:16px;font-weight:400}
 .ai-input{display:flex;gap:10px}
 .ai-input input{flex:1;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);backdrop-filter:blur(20px);color:#1a1a1a;font-size:12px;outline:none;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.95)}
-.ai-input input:focus{border-color:rgba(255,255,255,1);background:rgba(255,255,255,.75)}
-.ai-input button{padding:14px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);color:#fff;font-size:12px;cursor:pointer;font-weight:600;font-family:inherit;box-shadow:0 4px 16px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.2)}
+.ai-input button{padding:14px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);color:#fff;font-size:12px;cursor:pointer;font-weight:600;font-family:inherit;box-shadow:0 4px 16px rgba(0,0,0,.18)}
 .ai-answer{margin-top:14px;padding:16px;background:rgba(255,255,255,.5);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:20px;font-size:12px;color:#555;display:none;line-height:1.6;white-space:pre-line;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-
-/* ПРОМПТЫ */
-.prompt-item{display:flex;justify-content:space-between;align-items:center;padding:16px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95);transition:all .2s}
-.prompt-item:hover{background:linear-gradient(135deg,rgba(255,255,255,.65) 0%,rgba(255,255,255,.35) 100%)}
+.prompt-item{display:flex;justify-content:space-between;align-items:center;padding:16px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95);transition:all .2s}
 .prompt-item.locked{opacity:.6}
 .prompt-title{font-size:13px;color:#1a1a1a;font-weight:600;margin-bottom:3px}
 .prompt-desc{font-size:11px;color:#888;font-weight:400}
@@ -140,26 +114,22 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .unlock-banner{padding:20px;background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 50%,rgba(26,26,26,.95) 100%);color:#fff;border-radius:24px;text-align:center;margin-bottom:16px;cursor:pointer;border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.2)}
 .unlock-banner h3{font-size:14px;margin-bottom:4px;font-weight:600}
 .unlock-banner p{font-size:11px;opacity:.7}
-
-/* ПРОФИЛЬ */
 .profile-section{display:none}
 .profile-section.active{display:block}
 .main-section{display:block}
 .main-section.hidden{display:none}
 .profile-header{padding:36px 24px;text-align:center;margin-bottom:16px}
-.avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,1)}
+.avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,1);overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
 .profile-header h2{font-size:19px;color:#1a1a1a;margin-bottom:5px;font-weight:600}
 .profile-header p{font-size:12px;color:#888;font-weight:400}
 .profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .profile-stat{padding:20px;text-align:center}
 .profile-stat .num{font-size:22px;font-weight:700;color:#1a1a1a;display:block;margin-bottom:4px}
 .profile-stat .label{font-size:11px;color:#888;font-weight:500}
-.profile-item{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95);transition:all .2s}
-.profile-item:hover{background:linear-gradient(135deg,rgba(255,255,255,.65) 0%,rgba(255,255,255,.35) 100%)}
+.profile-item{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 100%);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:22px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.95);transition:all .2s}
 .profile-item span{font-size:13px;color:#333;font-weight:500}
 .profile-item .arrow{color:#aaa;font-size:16px}
-
-/* НИЖНЯЯ НАВИГАЦИЯ */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.4) 100%);backdrop-filter:blur(50px) saturate(200%);border-top:1px solid rgba(255,255,255,.9);display:flex;justify-content:space-around;padding:12px 20px 14px;max-width:440px;margin:0 auto;box-shadow:0 -8px 32px rgba(0,0,0,.08)}
 .nav-indicator{position:absolute;top:12px;height:calc(100% - 26px);background:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.6) 100%);border:1px solid #fff;border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:all .4s cubic-bezier(.4,0,.2,1);z-index:0;pointer-events:none}
 .nav-item{text-align:center;color:#999;font-size:10px;cursor:pointer;transition:all .3s;padding:8px 18px;border-radius:20px;font-weight:600;flex:1;position:relative;z-index:1}
@@ -167,24 +137,17 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 .nav-item .icon{font-size:18px;display:block;margin-bottom:3px;transition:transform .3s}
 .nav-item.active .icon{transform:scale(1.15)}
 .content{padding-bottom:90px}
-
-/* ТОСТ */
-.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);backdrop-filter:blur(20px);color:#fff;padding:13px 26px;border-radius:22px;font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:1001;border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);backdrop-filter:blur(20px);color:#fff;padding:13px 26px;border-radius:22px;font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:1001;border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .toast.show{opacity:1}
-
-/* МОДАЛКА */
 .modal-overlay{position:fixed;inset:0;background:rgba(200,200,208,.5);backdrop-filter:blur(40px);z-index:998;display:none;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.show{display:flex}
 .modal{max-width:380px;width:100%;padding:32px 28px;background:linear-gradient(135deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.45) 100%);backdrop-filter:blur(50px);border:1px solid rgba(255,255,255,.9);border-radius:36px;box-shadow:0 24px 64px rgba(0,0,0,.15)}
 .modal h3{font-size:17px;color:#1a1a1a;margin-bottom:20px;font-weight:600}
 .modal label{display:block;font-size:11px;color:#888;margin-bottom:8px;font-weight:600}
-.modal input{width:100%;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);backdrop-filter:blur(20px);color:#1a1a1a;font-size:13px;outline:none;margin-bottom:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-.modal input:focus{border-color:rgba(255,255,255,1);background:rgba(255,255,255,.75)}
+.modal input{width:100%;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);color:#1a1a1a;font-size:13px;outline:none;margin-bottom:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
 .modal-buttons{display:flex;gap:10px;margin-top:8px}
-.modal-buttons button{flex:1;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);backdrop-filter:blur(20px);color:#333;font-size:13px;cursor:pointer;font-weight:600;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-.modal-buttons button.primary{background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);color:#fff;border-color:rgba(255,255,255,.3);box-shadow:0 4px 16px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.2)}
-
-/* ПОДСТРАНИЦЫ */
+.modal-buttons button{flex:1;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.5);color:#333;font-size:13px;cursor:pointer;font-weight:600;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.modal-buttons button.primary{background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);color:#fff;border-color:rgba(255,255,255,.3)}
 .subpage{display:none}
 .subpage.active{display:block}
 .subpage-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-top:8px}
@@ -204,7 +167,7 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 </head>
 <body>
 
-<!-- ЭКРАН РЕГИСТРАЦИИ -->
+<!-- РЕГИСТРАЦИЯ -->
 <div class="auth-overlay" id="authOverlay">
     <div class="auth-card">
         <h1>DISCIPLINE DEVELOPMENT</h1>
@@ -215,8 +178,8 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
             Продолжить с Apple
         </button>
 
-        <button class="auth-btn" onclick="registerWith('google')">
-            <span class="icon">🔵</span>
+        <button class="auth-btn" id="googleBtn" onclick="registerWith('google')">
+            <span class="icon" style="color:#4285F4;font-weight:900;font-size:18px">G</span>
             Продолжить с Google
         </button>
 
@@ -230,11 +193,11 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
         </button>
         <button class="welcome-skip" onclick="skipAuth()">Продолжить без регистрации</button>
 
-        <p class="auth-terms">Регистрируясь, ты соглашаешься с <a href="#" onclick="showToast('Условия использования')">условиями</a> и <a href="#" onclick="showToast('Политика конфиденциальности')">политикой</a></p>
+        <p class="auth-terms">Регистрируясь, ты соглашаешься с условиями и политикой</p>
     </div>
 </div>
 
-<!-- СТАРТОВЫЙ ЭКРАН -->
+<!-- WELCOME -->
 <div class="welcome-overlay hidden" id="welcomeOverlay">
     <div class="welcome-card">
         <h1>DISCIPLINE DEVELOPMENT</h1>
@@ -252,7 +215,7 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
     </div>
 </div>
 
-<!-- ПЕЙВОЛЛ -->
+<!-- PAYWALL -->
 <div class="paywall-overlay" id="paywallOverlay">
     <div class="paywall-card">
         <div class="lock-icon">🔒</div>
@@ -266,7 +229,6 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 </div>
 
 <div class="content">
-    <!-- ГЛАВНАЯ -->
     <div class="main-section active" id="mainSection">
         <div class="header"><h1>DISCIPLINE DEVELOPMENT</h1><p>Прокачай себя. Каждый день.</p></div>
         <div class="glass level-card">
@@ -298,7 +260,6 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
         </div>
     </div>
 
-    <!-- ИИ -->
     <div class="ai-section" id="aiSection">
         <div class="ai-header"><h1>ИИ-ПОМОЩНИК</h1><p>Промпты и команды для учёбы</p></div>
         <div class="glass ai-card">
@@ -315,7 +276,6 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
         </div>
     </div>
 
-    <!-- ПРОФИЛЬ -->
     <div class="profile-section" id="profileSection">
         <div class="subpage active" id="profileMain">
             <div class="glass profile-header">
@@ -337,18 +297,9 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
 
         <div class="subpage" id="subpage-account">
             <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Аккаунт</div></div>
-            <div class="glass subpage-card">
-                <h3>Имя</h3>
-                <p id="accountName">Не указано</p>
-            </div>
-            <div class="glass subpage-card">
-                <h3>Email</h3>
-                <p id="accountEmail">Не указан</p>
-            </div>
-            <div class="glass subpage-card">
-                <h3>Способ входа</h3>
-                <p id="accountMethod">Не выбран</p>
-            </div>
+            <div class="glass subpage-card"><h3>Имя</h3><p id="accountName">Не указано</p></div>
+            <div class="glass subpage-card"><h3>Email</h3><p id="accountEmail">Не указан</p></div>
+            <div class="glass subpage-card"><h3>Способ входа</h3><p id="accountMethod">Не выбран</p></div>
         </div>
 
         <div class="subpage" id="subpage-settings">
@@ -373,29 +324,26 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
                 <div class="toggle-row"><span>Все уведомления</span><div class="toggle-switch on" id="notifMainToggle" onclick="toggleNotifMain(this)"></div></div>
                 <div class="toggle-row"><span>Напоминание утром (9:00)</span><div class="toggle-switch on" onclick="toggleSwitch(this)"></div></div>
                 <div class="toggle-row"><span>Напоминание вечером (20:00)</span><div class="toggle-switch on" onclick="toggleSwitch(this)"></div></div>
-                <div class="toggle-row"><span>Достижения</span><div class="toggle-switch on" onclick="toggleSwitch(this)"></div></div>
             </div>
-            <button class="welcome-btn" onclick="sendNotification('Тест', 'Уведомления работают!')">Отправить тестовое</button>
+            <button class="welcome-btn" onclick="sendNotification('Тест','Уведомления работают!')">Отправить тестовое</button>
         </div>
 
         <div class="subpage" id="subpage-subscription">
             <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Подписка</div></div>
             <div class="glass subpage-card"><h3 id="subStatusTitle">Бесплатная версия</h3><p id="subStatusText">Оформи подписку, чтобы разблокировать все промпты и расширенный ИИ.</p></div>
             <div class="glass subpage-card"><div class="toggle-row"><span>Premium · 299 ₽/мес</span><div class="toggle-switch" id="subToggle" onclick="toggleSubscribe();updateSubPage();"></div></div></div>
-            <div class="glass subpage-card"><h3>Что входит</h3><p>• Все 10 промптов для ИИ<br>• Расширенный ИИ-помощник<br>• Без рекламы<br>• Приоритетная поддержка</p></div>
+            <div class="glass subpage-card"><h3>Что входит</h3><p>• Все 10 промптов для ИИ<br>• Расширенный ИИ-помощник<br>• Без рекламы</p></div>
         </div>
 
         <div class="subpage" id="subpage-help">
             <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Помощь</div></div>
-            <div class="glass subpage-card"><h3>Как работает приложение?</h3><p>Ты ставишь цель, выполняешь задания, получаешь XP. Растёшь в уровнях. Развиваешь дисциплину.</p></div>
+            <div class="glass subpage-card"><h3>Как работает приложение?</h3><p>Ты ставишь цель, выполняешь задания, получаешь XP. Растёшь в уровнях.</p></div>
             <div class="glass subpage-card"><h3>Что такое XP?</h3><p>Опыт. Даётся за выполненные задания. 100 XP = 1 уровень.</p></div>
-            <div class="glass subpage-card"><h3>Как работает ИИ?</h3><p>ИИ объясняет темы простыми словами. 3 промпта бесплатно, остальные — по подписке.</p></div>
-            <div class="glass subpage-card"><h3>Связаться с нами</h3><p>Пиши: support@discipline.dev</p></div>
+            <div class="glass subpage-card"><h3>Связаться с нами</h3><p>support@discipline.dev</p></div>
         </div>
     </div>
 </div>
 
-<!-- НАВИГАЦИЯ -->
 <div class="bottom-nav" id="bottomNav">
     <div class="nav-indicator" id="navIndicator"></div>
     <div class="nav-item active" id="navMain" onclick="switchTab('main')"><span class="icon">🏠</span>Главная</div>
@@ -403,12 +351,58 @@ body{background:#c8c8d0;background-image:radial-gradient(circle at 15% 15%,rgba(
     <div class="nav-item" id="navProfile" onclick="switchTab('profile')"><span class="icon">👤</span>Профиль</div>
 </div>
 
-<!-- МОДАЛКИ -->
 <div class="modal-overlay" id="goalModal"><div class="modal"><h3>Изменить цель</h3><label>Название цели</label><input type="text" id="goalNameInput" placeholder="Например: 1000 отжиманий"><label>Сколько всего нужно</label><input type="number" id="goalTotalInput" placeholder="1000"><div class="modal-buttons"><button onclick="closeGoalModal()">Отмена</button><button class="primary" onclick="saveGoal()">Сохранить</button></div></div></div>
 <div class="modal-overlay" id="taskModal"><div class="modal"><h3>Новое задание</h3><label>Что нужно сделать</label><input type="text" id="taskTextInput" placeholder="Например: сделать зарядку"><div class="modal-buttons"><button onclick="closeTaskModal()">Отмена</button><button class="primary" onclick="saveTask()">Добавить</button></div></div></div>
 
 <div class="toast" id="toast"></div>
 
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBtHviUmEDpOSFkhz9CakzIP9GYCp1GTlQ",
+  authDomain: "discipline-app-92057.firebaseapp.com",
+  projectId: "discipline-app-92057",
+  storageBucket: "discipline-app-92057.firebasestorage.app",
+  messagingSenderId: "420835243281",
+  appId: "1:420835243281:web:1ef210592abbbf40b708b0",
+  measurementId: "G-BYFQQQ6HV2"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+// Экспортируем в window, чтобы HTML-кнопки видели
+window.firebaseAuth = auth;
+window.firebaseSignInGoogle = () => signInWithPopup(auth, googleProvider);
+window.firebaseSignOut = () => signOut(auth);
+
+// Следим за состоянием входа
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    state.user = {
+      name: user.displayName || 'Пользователь',
+      email: user.email || '',
+      photo: user.photoURL || '',
+      method: 'Google',
+      uid: user.uid
+    };
+    save();
+    document.getElementById('authOverlay').classList.add('hidden');
+    updateProfile();
+    showToast('Добро пожаловать, ' + state.user.name.split(' ')[0] + '!');
+    setTimeout(() => {
+      if (!state.trialStart) startTrial();
+      else checkTrial();
+    }, 500);
+  }
+});
+</script>
+
+<!-- ОСНОВНОЙ СКРИПТ -->
 <script>
 let state={xp:0,level:1,streak:1,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,notificationsEnabled:true,tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
 const TRIAL_DURATION=3*24*60*60*1000;
@@ -430,39 +424,43 @@ const prompts=[
 function save(){localStorage.setItem('dd_state',JSON.stringify(state))}
 function load(){const s=localStorage.getItem('dd_state');if(s){try{state=Object.assign(state,JSON.parse(s))}catch(e){}}}
 
-// === АУТЕНТИФИКАЦИЯ ===
+// === РЕГИСТРАЦИЯ ===
 function registerWith(method){
+    if(method==='google'){
+        if(window.firebaseSignInGoogle){
+            window.firebaseSignInGoogle().catch(err=>{
+                console.error(err);
+                showToast('Ошибка входа: '+err.message);
+            });
+        } else {
+            showToast('Firebase ещё загружается...');
+        }
+        return;
+    }
     if(method==='email'){
         const email=document.getElementById('authEmail').value.trim();
         const name=document.getElementById('authName').value.trim();
         if(!email||!name){showToast('Заполни email и имя');return}
         state.user={name:name,email:email,method:'Email'};
-    }else if(method==='google'){
-        state.user={name:'Google User',email:'user@gmail.com',method:'Google'};
-    }else if(method==='apple'){
+    } else if(method==='apple'){
         state.user={name:'Apple User',email:'user@icloud.com',method:'Apple'};
     }
     save();
     document.getElementById('authOverlay').classList.add('hidden');
     updateProfile();
     showToast('Добро пожаловать!');
-    setTimeout(()=>{
-        if(!state.trialStart) startTrial();
-        else checkTrial();
-    },500);
+    setTimeout(()=>{if(!state.trialStart) startTrial(); else checkTrial();},500);
 }
 function skipAuth(){
     state.user={name:'Гость',email:'',method:'Без регистрации'};
     save();
     document.getElementById('authOverlay').classList.add('hidden');
     updateProfile();
-    setTimeout(()=>{
-        if(!state.trialStart) startTrial();
-        else checkTrial();
-    },500);
+    setTimeout(()=>{if(!state.trialStart) startTrial(); else checkTrial();},500);
 }
 function logout(){
     if(confirm('Выйти из аккаунта?')){
+        if(window.firebaseSignOut) window.firebaseSignOut();
         state.user=null;
         save();
         location.reload();
@@ -474,7 +472,11 @@ function updateProfile(){
         document.getElementById('accountName').textContent=state.user.name;
         document.getElementById('accountEmail').textContent=state.user.email||'Не указан';
         document.getElementById('accountMethod').textContent=state.user.method;
-        document.getElementById('profileAvatar').textContent=state.user.name.charAt(0).toUpperCase();
+        if(state.user.photo){
+            document.getElementById('profileAvatar').innerHTML='<img src="'+state.user.photo+'" alt="">';
+        } else {
+            document.getElementById('profileAvatar').textContent=state.user.name.charAt(0).toUpperCase();
+        }
     }
 }
 
@@ -491,7 +493,7 @@ function requestNotificationPermission(){
 function sendNotification(title,body){
     if(notificationPermission!=='granted')return;
     if(!state.notificationsEnabled)return;
-    try{new Notification(title,{body:body,icon:'icon-512.png',tag:'dd'})}catch(e){}
+    try{new Notification(title,{body:body,tag:'dd'})}catch(e){}
 }
 function scheduleNotifications(){
     const now=new Date();const hour=now.getHours();const today=now.toDateString();
@@ -501,7 +503,7 @@ function scheduleNotifications(){
     }
     if(hour===20&&localStorage.getItem('lastEvening')!==today){
         const done=state.tasks.filter(t=>t.done).length;
-        sendNotification('Вечерний отчёт 🌙',`Выполнено ${done} из ${state.tasks.length}`);
+        sendNotification('Вечерний отчёт 🌙','Выполнено '+done+' из '+state.tasks.length);
         localStorage.setItem('lastEvening',today);
     }
 }
@@ -526,11 +528,11 @@ function startTrial(){document.getElementById('welcomeOverlay').classList.add('h
 function skipTrial(){document.getElementById('welcomeOverlay').classList.add('hidden');state.trialStart=Date.now();save()}
 function payNow(){state.subscribed=true;save();document.getElementById('paywallOverlay').classList.remove('show');const b=document.getElementById('subscribeBtn');b.textContent="Подписка активна";b.classList.add('active');renderPrompts();updateSubPage();showToast("Подписка оформлена")}
 function payLater(){showToast("Напомним позже")}
-function renderPrompts(){const l=document.getElementById('promptList');l.innerHTML='';prompts.forEach((p,i)=>{const locked=!p.free&&!state.subscribed;const d=document.createElement('div');d.className='prompt-item'+(locked?' locked':'');d.innerHTML=`<div><div class="prompt-title">${p.title}</div><div class="prompt-desc">${p.desc}</div></div><div class="prompt-status">${locked?'🔒':'✓'}</div>`;d.onclick=()=>copyPrompt(i,locked);l.appendChild(d)})}
+function renderPrompts(){const l=document.getElementById('promptList');l.innerHTML='';prompts.forEach((p,i)=>{const locked=!p.free&&!state.subscribed;const d=document.createElement('div');d.className='prompt-item'+(locked?' locked':'');d.innerHTML='<div><div class="prompt-title">'+p.title+'</div><div class="prompt-desc">'+p.desc+'</div></div><div class="prompt-status">'+(locked?'🔒':'✓')+'</div>';d.onclick=()=>copyPrompt(i,locked);l.appendChild(d)})}
 function copyPrompt(i,locked){if(locked){showToast("Доступно по подписке");document.getElementById('paywallOverlay').classList.add('show');return}const t=prompts[i].text;if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>showToast("Скопировано")).catch(()=>showToast("Ошибка"))}else showToast("Промпт: "+t.substring(0,40))}
 function showUnlockInfo(){if(state.subscribed){showToast("Уже разблокировано");return}document.getElementById('paywallOverlay').classList.add('show')}
-function renderTasks(){const l=document.getElementById('taskList');l.innerHTML='';state.tasks.forEach((t,i)=>{const d=document.createElement('div');d.className='task';d.innerHTML=`<div class="task-check ${t.done?'done':''}" onclick="toggleTask(${i})">${t.done?'✓':''}</div><div class="task-text ${t.done?'done':''}">${t.text}</div><div class="task-xp">+${t.xp} XP</div>`;l.appendChild(d)})}
-function toggleTask(i){const t=state.tasks[i];if(t.done){t.done=false;state.xp-=t.xp}else{t.done=true;state.xp+=t.xp;showToast(`+${t.xp} XP`)}save();updateAll();renderTasks()}
+function renderTasks(){const l=document.getElementById('taskList');l.innerHTML='';state.tasks.forEach((t,i)=>{const d=document.createElement('div');d.className='task';d.innerHTML='<div class="task-check '+(t.done?'done':'')+'" onclick="toggleTask('+i+')">'+(t.done?'✓':'')+'</div><div class="task-text '+(t.done?'done':'')+'">'+t.text+'</div><div class="task-xp">+'+t.xp+' XP</div>';l.appendChild(d)})}
+function toggleTask(i){const t=state.tasks[i];if(t.done){t.done=false;state.xp-=t.xp}else{t.done=true;state.xp+=t.xp;showToast('+'+t.xp+' XP')}save();updateAll();renderTasks()}
 function openTaskModal(){document.getElementById('taskModal').classList.add('show');document.getElementById('taskTextInput').value=''}
 function closeTaskModal(){document.getElementById('taskModal').classList.remove('show')}
 function saveTask(){const t=document.getElementById('taskTextInput').value.trim();if(!t){showToast("Введи задание");return}state.tasks.push({text:t,xp:50,done:false});save();renderTasks();closeTaskModal();showToast("Добавлено (+50 XP)")}
@@ -538,19 +540,18 @@ function openGoalModal(){document.getElementById('goalModal').classList.add('sho
 function closeGoalModal(){document.getElementById('goalModal').classList.remove('show')}
 function saveGoal(){const n=document.getElementById('goalNameInput').value.trim();const t=parseInt(document.getElementById('goalTotalInput').value);if(!n||!t||t<=0){showToast("Заполни всё");return}state.goalName=n;state.goalTotal=t;state.goalCurrent=0;state.goalDoneToday=false;document.getElementById('goalDoneBtn').textContent="Я выполнил цель на сегодня";document.getElementById('goalDoneBtn').classList.remove('done');save();updateAll();closeGoalModal();showToast("Цель обновлена")}
 function markGoalDone(){if(state.goalDoneToday){showToast("Уже отмечено");return}state.goalDoneToday=true;state.xp+=50;const b=document.getElementById('goalDoneBtn');b.textContent="Цель на сегодня выполнена";b.classList.add('done');save();updateAll();showToast("+50 XP!")}
-function askAI(){const inp=document.getElementById('aiInput');const a=document.getElementById('aiAnswer');const q=inp.value.trim();if(!q){showToast("Напиши вопрос");return}a.style.display='block';a.textContent="Думаю...";setTimeout(()=>{a.textContent=`Объясняю "${q}":\n\n1. Это как... (подключим ИИ позже)\n2. Главное правило: ...\n3. Пример: ...`},800)}
+function askAI(){const inp=document.getElementById('aiInput');const a=document.getElementById('aiAnswer');const q=inp.value.trim();if(!q){showToast("Напиши вопрос");return}a.style.display='block';a.textContent="Думаю...";setTimeout(()=>{a.textContent='Объясняю "'+q+'":\n\n1. Это как... (подключим ИИ позже)\n2. Главное правило: ...\n3. Пример: ...'},800)}
 function toggleSubscribe(){state.subscribed=!state.subscribed;save();const b=document.getElementById('subscribeBtn');if(state.subscribed){b.textContent="Подписка активна";b.classList.add('active');showToast("Оформлено")}else{b.textContent="Оформить — 299 ₽/мес";b.classList.remove('active');showToast("Отменено")}renderPrompts();updateSubPage()}
 function updateSubPage(){const t=document.getElementById('subStatusTitle');const x=document.getElementById('subStatusText');const g=document.getElementById('subToggle');if(state.subscribed){t.textContent="Premium активен";x.textContent="Все промпты разблокированы.";g.classList.add('on')}else{t.textContent="Бесплатная версия";x.textContent="Оформи подписку для разблокировки.";g.classList.remove('on')}}
 function resetProgress(){if(confirm("Сбросить весь прогресс?")){localStorage.removeItem('dd_state');location.reload()}}
 function toggleSwitch(el){el.classList.toggle('on');showToast(el.classList.contains('on')?"Включено":"Выключено")}
 function openSubpage(n){document.getElementById('profileMain').classList.remove('active');document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('subpage-'+n).classList.add('active');if(n==='subscription')updateSubPage();if(n==='notifications')setTimeout(updateNotifStatus,50)}
 function closeSubpage(){document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('profileMain').classList.add('active')}
-function updateAll(){state.level=Math.floor(state.xp/XP_PER_LEVEL)+1;const x=state.xp%XP_PER_LEVEL;const p=(x/XP_PER_LEVEL)*100;document.getElementById('xpFill').style.width=p+'%';document.getElementById('xpText').textContent=`${x} / ${XP_PER_LEVEL} XP`;document.getElementById('levelText').textContent=`Уровень ${state.level}`;document.getElementById('statXP').textContent=state.xp;document.getElementById('statLevel').textContent=state.level;document.getElementById('statStreak').textContent=state.streak;document.getElementById('streakDays').textContent=state.streak;document.getElementById('goalName').textContent=state.goalName;const gp=(state.goalCurrent/state.goalTotal)*100;document.getElementById('goalFill').style.width=gp+'%';document.getElementById('goalText').textContent=`${state.goalCurrent} / ${state.goalTotal}`;document.getElementById('profileLevel').textContent=state.level;document.getElementById('profileXP').textContent=state.xp;document.getElementById('profileStreak').textContent=state.streak;const dc=state.tasks.filter(t=>t.done).length;document.getElementById('profileTasks').textContent=dc}
+function updateAll(){state.level=Math.floor(state.xp/XP_PER_LEVEL)+1;const x=state.xp%XP_PER_LEVEL;const p=(x/XP_PER_LEVEL)*100;document.getElementById('xpFill').style.width=p+'%';document.getElementById('xpText').textContent=x+' / '+XP_PER_LEVEL+' XP';document.getElementById('levelText').textContent='Уровень '+state.level;document.getElementById('statXP').textContent=state.xp;document.getElementById('statLevel').textContent=state.level;document.getElementById('statStreak').textContent=state.streak;document.getElementById('streakDays').textContent=state.streak;document.getElementById('goalName').textContent=state.goalName;const gp=(state.goalCurrent/state.goalTotal)*100;document.getElementById('goalFill').style.width=gp+'%';document.getElementById('goalText').textContent=state.goalCurrent+' / '+state.goalTotal;document.getElementById('profileLevel').textContent=state.level;document.getElementById('profileXP').textContent=state.xp;document.getElementById('profileStreak').textContent=state.streak;const dc=state.tasks.filter(t=>t.done).length;document.getElementById('profileTasks').textContent=dc}
 function moveIndicator(i){const nav=document.getElementById('bottomNav');const items=nav.querySelectorAll('.nav-item');const ind=document.getElementById('navIndicator');const item=items[i];const nr=nav.getBoundingClientRect();const ir=item.getBoundingClientRect();ind.style.left=(ir.left-nr.left)+'px';ind.style.width=ir.width+'px'}
 function switchTab(tab){document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelectorAll('.main-section, .ai-section, .profile-section').forEach(s=>{s.classList.remove('active');s.classList.add('hidden')});let idx=0;if(tab==='main'){document.getElementById('mainSection').classList.remove('hidden');document.getElementById('mainSection').classList.add('active');document.getElementById('navMain').classList.add('active');idx=0}else if(tab==='ai'){document.getElementById('aiSection').classList.add('active');document.getElementById('aiSection').classList.remove('hidden');document.getElementById('navAI').classList.add('active');idx=1}else if(tab==='profile'){document.getElementById('profileSection').classList.add('active');document.getElementById('profileSection').classList.remove('hidden');document.getElementById('navProfile').classList.add('active');closeSubpage();idx=2}setTimeout(()=>moveIndicator(idx),10)}
 function showToast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
 
-// === СТАРТ ===
 load();renderTasks();renderPrompts();updateAll();updateSubPage();updateProfile();
 if(state.user){document.getElementById('authOverlay').classList.add('hidden')}
 if(state.goalDoneToday){const b=document.getElementById('goalDoneBtn');b.textContent="Цель на сегодня выполнена";b.classList.add('done')}
