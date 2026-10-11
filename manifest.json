@@ -1,0 +1,12 @@
+﻿{
+  "name": "Discipline Development",
+  "short_name": "Discipline",
+  "description": "Прокачай себя. Каждый день.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#c8c8d0",
+  "theme_color": "#e8e8ea",
+  "lang": "ru"
+}
