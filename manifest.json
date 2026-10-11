@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Discipline Development",
   "short_name": "Discipline",
   "description": "Прокачай себя. Каждый день.",
@@ -8,5 +8,32 @@
   "orientation": "portrait",
   "background_color": "#c8c8d0",
   "theme_color": "#e8e8ea",
-  "lang": "ru"
+  "lang": "ru",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
