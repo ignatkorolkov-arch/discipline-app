@@ -28,8 +28,17 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // Для HTML — всегда свежая версия из сети
-    if (event.request.mode === 'navigate' || event.request.url.endsWith('index.html')) {
+    const url = event.request.url;
+    // НЕ перехватываем Google, Firebase Auth и другие внешние сервисы
+    if (url.includes('accounts.google.com') || 
+        url.includes('firebaseapp.com') || 
+        url.includes('googleapis.com') ||
+        url.includes('gstatic.com')) {
+        return; // пропускаем запрос напрямую
+    }
+    
+    // Для HTML — всегда свежая версия
+    if (event.request.mode === 'navigate' || url.endsWith('index.html')) {
         event.respondWith(
             fetch(event.request)
                 .then((response) => {
@@ -41,7 +50,7 @@ self.addEventListener('fetch', (event) => {
         );
         return;
     }
-    // Для остального — из кэша, потом сеть
+    
     event.respondWith(
         caches.match(event.request).then((response) => {
             return response || fetch(event.request);
