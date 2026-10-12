@@ -16,7 +16,6 @@ body.dark{background:#000;color:#fff}
 body.light{background:#fff;color:#000}
 body{padding:24px 20px;max-width:440px;margin:0 auto;min-height:100vh;line-height:1.5}
 
-/* ==== АВТОРИЗАЦИЯ ==== */
 .auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(40px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto;transition:opacity .4s}
 body.light .auth-overlay{background:rgba(232,232,236,.85)}
 .auth-overlay.hidden{opacity:0;pointer-events:none;display:none}
@@ -53,7 +52,6 @@ body.light .onboarding-progress .dot.active{background:#000}
 body.light .char-input{background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.95);color:#000}
 .char-input::placeholder{color:#666;font-weight:400}
 
-/* ==== АВАТАР ЗАГРУЗКА ==== */
 .avatar-upload{width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:52px;margin:0 auto 18px;cursor:pointer;transition:all .25s;overflow:hidden;position:relative}
 .avatar-upload:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.14)}
 body.light .avatar-upload{background:rgba(0,0,0,.03);border:2px dashed rgba(0,0,0,.2)}
@@ -124,6 +122,13 @@ body.light .big-avatar{background:rgba(255,255,255,.8);border:2px solid rgba(255
 .profile-name{font-size:18px;color:#fff;font-weight:700}
 body.light .profile-name{color:#000}
 .profile-rank{font-size:12px;color:#8c8c8c;font-weight:500}
+
+.my-code-card{padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.my-code-label{font-size:11px;color:#a8a8a8;font-weight:600;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:2}
+.my-code-value{font-size:20px;color:#fff;font-weight:800;letter-spacing:2px;margin-top:4px;position:relative;z-index:2}
+body.light .my-code-value{color:#000}
+.code-share-btn{padding:10px 16px;border-radius:18px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;position:relative;z-index:2}
+body.light .code-share-btn{background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.15);color:#000}
 
 .level-card{padding:26px;margin-bottom:16px}
 .level-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
@@ -250,7 +255,7 @@ body.light .toast{background:rgba(0,0,0,.95);color:#fff}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(40px);z-index:998;display:none;align-items:center;justify-content:center;padding:24px}
 body.light .modal-overlay{background:rgba(232,232,236,.85)}
 .modal-overlay.show{display:flex}
-.modal{max-width:380px;width:100%;padding:32px 28px;background:linear-gradient(135deg,rgba(30,30,30,.98) 0%,rgba(15,15,15,.95) 100%);border:1px solid rgba(255,255,255,.18);border-radius:40px;box-shadow:0 24px 64px rgba(0,0,0,.8)}
+.modal{max-width:380px;width:100%;padding:32px 28px;background:linear-gradient(135deg,rgba(30,30,30,.98) 0%,rgba(15,15,15,.95) 100%);border:1px solid rgba(255,255,255,.18);border-radius:40px;box-shadow:0 24px 64px rgba(0,0,0,.8);max-height:80vh;overflow-y:auto}
 body.light .modal{background:linear-gradient(135deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.9) 100%);border:1px solid rgba(255,255,255,.95)}
 .modal h3{font-size:17px;color:#fff;margin-bottom:20px;font-weight:600}
 body.light .modal h3{color:#000}
@@ -290,12 +295,10 @@ body.light .toggle-switch.on::after{background:#fff}
 .theme-btn{position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:all .3s;backdrop-filter:blur(20px)}
 body.light .theme-btn{background:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.95);color:#000}
 
-/* ===== LIQUID GLASS · iOS 26 ===== */
 body.dark{--bg:#000;--g-bg:rgba(255,255,255,.075);--g-card:rgba(18,18,18,.6);--g-edge:rgba(255,255,255,.14);--hi:rgba(255,255,255,.6);--txt:#fff;--sub:rgba(235,235,245,.62);--sh:rgba(0,0,0,.35);--inner:rgba(255,255,255,.07);--acc:linear-gradient(180deg,#fff,#cfcfcf);--acc-fg:#000;--acc-glow:rgba(255,255,255,.35)}
 body.light{--bg:#ffffff;--g-bg:rgba(255,255,255,.62);--g-card:rgba(255,255,255,.96);--g-edge:rgba(0,0,0,.08);--hi:#ffffff;--txt:#0a0a0a;--sub:rgba(0,0,0,.58);--sh:rgba(0,0,0,.08);--inner:rgba(255,255,255,.75);--acc:linear-gradient(180deg,#2c2c2c,#000);--acc-fg:#fff;--acc-glow:rgba(0,0,0,.18)}
 body.dark,body.light{background:var(--bg);color:var(--txt);padding-top:calc(24px + env(safe-area-inset-top))}
 .content{padding-bottom:120px}
-/* живой фон — то, что стекло преломляет */
 .ambient{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 .ambient i{position:absolute;width:70vmax;height:70vmax;max-width:520px;max-height:520px;border-radius:50%;filter:blur(70px);opacity:.2;animation:drift 22s ease-in-out infinite alternate}
 .ambient i:nth-child(1){background:#fff;top:-12%;left:-25%}
@@ -304,7 +307,6 @@ body.dark,body.light{background:var(--bg);color:var(--txt);padding-top:calc(24px
 body.light .ambient i{background:#d4d4d4;opacity:.35}
 @keyframes drift{to{transform:translate3d(12vw,-8vh,0) scale(1.15)}}
 @keyframes rise{from{opacity:0;transform:translateY(16px) scale(.97)}}
-/* стекло: тонкий край, зеркальные блики, свет под пальцем */
 :is(body,body.light) :is(.glass,.auth-card,.onboarding-card,.welcome-card,.paywall-card,.modal){position:relative;isolation:isolate;overflow:hidden;border:0;background:var(--g-bg);-webkit-backdrop-filter:blur(22px) saturate(190%);backdrop-filter:blur(22px) saturate(190%);box-shadow:inset 0 0 0 1px var(--g-edge),inset 2px 2px 3px -2px var(--hi),inset -2px -2px 3px -2px rgba(255,255,255,.4),inset 0 0 22px rgba(255,255,255,.05),0 14px 36px var(--sh);transition:transform .45s cubic-bezier(.2,.9,.3,1.25),box-shadow .3s}
 :is(body,body.light) .glass{border-radius:32px}
 :is(body,body.light) :is(.profile-item,.stat-box){border-radius:28px}
@@ -313,7 +315,6 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
 :is(body,body.light) :is(.auth-card,.onboarding-card,.welcome-card,.paywall-card,.modal){background:var(--g-card)}
 :is(body,body.light) :is(.auth-overlay,.onboarding-overlay,.welcome-overlay,.paywall-overlay,.modal-overlay){background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 body.light :is(.auth-overlay,.onboarding-overlay,.welcome-overlay,.paywall-overlay,.modal-overlay){background:rgba(242,242,242,.6)}
-/* вложенные элементы */
 :is(body,body.light) :is(.leader-row,.task,.calendar-day,.auth-input,.char-input,.modal input){background:var(--inner);border:0;color:var(--txt);box-shadow:inset 0 0 0 1px var(--g-edge),inset 0 1px 1px rgba(255,255,255,.28)}
 :is(body,body.light) .calendar-day.empty{background:none;box-shadow:none}
 :is(body,body.light) .calendar-day.today{box-shadow:inset 0 0 0 1.5px var(--txt);color:var(--txt)}
@@ -324,8 +325,7 @@ body.light :is(.auth-overlay,.onboarding-overlay,.welcome-overlay,.paywall-overl
 :is(body,body.light) :is(.xp-bar,.goal-bar){background:rgba(120,120,140,.25);box-shadow:inset 0 1px 3px rgba(0,0,0,.3)}
 :is(body,body.light) :is(.xp-fill,.goal-fill){background:var(--acc);box-shadow:0 0 14px var(--acc-glow),inset 0 1px 1px rgba(255,255,255,.6)}
 :is(body,body.light) :is(.streak,.stat-box .label,.leader-xp,.calendar-header .month,.goal-title,.goal-progress,.task-xp,.profile-header p,.profile-stat .label,.subpage-card p,.modal label,.xp-text,.profile-rank,.header p,.step-text,.subtitle){color:var(--sub)}
-/* таблетки и кнопки */
-:is(body,body.light) :is(.welcome-skip,.goal-edit,.auth-btn,.avatar-action,.back-btn,.tasks-header button,.modal-buttons button,.coins-display,.theme-btn,.trial-badge,.leaderboard-header .badge){background:var(--g-bg);color:var(--txt);border:0;-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);box-shadow:inset 0 0 0 1px var(--g-edge),inset 1.5px 1.5px 2px -1px var(--hi),0 6px 18px var(--sh)}
+:is(body,body.light) :is(.welcome-skip,.goal-edit,.auth-btn,.avatar-action,.back-btn,.tasks-header button,.modal-buttons button,.coins-display,.theme-btn,.trial-badge,.leaderboard-header .badge,.code-share-btn){background:var(--g-bg);color:var(--txt);border:0;-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);box-shadow:inset 0 0 0 1px var(--g-edge),inset 1.5px 1.5px 2px -1px var(--hi),0 6px 18px var(--sh)}
 :is(body,body.light) :is(.welcome-btn,.goal-done-btn,.onboarding-next,.modal-buttons button.primary){background:var(--acc);color:var(--acc-fg);border:0;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),inset 0 -1px 1px rgba(0,0,0,.15),0 8px 22px var(--acc-glow)}
 :is(body,body.light) .goal-done-btn.done{background:var(--g-bg);color:var(--sub);box-shadow:inset 0 0 0 1px var(--g-edge)}
 :is(body,body.light) .avatar-action.selected{background:var(--inner);box-shadow:inset 0 0 0 2px var(--txt)}
@@ -335,7 +335,6 @@ body.light :is(.auth-overlay,.onboarding-overlay,.welcome-overlay,.paywall-overl
 :is(body,body.light) .toggle-switch::after,:is(body,body.light) .toggle-switch.on::after{background:#fff}
 :is(body,body.light) .toggle-switch.on::after{left:24px}
 :is(body,body.light) :is(.profile-item,.task-check,.welcome-btn,.goal-done-btn,.onboarding-next,.avatar-action,.back-btn,.tasks-header button,.modal-buttons button,.goal-edit,.auth-btn,.welcome-skip,.theme-btn,.nav-item):active{transform:scale(.96)}
-/* плавающая навигация */
 :is(body,body.light) .bottom-nav{z-index:50;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));max-width:408px;padding:6px;border:0;border-radius:36px;background:var(--g-bg);-webkit-backdrop-filter:blur(24px) saturate(200%);backdrop-filter:blur(24px) saturate(200%);box-shadow:inset 0 0 0 1px var(--g-edge),inset 2px 2px 3px -2px var(--hi),inset -2px -2px 3px -2px rgba(255,255,255,.4),0 16px 40px var(--sh)}
 :is(body,body.light) .nav-indicator{top:6px;height:calc(100% - 12px);border:0;border-radius:30px;background:rgba(255,255,255,.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),inset 0 1.5px 2px rgba(255,255,255,.6),0 4px 14px var(--sh);transition:left .5s cubic-bezier(.3,1.3,.5,1),width .5s cubic-bezier(.3,1.3,.5,1)}
 body.light .nav-indicator{background:rgba(255,255,255,.75)}
@@ -343,7 +342,6 @@ body.light .nav-indicator{background:rgba(255,255,255,.75)}
 :is(body,body.light) .nav-item.active{color:var(--txt);transform:none}
 :is(body,body.light) .theme-btn{top:calc(16px + env(safe-area-inset-top))}
 :is(body,body.light) .toast{background:var(--g-card);color:var(--txt);border:0;top:calc(18px + env(safe-area-inset-top));-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 0 0 1px var(--g-edge),inset 1.5px 1.5px 2px -1px var(--hi),0 10px 30px var(--sh)}
-/* Chromium: преломление через SVG-фильтр (в Safari — обычный blur) */
 html.refract .bottom-nav,html.refract .theme-btn{-webkit-backdrop-filter:url(#lg) blur(6px) saturate(200%);backdrop-filter:url(#lg) blur(6px) saturate(200%)}
 :is(.main-section,.subpage).active>*{animation:rise .6s cubic-bezier(.2,.9,.3,1) backwards}
 :is(.main-section,.subpage).active>:nth-child(2){animation-delay:45ms}
@@ -381,87 +379,26 @@ body.dark{color-scheme:dark}body.light{color-scheme:light}
 .chars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;position:relative;z-index:2}
 .char{padding:10px 0;border-radius:20px;border:0;background:var(--inner);box-shadow:inset 0 0 0 1px var(--g-edge);color:var(--txt);font-family:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
 .char span{font-size:30px;filter:grayscale(1)}.char small{font-size:10px;color:var(--sub)}.char.on{box-shadow:inset 0 0 0 2px var(--txt)}
-/* ===== светлая тема: чистая, белая, чёткая ===== */
-body.light :is(.glass,.auth-card,.onboarding-card,.welcome-card,.paywall-card,.modal){
-    box-shadow:
-        inset 0 0 0 1px rgba(0,0,0,.06),
-        inset 0 1px 0 #ffffff,
-        0 1px 2px rgba(0,0,0,.04),
-        0 12px 32px rgba(0,0,0,.07);
-    background: rgba(255,255,255,.72);
-}
-body.light :is(.glass,.auth-card,.onboarding-card,.welcome-card,.paywall-card,.modal)::before{
-    background: radial-gradient(240px circle at var(--mx,25%) var(--my,0%),rgba(255,255,255,1),transparent 60%);
-    opacity: .9;
-}
-body.light :is(.glass,.auth-card,.onboarding-card,.welcome-card,.paywall-card,.modal)::after{
-    opacity: 1;
-    background: linear-gradient(135deg,#ffffff 0%,rgba(255,255,255,0) 35%,rgba(0,0,0,0) 65%,rgba(0,0,0,.06) 100%);
-}
-body.light .bottom-nav{
-    background: rgba(255,255,255,.82);
-    box-shadow:
-        inset 0 0 0 1px rgba(0,0,0,.06),
-        inset 0 1px 0 #ffffff,
-        0 12px 32px rgba(0,0,0,.09);
-}
-body.light .nav-indicator{
-    background: #0a0a0a;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.15),
-        0 2px 8px rgba(0,0,0,.2);
-}
-body.light .nav-item.active{color:#fff}
-body.light :is(.xp-bar,.goal-bar){
-    background: rgba(0,0,0,.08);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-}
-body.light :is(.xp-fill,.goal-fill){
-    background: linear-gradient(180deg,#2c2c2c,#000);
-    box-shadow: 0 0 10px rgba(0,0,0,.18),inset 0 1px 1px rgba(255,255,255,.3);
-}
-body.light :is(.big-avatar,.avatar,.leader-avatar){
-    background: #ffffff;
-    border: 1.5px solid rgba(0,0,0,.1);
-    box-shadow: inset 0 1px 0 #fff, 0 2px 8px rgba(0,0,0,.06);
-}
-body.light :is(.welcome-btn,.goal-done-btn,.onboarding-next,.modal-buttons button.primary,.shop-btn){
-    background: linear-gradient(180deg,#2c2c2c,#000);
-    color:#fff;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 6px 16px rgba(0,0,0,.2);
-}
-body.light .toggle-switch{background: rgba(0,0,0,.12)}
-body.light .toggle-switch::after{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25)}
-body.light .toggle-switch.on{background:#0a0a0a}
-body.light .toggle-switch.on::after{background:#fff}
-body.light .calendar-day{background: rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06); color: rgba(0,0,0,.65)}
-body.light .calendar-day.done{background:#0a0a0a;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25)}
-body.light .calendar-day.today{box-shadow: inset 0 0 0 1.5px #0a0a0a; color:#0a0a0a}
-body.light .task{background: rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06); box-shadow: 0 2px 8px rgba(0,0,0,.04)}
-body.light .leader-row{background: rgba(255,255,255,.9); border:1px solid rgba(0,0,0,.06)}
-body.light .leader-row.me{background:#0a0a0a;border-color:#0a0a0a}
-body.light .leader-row.me .leader-name,
-body.light .leader-row.me .leader-xp,
-body.light .leader-row.me .leader-rank{color:#fff}
-body.light .profile-item{background: rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06)}
-body.light :is(.coins-display,.trial-badge,.leaderboard-header .badge,.back-btn,.tasks-header button,.modal-buttons button,.avatar-action,.goal-edit,.welcome-skip,.auth-btn,.theme-btn){
-    background: rgba(255,255,255,.9);
-    color:#0a0a0a;
-    border:1px solid rgba(0,0,0,.08);
-    box-shadow: inset 0 1px 0 #fff, 0 4px 14px rgba(0,0,0,.05);
-}
-body.light :is(.auth-input,.char-input,.modal input,.modal select){background: rgba(255,255,255,.9);color:#0a0a0a;box-shadow: inset 0 0 0 1px rgba(0,0,0,.08)}
-body.light .ambient i{background:#d4d4d4;opacity:.35}
+.friend-row{display:flex;align-items:center;padding:12px 14px;border-radius:20px;margin-bottom:8px;background:var(--inner);box-shadow:inset 0 0 0 1px var(--g-edge);position:relative;z-index:2}
+.friend-avatar{width:36px;height:36px;border-radius:50%;background:var(--g-bg);border:1px solid var(--g-edge);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 12px;flex-shrink:0;overflow:hidden}
+.friend-avatar img{width:100%;height:100%;object-fit:cover}
+.friend-name{flex:1;font-size:13px;color:var(--txt);font-weight:500}
+.friend-xp{font-size:12px;color:var(--sub);font-weight:600}
+.friend-del{margin-left:8px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--sub);background:var(--inner);cursor:pointer;flex-shrink:0}
+.add-friend-row{display:flex;gap:8px;margin-bottom:16px;position:relative;z-index:2}
+.add-friend-row input{flex:1;padding:14px;border-radius:24px;border:0;background:var(--inner);color:var(--txt);font-size:13px;outline:none;font-family:inherit;box-shadow:inset 0 0 0 1px var(--g-edge);text-transform:uppercase;letter-spacing:1px}
+.add-friend-row button{padding:0 20px;border-radius:24px;border:0;background:var(--acc);color:var(--acc-fg);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.friends-empty{text-align:center;color:var(--sub);font-size:13px;padding:14px;position:relative;z-index:2}
+:is(body,body.light) .my-code-card{background:var(--g-card)}
+.my-code-card{position:relative;isolation:isolate;overflow:hidden;border:0;-webkit-backdrop-filter:blur(22px) saturate(190%);backdrop-filter:blur(22px) saturate(190%);border-radius:32px;box-shadow:inset 0 0 0 1px var(--g-edge),inset 2px 2px 3px -2px var(--hi),inset -2px -2px 3px -2px rgba(255,255,255,.4),0 14px 36px var(--sh)}
+.my-code-card::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--mx,25%) var(--my,0%),rgba(255,255,255,.2),transparent 65%)}
+.my-code-card::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;padding:1px;opacity:.7;background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(255,255,255,.55));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 </style>
 </head>
 <body class="dark">
 <div class="ambient"><i></i><i></i><i></i></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="lg" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".012 .02" numOctaves="2" seed="3" result="n"/><feGaussianBlur in="n" stdDeviation="2" result="nb"/><feDisplacementMap in="SourceGraphic" in2="nb" scale="16" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
 
-
-<!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboardingOverlay">
     <div class="onboarding-card">
         <div class="onboarding-progress">
@@ -469,14 +406,12 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
             <div class="dot" id="dot2"></div>
             <div class="dot" id="dot3"></div>
         </div>
-
         <div class="onboarding-step active" id="step1">
             <h2>Как тебя зовут?</h2>
             <p class="step-text">Это имя будет в твоём профиле</p>
             <input type="text" class="char-input" id="charName" placeholder="Введи имя" maxlength="20" oninput="checkName()">
             <button class="onboarding-next" id="next1" onclick="goToStep(2)" disabled>Далее</button>
         </div>
-
         <div class="onboarding-step" id="step2">
             <h2>Выбери персонажа</h2>
             <p class="step-text">Или загрузи своё фото</p>
@@ -491,7 +426,6 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
             </div>
             <button class="onboarding-next" onclick="goToStep(3)">Далее</button>
         </div>
-
         <div class="onboarding-step" id="step3">
             <h2>Твои цели</h2>
             <p class="step-text">Что хочешь прокачать?</p>
@@ -532,7 +466,7 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
         <div class="trial-badge">3 дня бесплатно</div>
         <div class="features">
             <div class="feature"><div class="check">✓</div><span>Игровой прогресс и уровни</span></div>
-            <div class="feature"><div class="check">✓</div><span>Свой аватар</span></div>
+            <div class="feature"><div class="check">✓</div><span>Друзья и соревнования</span></div>
             <div class="feature"><div class="check">✓</div><span>Таблица лидеров</span></div>
             <div class="feature"><div class="check">✓</div><span>Календарь прогресса</span></div>
         </div>
@@ -570,6 +504,14 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
             <div class="profile-rank" id="charRankMain">Ранг #—</div>
         </div>
 
+        <div class="my-code-card glass">
+            <div>
+                <div class="my-code-label">Твой код</div>
+                <div class="my-code-value" id="myCode">—</div>
+            </div>
+            <button class="code-share-btn" onclick="shareCode()">Поделиться</button>
+        </div>
+
         <div class="glass level-card">
             <div class="level-header"><span class="lvl" id="levelText">Уровень 1</span><span class="xp-text" id="xpText">0 / 100 XP</span></div>
             <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
@@ -603,7 +545,12 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
         </div>
 
         <div class="glass leaderboard-card">
-            <div class="leaderboard-header"><h2>🏆 Таблица лидеров</h2><div class="badge">Демо-данные</div></div>
+            <div class="leaderboard-header"><h2>👥 Друзья</h2><div class="badge" id="friendsBadge">0</div></div>
+            <div id="friendsBoard"></div>
+        </div>
+
+        <div class="glass leaderboard-card">
+            <div class="leaderboard-header"><h2>🏆 Глобальный рейтинг</h2><div class="badge" id="globalBadge">—</div></div>
             <div id="leaderboardList"></div>
         </div>
     </div>
@@ -620,6 +567,7 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
                 <div class="glass profile-stat"><span class="num" id="profileTasks">0</span><span class="label">Выполнено</span></div>
             </div>
             <div class="glass subpage-card"><h3>Неделя</h3><div class="bars" id="statsBars"></div><p id="statsWeek"></p><p id="statsToday"></p></div>
+            <div class="glass profile-item" onclick="openSubpage('friends')"><span>👥 Друзья</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('shop')"><span>🛒 Магазин</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('avatar')"><span>🎭 Сменить аватар</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('account')"><span>👤 Аккаунт</span><span class="arrow">›</span></div>
@@ -627,6 +575,22 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
             <div class="glass profile-item" onclick="openSubpage('notifications')"><span>🔔 Уведомления</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('help')"><span>❓ Помощь</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="logout()"><span>🚪 Выйти</span><span class="arrow">›</span></div>
+        </div>
+
+        <div class="subpage" id="subpage-friends">
+            <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Друзья</div></div>
+            <div class="glass subpage-card">
+                <h3>Добавить друга</h3>
+                <p style="margin-bottom:12px">Введи код друга (например, IGNAT-4729)</p>
+                <div class="add-friend-row">
+                    <input type="text" id="friendCodeInput" placeholder="КОД-1234" maxlength="12">
+                    <button onclick="addFriend()">+</button>
+                </div>
+            </div>
+            <div class="glass subpage-card">
+                <h3>Мои друзья</h3>
+                <div id="friendsList"></div>
+            </div>
         </div>
 
         <div class="subpage" id="subpage-shop"><div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Магазин</div></div><div class="glass subpage-card"><h3>🪙 <span id="shopCoins">0</span></h3><p>Трать заработанные коины на рамки и заморозку серии.</p></div><div id="shopList"></div></div>
@@ -670,7 +634,7 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
 
         <div class="subpage" id="subpage-help">
             <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Помощь</div></div>
-            <div class="glass subpage-card"><h3>Как работает?</h3><p>Выполняй задания, получай XP и коины. Расти в уровнях. Соревнуйся в таблице лидеров.</p></div>
+            <div class="glass subpage-card"><h3>Как работает?</h3><p>Выполняй задания, получай XP и коины. Расти в уровнях. Добавляй друзей по коду и соревнуйся.</p></div>
         </div>
     </div>
 </div>
@@ -690,7 +654,7 @@ body.light .ambient i{background:#d4d4d4;opacity:.35}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, collection, query, orderBy, limit, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, query, where, orderBy, limit, getDocs, serverTimestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -705,8 +669,42 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-window.syncPlayer = async (p) => { const u = auth.currentUser; if (!u) return false; await setDoc(doc(db,'players',u.uid), {name:p.name, xp:p.xp, level:p.level, avatar:p.avatar||'', updatedAt:serverTimestamp()}); return true; };
-window.fetchBoard = async () => { const s = await getDocs(query(collection(db,'players'), orderBy('xp','desc'), limit(20))); return s.docs.map(d => ({uid:d.id, ...d.data()})); };
+
+window.syncPlayer = async (p) => { 
+    const u = auth.currentUser; if (!u) return false; 
+    await setDoc(doc(db,'players',u.uid), {
+        name:p.name, xp:p.xp, level:p.level, avatar:p.avatar||'', code:p.code||''
+    }, {merge:true}); 
+    return true; 
+};
+
+window.fetchBoard = async () => { 
+    const s = await getDocs(query(collection(db,'players'), orderBy('xp','desc'), limit(50))); 
+    return s.docs.map(d => ({uid:d.id, ...d.data()})); 
+};
+
+window.findByCode = async (code) => {
+    const q = query(collection(db,'players'), where('code','==',code.toUpperCase()), limit(1));
+    const s = await getDocs(q);
+    if (s.empty) return null;
+    const d = s.docs[0];
+    return {uid:d.id, ...d.data()};
+};
+
+window.addFriendToMe = async (myUid, friendUid) => {
+    await setDoc(doc(db,'players',myUid), {friends:arrayUnion(friendUid)}, {merge:true});
+};
+
+window.getFriendsData = async (uids) => {
+    if (!uids || !uids.length) return [];
+    const results = [];
+    for (const uid of uids) {
+        const d = await getDoc(doc(db,'players',uid));
+        if (d.exists()) results.push({uid, ...d.data()});
+    }
+    return results;
+};
+
 const googleProvider = new GoogleAuthProvider();
 window.firebaseAuth = auth;
 window.firebaseSignInGoogle = () => signInWithPopup(auth, googleProvider);
@@ -717,22 +715,29 @@ window.firebaseUpdateProfile = updateProfile;
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    state.user = {name: user.displayName || 'Пользователь', email: user.email || '', method: user.providerData[0]?.providerId === 'google.com' ? 'Google' : 'Email'};
+    state.user = {uid: user.uid, name: user.displayName || 'Пользователь', email: user.email || '', method: user.providerData[0]?.providerId === 'google.com' ? 'Google' : 'Email'};
+    state.uid = user.uid;
+    if(!state.myCode) state.myCode = generateCode(state.charName || user.displayName || 'USER');
     save();
     document.getElementById('authOverlay').classList.add('hidden');
     updateProfile();
-    setTimeout(() => window.refreshBoard && window.refreshBoard(), 1200);
     setTimeout(() => {
-      if (!state.onboardingDone) showOnboarding();
-      else if (!state.trialStart) startTrial();
-      else checkTrial();
+        if (!state.onboardingDone) showOnboarding();
+        else if (!state.trialStart) startTrial();
+        else checkTrial();
     }, 500);
   }
 });
+
+function generateCode(name){
+    const clean = (name || 'USER').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,6) || 'USER';
+    const num = Math.floor(1000 + Math.random()*9000);
+    return clean + '-' + num;
+}
 </script>
 
 <script>
-let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,owned:[],frame:'',freezes:0,history:{},tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
+let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,uid:null,myCode:'',theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,owned:[],frame:'',freezes:0,history:{},friends:[],tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
 const XP_PER_LEVEL=100;
 
 const demoLeaders = [
@@ -744,7 +749,7 @@ const demoLeaders = [
 ];
 
 function save(){localStorage.setItem('dd_state',JSON.stringify(state));syncSoon()}
-function load(){const s=localStorage.getItem('dd_state');if(s){try{state=Object.assign(state,JSON.parse(s))}catch(e){}}if(!state.completedDays)state.completedDays=[]}
+function load(){const s=localStorage.getItem('dd_state');if(s){try{state=Object.assign(state,JSON.parse(s))}catch(e){}}if(!state.completedDays)state.completedDays=[];if(!state.friends)state.friends=[]}
 
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -773,8 +778,99 @@ function renderChars(){document.querySelectorAll('[data-chars]').forEach(el=>{el
 function pickChar(e){state.avatar=e;state.avatarUrl='';save();updateAllAvatars()}
 const GOAL_TASKS={'Спорт':{text:'Тренировка 30 минут',xp:100},'Учёба':{text:'Учёба 1 час без телефона',xp:100},'Дисциплина':{text:'Лечь спать до 23:00',xp:50},'Здоровье':{text:'Выпить 2 литра воды',xp:30}};
 function applyGoalsFromOnboarding(){const g=[...document.querySelectorAll('#step3 .avatar-action.selected span:last-child')].map(e=>e.textContent.trim());state.goals=g;if(g.length)state.tasks=g.map(k=>({...GOAL_TASKS[k],done:false,repeat:'daily',due:'',notified:false}))}
-let st;function syncSoon(){clearTimeout(st);st=setTimeout(()=>{if(window.firebaseAuth&&window.firebaseAuth.currentUser&&state.charName&&window.syncPlayer)window.syncPlayer({name:state.charName,xp:state.xp,level:state.level,avatar:state.avatar}).catch(()=>{})},4000)}
-async function refreshBoard(){try{if(!window.fetchBoard||!(window.firebaseAuth&&window.firebaseAuth.currentUser))throw 0;if(state.charName)await window.syncPlayer({name:state.charName,xp:state.xp,level:state.level,avatar:state.avatar});board=await window.fetchBoard();boardGlobal=board.length>0}catch(e){boardGlobal=false}renderLeaderboard();updateAll()}
+
+let st;function syncSoon(){clearTimeout(st);st=setTimeout(()=>{if(window.firebaseAuth&&window.firebaseAuth.currentUser&&state.charName&&window.syncPlayer)window.syncPlayer({name:state.charName,xp:state.xp,level:state.level,avatar:state.avatar,code:state.myCode}).catch(()=>{})},4000)}
+
+let board=null,boardGlobal=false;
+async function refreshBoard(){
+    try{
+        if(!window.fetchBoard||!(window.firebaseAuth&&window.firebaseAuth.currentUser))throw 0;
+        if(state.charName)await window.syncPlayer({name:state.charName,xp:state.xp,level:state.level,avatar:state.avatar,code:state.myCode});
+        board=await window.fetchBoard();
+        boardGlobal=board.length>0;
+        if(state.friends&&state.friends.length){
+            state.friendsData=await window.getFriendsData(state.friends);
+        }
+    }catch(e){boardGlobal=false}
+    renderLeaderboard();
+    renderFriendsBoard();
+    updateAll();
+}
+
+async function addFriend(){
+    const inp=document.getElementById('friendCodeInput');
+    const code=inp.value.trim().toUpperCase();
+    if(!code){showToast('Введи код');return}
+    if(code===state.myCode){showToast('Это твой код');return}
+    if(!state.uid){showToast('Нужно войти в аккаунт');return}
+    try{
+        const friend=await window.findByCode(code);
+        if(!friend){showToast('Игрок не найден');return}
+        if(state.friends.includes(friend.uid)){showToast('Уже в друзьях');return}
+        await window.addFriendToMe(state.uid,friend.uid);
+        state.friends.push(friend.uid);
+        save();
+        inp.value='';
+        showToast('Друг добавлен: '+friend.name);
+        await refreshBoard();
+    }catch(e){showToast('Ошибка: '+e.message)}
+}
+
+function removeFriend(uid){
+    if(!confirm('Удалить друга?'))return;
+    state.friends=state.friends.filter(u=>u!==uid);
+    save();
+    renderFriendsBoard();
+    updateAll();
+}
+
+function renderFriendsBoard(){
+    const el=document.getElementById('friendsBoard');
+    const badge=document.getElementById('friendsBadge');
+    if(!el)return;
+    const list=(state.friendsData||[]).slice().sort((a,b)=>(b.xp||0)-(a.xp||0));
+    badge.textContent=list.length;
+    if(!list.length){
+        el.innerHTML='<div class="friends-empty">Пока никого. Добавь друга по коду.</div>';
+        return;
+    }
+    el.innerHTML='';
+    list.slice(0,10).forEach((p,i)=>{
+        const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';
+        const div=document.createElement('div');
+        div.className='leader-row';
+        div.innerHTML='<div class="leader-rank">'+(i+1)+'</div><div class="leader-avatar">'+av+'</div><div class="leader-name">'+esc(p.name||'Игрок')+'</div><div class="leader-xp">'+(p.xp||0)+' XP</div>';
+        el.appendChild(div);
+    });
+}
+
+function renderFriendsList(){
+    const el=document.getElementById('friendsList');
+    if(!el)return;
+    const list=(state.friendsData||[]);
+    if(!list.length){
+        el.innerHTML='<div class="friends-empty">Список пуст</div>';
+        return;
+    }
+    el.innerHTML='';
+    list.forEach(p=>{
+        const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';
+        const div=document.createElement('div');
+        div.className='friend-row';
+        div.innerHTML='<div class="friend-avatar">'+av+'</div><div class="friend-name">'+esc(p.name||'Игрок')+'</div><div class="friend-xp">'+(p.xp||0)+' XP</div><div class="friend-del" onclick="removeFriend(\''+p.uid+'\')">✕</div>';
+        el.appendChild(div);
+    });
+}
+
+function shareCode(){
+    const text='Добавь меня в Discipline Development! Мой код: '+state.myCode+' — соревнуемся по XP. https://ignatkorolkov-arch.github.io/discipline-app/';
+    if(navigator.share){
+        navigator.share({title:'Discipline Development', text:text}).catch(()=>{});
+    }else{
+        navigator.clipboard.writeText(text).then(()=>showToast('Скопировано')).catch(()=>showToast(state.myCode));
+    }
+}
+
 function applyTheme(){
     if(state.theme === 'light'){
         document.body.className = 'light';
@@ -790,7 +886,6 @@ function applyTheme(){
 }
 function toggleTheme(){state.theme = state.theme === 'dark' ? 'light' : 'dark';save();applyTheme();showToast(state.theme === 'dark' ? 'Тёмная тема' : 'Светлая тема')}
 
-// ==== АВАТАР ====
 let avatarTarget = 'onboarding';
 function pickAvatarOnboarding(){avatarTarget = 'onboarding';document.getElementById('avatarFileInput').click()}
 function pickAvatarProfile(){avatarTarget = 'profile';document.getElementById('avatarFileInput').click()}
@@ -839,7 +934,6 @@ function updateAllAvatars(){
     }
 }
 
-// ==== ОНБОРДИНГ ====
 function showOnboarding(){document.getElementById('onboardingOverlay').classList.add('show');document.getElementById('authOverlay').classList.add('hidden');goToStep(1)}
 function checkName(){const val = document.getElementById('charName').value.trim();document.getElementById('next1').disabled = val.length < 2}
 function goToStep(step){
@@ -852,17 +946,20 @@ function finishOnboarding(){
     const name = document.getElementById('charName').value.trim();
     if(!name){showToast('Введи имя');return}
     state.charName = name;
-    state.onboardingDone = true;applyGoalsFromOnboarding();
+    state.onboardingDone = true;
+    if(!state.myCode)state.myCode=generateCode(name);
+    applyGoalsFromOnboarding();
     save();
     document.getElementById('charNameMain').textContent = name;
     document.getElementById('profileName').textContent = name;
+    document.getElementById('myCode').textContent = state.myCode;
     document.getElementById('onboardingOverlay').classList.remove('show');
     updateAllAvatars();
+    syncSoon();
     setTimeout(() => {if(!state.trialStart) startTrial();else checkTrial()}, 500);
+    setTimeout(refreshBoard, 1500);
 }
 
-// ==== ТАБЛИЦА ЛИДЕРОВ ====
-let board=null,boardGlobal=false;
 function renderLeaderboard(){
     const list=document.getElementById('leaderboardList');if(!list)return;
     const u=window.firebaseAuth&&window.firebaseAuth.currentUser,uid=u?u.uid:null;
@@ -871,7 +968,7 @@ function renderLeaderboard(){
     if(state.charName)all.push({name:state.charName,xp:state.xp,avatar:state.avatar,avatarUrl:state.avatarUrl,me:true});
     all.sort((a,b)=>b.xp-a.xp);
     const idx=all.findIndex(p=>p.me);state.place=idx+1;
-    const bd=document.querySelector('.leaderboard-header .badge');if(bd)bd.textContent=boardGlobal?'Мировой рейтинг':'Демо-данные';
+    const bd=document.getElementById('globalBadge');if(bd)bd.textContent=boardGlobal?'Мировой':'Демо';
     list.innerHTML='';
     all.map((p,i)=>({p,i})).filter(o=>o.i<7||o.p.me).forEach(({p,i})=>{
         const av=p.avatarUrl?'<img src="'+esc(p.avatarUrl)+'" alt="">':esc(p.avatar||'👤');
@@ -881,7 +978,6 @@ function renderLeaderboard(){
     });
     const rk=document.getElementById('charRankMain');if(rk&&state.charName)rk.textContent=rankTitle(state.level)+' · место #'+state.place;
 }
-// ==== КАЛЕНДАРЬ ====
 function renderCalendar(){
     const grid = document.getElementById('calendarGrid');
     const monthLabel = document.getElementById('calendarMonth');
@@ -922,7 +1018,6 @@ function markTodayCompleted(){
     }
 }
 
-// ==== РЕГИСТРАЦИЯ ====
 async function registerWith(method){
     if(method==='google'){
         if(window.firebaseSignInGoogle) window.firebaseSignInGoogle().catch(err=>showToast('Ошибка: '+err.message));
@@ -955,13 +1050,18 @@ function updateProfile(){
         document.getElementById('accountName').textContent = state.user.name;
         document.getElementById('accountEmail').textContent = state.user.email || 'Не указан';
     }
+    const mc=document.getElementById('myCode');
+    if(mc&&state.myCode)mc.textContent=state.myCode;
 }
 
-// ==== УВЕДОМЛЕНИЯ ====
 function requestNotificationPermission(){if(!('Notification' in window)){showToast('Не поддерживается');return}Notification.requestPermission().then(p=>{if(p==='granted'){showToast('Включены');scheduleNotifications()}else showToast('Запрещены');updateNotifStatus()})}
-function sendNotification(title,body){if(Notification.permission!=='granted')return;try{new Notification(title,{body:body,tag:'dd',icon:'android-chrome-192x192.png'})}catch(e){}}
+function sendNotification(title,body){
+    if(Notification.permission!=='granted')return;
+    if(!navigator.serviceWorker||!navigator.serviceWorker.ready){return}
+    navigator.serviceWorker.ready.then(reg=>{reg.showNotification(title,{body:body,icon:'android-chrome-192x192.png',badge:'android-chrome-192x192.png',tag:'dd'})}).catch(()=>{});
+}
 function scheduleNotifications(){const now=new Date();const hour=now.getHours();const today=now.toDateString();if(hour===9 && localStorage.getItem('lastMorning')!==today){sendNotification('Доброе утро! ☀️','Пора прокачивать дисциплину.');localStorage.setItem('lastMorning',today)}if(hour===20 && localStorage.getItem('lastEvening')!==today){const done=state.tasks.filter(t=>t.done).length;if(done<state.tasks.length)sendNotification('Вечерний отчёт 🌙','Не закрыто: '+(state.tasks.length-done));localStorage.setItem('lastEvening',today)}}
-function updateNotifStatus(){const el=document.getElementById('notifStatus');const btn=document.getElementById('notifBtn');if(!el)return;if(Notification.permission==='granted'){el.textContent='✅ Разрешены';btn.textContent='Тест';btn.onclick=()=>sendNotification('Тест','Работает!')}else{el.textContent='Не запрошено';btn.textContent='Разрешить';btn.onclick=requestNotificationPermission}}
+function updateNotifStatus(){const el=document.getElementById('notifStatus');const btn=document.getElementById('notifBtn');if(!el)return;if(!('Notification' in window)){el.textContent='Не поддерживается';return}if(Notification.permission==='granted'){el.textContent='✅ Разрешены';btn.textContent='Тест';btn.onclick=()=>sendNotification('Тест','Работает!')}else{el.textContent='Не запрошено';btn.textContent='Разрешить';btn.onclick=requestNotificationPermission}}
 setInterval(scheduleNotifications,60000);
 
 function checkTrial(){if(!state.trialStart){state.trialStart=Date.now();save()}const e=Date.now()-state.trialStart;if(e>=3*24*60*60*1000&&!state.subscribed)document.getElementById('paywallOverlay').classList.add('show')}
@@ -972,7 +1072,7 @@ function payLater(){showToast("Позже")}
 function dueInfo(t){if(!t.due)return null;const d=new Date(t.due);if(isNaN(d))return null;const n=new Date(),tm=new Date(n);tm.setDate(tm.getDate()+1);const over=!t.done&&d<n;const lb=dk(d)===dk(n)?'Сегодня':dk(d)===dk(tm)?'Завтра':d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'});return{txt:(over?'Просрочено · ':'')+lb+', '+d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),over}}
 function renderTasks(){const l=document.getElementById('taskList');l.innerHTML='';const v=state.tasks.map((t,i)=>({t,i})).filter(o=>!(o.t.repeat==='weekdays'&&[0,6].includes(new Date().getDay())));v.sort((a,b)=>(a.t.done-b.t.done)||((a.t.due?new Date(a.t.due):8.64e15)-(b.t.due?new Date(b.t.due):8.64e15)));if(!v.length){l.innerHTML='<div class="empty">Заданий нет. Добавь первое.</div>';return}v.forEach(({t,i})=>{const di=dueInfo(t),d=document.createElement('div');d.className='task';d.innerHTML='<div class="task-check '+(t.done?'done':'')+'" onclick="toggleTask('+i+')">'+(t.done?'✓':'')+'</div><div class="task-body" onclick="openTaskModal('+i+')"><div class="task-text '+(t.done?'done':'')+'">'+esc(t.text)+'</div><div class="task-meta"><span>+'+t.xp+' XP</span>'+(t.repeat&&t.repeat!=='none'?'<span>↻ '+(t.repeat==='daily'?'ежедневно':'по будням')+'</span>':'')+(di?'<span class="'+(di.over?'over':'')+'">⏱ '+esc(di.txt)+'</span>':'')+'</div></div><div class="task-del" onclick="deleteTask('+i+')">✕</div>';l.appendChild(d)})}
 function checkDeadlines(){state.tasks.forEach(t=>{if(!t.due||t.done||t.notified)return;const m=(new Date(t.due)-new Date())/60000;if(m<=60&&m>-1440){sendNotification('Скоро срок ⏱',t.text);t.notified=true;save()}})}
-function toggleTask(i){const t=state.tasks[i];const oldLevel = state.level;if(t.done){t.done=false;logXP(-t.xp)}else{t.done=true;logXP(t.xp);showToast('+'+t.xp+' XP');if(visibleTasks().every(x=>x.done))markTodayCompleted()}save();updateAll();renderTasks();renderLeaderboard()}
+function toggleTask(i){const t=state.tasks[i];if(t.done){t.done=false;logXP(-t.xp)}else{t.done=true;logXP(t.xp);showToast('+'+t.xp+' XP');if(visibleTasks().every(x=>x.done))markTodayCompleted()}save();updateAll();renderTasks();renderLeaderboard()}
 
 function closeTaskModal(){document.getElementById('taskModal').classList.remove('show')}
 
@@ -987,7 +1087,9 @@ function openSubpage(n){
     document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));
     document.getElementById('subpage-'+n).classList.add('active');
     if(n==='notifications')setTimeout(updateNotifStatus,50);
-    if(n==='avatar') updateAllAvatars();if(n==='shop')renderShop();
+    if(n==='avatar') updateAllAvatars();
+    if(n==='shop')renderShop();
+    if(n==='friends')renderFriendsList();
 }
 function closeSubpage(){document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('profileMain').classList.add('active')}
 function updateAll(){
@@ -1009,6 +1111,7 @@ function updateAll(){
     document.getElementById('profileXP').textContent = state.xp;
     document.getElementById('profileStreak').textContent = state.streak;
     document.getElementById('profileTasks').textContent = state.tasks.filter(t=>t.done).length;
+    const mc=document.getElementById('myCode');if(mc&&state.myCode)mc.textContent=state.myCode;
     if(state.charName){
         document.getElementById('charNameMain').textContent = state.charName;
         document.getElementById('charRankMain').textContent = rankTitle(state.level)+' · место #'+(state.place||'—');
@@ -1026,21 +1129,22 @@ function switchTab(tab){
 }
 function showToast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
 
-load();rollover();applyFrame();applyTheme();renderTasks();renderCalendar();renderLeaderboard();updateAll();
+load();rollover();applyFrame();applyTheme();renderTasks();renderCalendar();renderLeaderboard();renderFriendsBoard();updateAll();updateProfile();
 if(state.user && state.onboardingDone){document.getElementById('authOverlay').classList.add('hidden')}
 if(state.charName){
     document.getElementById('charNameMain').textContent = state.charName;
     document.getElementById('charRankMain').textContent = rankTitle(state.level)+' · место #'+(state.place||'—');
     document.getElementById('profileName').textContent = state.charName;
 }
+if(!state.myCode)state.myCode=generateCode(state.charName||'USER');
 updateAllAvatars();
 if(state.goalDoneToday){const b=document.getElementById('goalDoneBtn');b.textContent="Цель выполнена";b.classList.add('done')}
 window.addEventListener('load',()=>setTimeout(()=>moveIndicator(0),50));
+setTimeout(refreshBoard, 1500);
 setInterval(checkTrial,30000);
 setInterval(refreshBoard,120000);
 setInterval(()=>{renderTasks();checkDeadlines()},60000);
 setInterval(()=>{if(state.lastDay!==dk(new Date())){rollover();renderTasks();updateAll()}},60000);
-// liquid glass: блик следует за пальцем/курсором, преломление в Chromium
 if(/Chrome\//.test(navigator.userAgent)&&!/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent))document.documentElement.classList.add('refract');
 ['pointermove','pointerdown'].forEach(ev=>document.addEventListener(ev,e=>{const g=e.target.closest&&e.target.closest('.glass');if(!g)return;const r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true}));
 </script>
