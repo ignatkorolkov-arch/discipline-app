@@ -119,7 +119,7 @@ body.light .paywall-card,body.light .modal{
 /* ===== КНОПКИ-СТЕКЛО ===== */
 .welcome-skip,.goal-edit,.auth-btn,.avatar-action,.back-btn,
 .tasks-header button,.modal-buttons button,.coins-display,.theme-btn,
-.trial-badge,.leaderboard-header .badge,.code-share-btn,.review-opt{
+.trial-badge,.leaderboard-header .badge,.code-share-btn,.review-opt,.focus-chip{
   background:linear-gradient(180deg,var(--glass-top),var(--glass-bot));
   color:var(--txt);border:0;
   -webkit-backdrop-filter:blur(20px) saturate(180%);
@@ -240,10 +240,20 @@ body.light .nav-indicator{background:rgba(0,0,0,.08);box-shadow:inset 0 0 0 1px 
 .task-del{margin-left:10px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--sub);background:var(--inner);cursor:pointer;flex-shrink:0}
 .empty{text-align:center;color:var(--sub);font-size:13px;padding:14px}
 
-.focus{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;margin-bottom:12px}
+/* ===== ФОКУС ===== */
+.focus{display:flex;flex-direction:column;gap:14px;padding:18px 20px;margin-bottom:12px}
+.focus-top{display:flex;align-items:center;justify-content:space-between}
 .f-title{font-size:11px;letter-spacing:1.2px;text-transform:uppercase}
 .f-time{font-size:30px;font-weight:300;font-variant-numeric:tabular-nums}
 .f-btn{padding:11px 22px;border-radius:20px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer}
+.focus-presets{display:flex;gap:8px;flex-wrap:wrap}
+.focus-chip{padding:8px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .15s}
+.focus-chip:active{transform:scale(.96)}
+.focus-chip.on{background:var(--acc);color:var(--acc-fg);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 16px var(--acc-glow)}
+.focus-custom{display:flex;gap:8px;align-items:center}
+.focus-custom input{flex:1;padding:12px 14px;border-radius:18px;background:var(--inner);color:var(--txt);font-size:13px;outline:none;font-family:inherit;border:0;box-shadow:inset 0 0 0 1px var(--inner-border);-moz-appearance:textfield}
+.focus-custom input::-webkit-outer-spin-button,.focus-custom input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.focus-custom button{padding:12px 18px;border-radius:18px;background:var(--acc);color:var(--acc-fg);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:0}
 
 .goal-title{font-size:11px;margin-bottom:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase}
 .goal-name{font-size:17px;font-weight:600;margin-bottom:16px}
@@ -407,8 +417,8 @@ body.light .paywall-overlay,body.light .modal-overlay{background:rgba(200,200,20
 .toast.show{opacity:1}
 
 /* ===== АНИМАЦИИ ===== */
-.profile-item,.task-check,.welcome-btn,.goal-done-btn,.onboarding-next,.avatar-action,.back-btn,.tasks-header button,.modal-buttons button,.goal-edit,.auth-btn,.welcome-skip,.theme-btn,.review-opt,.shop-btn{transition:transform .15s}
-.profile-item:active,.task-check:active,.welcome-btn:active,.goal-done-btn:active,.onboarding-next:active,.avatar-action:active,.back-btn:active,.tasks-header button:active,.modal-buttons button:active,.goal-edit:active,.auth-btn:active,.welcome-skip:active,.theme-btn:active,.review-opt:active,.shop-btn:active{transform:scale(.96)}
+.profile-item,.task-check,.welcome-btn,.goal-done-btn,.onboarding-next,.avatar-action,.back-btn,.tasks-header button,.modal-buttons button,.goal-edit,.auth-btn,.welcome-skip,.theme-btn,.review-opt,.shop-btn,.focus-chip{transition:transform .15s}
+.profile-item:active,.task-check:active,.welcome-btn:active,.goal-done-btn:active,.onboarding-next:active,.avatar-action:active,.back-btn:active,.tasks-header button:active,.modal-buttons button:active,.goal-edit:active,.auth-btn:active,.welcome-skip:active,.theme-btn:active,.review-opt:active,.shop-btn:active,.focus-chip:active{transform:scale(.96)}
 
 /* ===== КАДРЫ АВАТАРА ===== */
 body[data-frame=ring] .big-avatar,body[data-frame=ring] .avatar{box-shadow:0 0 0 4px var(--bg),0 0 0 6px var(--txt)}
@@ -610,7 +620,28 @@ html.tt,html.tt *{transition:background-color .5s ease,color .5s ease,box-shadow
             <div class="tasks-header"><h2>Задания</h2><button onclick="openTaskModal()" aria-label="Добавить">+</button></div>
             <div id="taskList"></div>
         </div>
-        <div class="glass focus"><div><div class="f-title">Фокус · +30 XP</div><div class="f-time" id="fTime">25:00</div></div><button class="f-btn" id="fBtn" onclick="toggleFocus()">Старт</button></div>
+
+        <div class="glass focus">
+            <div class="focus-top">
+                <div>
+                    <div class="f-title">Фокус · +30 XP</div>
+                    <div class="f-time" id="fTime">25:00</div>
+                </div>
+                <button class="f-btn" id="fBtn" onclick="toggleFocus()">Старт</button>
+            </div>
+            <div class="focus-presets" id="focusPresets">
+                <button class="focus-chip" data-min="5" onclick="setFocusMinutes(5)">5 мин</button>
+                <button class="focus-chip" data-min="15" onclick="setFocusMinutes(15)">15 мин</button>
+                <button class="focus-chip on" data-min="25" onclick="setFocusMinutes(25)">25 мин</button>
+                <button class="focus-chip" data-min="45" onclick="setFocusMinutes(45)">45 мин</button>
+                <button class="focus-chip" data-min="60" onclick="setFocusMinutes(60)">60 мин</button>
+            </div>
+            <div class="focus-custom">
+                <input type="number" id="focusCustomInput" placeholder="Своё время, мин" min="1" max="240">
+                <button onclick="applyCustomFocus()">ОК</button>
+            </div>
+        </div>
+
         <div class="glass goal-card">
             <div class="goal-title">Цель месяца</div>
             <div class="goal-name" id="goalName">3000 приседаний</div>
@@ -743,6 +774,11 @@ html.tt,html.tt *{transition:background-color .5s ease,color .5s ease,box-shadow
                 <button class="welcome-btn" id="notifBtn" onclick="requestNotificationPermission()" style="margin-top:14px;padding:14px;">Разрешить</button>
             </div>
             <div class="glass subpage-card">
+                <h3>Тест уведомлений</h3>
+                <p style="margin-bottom:10px">Проверь, что уведомления работают</p>
+                <button class="welcome-btn" onclick="testNotification()" style="padding:14px;">Отправить тест</button>
+            </div>
+            <div class="glass subpage-card">
                 <h3>Напоминание о дедлайне</h3>
                 <p style="margin-bottom:10px">За час до срока задачи</p>
                 <div class="toggle-row"><span>Включить</span><div class="toggle-switch on" id="deadlineToggle" onclick="toggleDeadline()"></div></div>
@@ -805,13 +841,13 @@ function generateCode(name){ const clean = (name || 'USER').replace(/[^A-Za-z0-9
 </script>
 
 <script>
-let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,uid:null,myCode:'',theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,aboutSeen:false,owned:[],frame:'',freezes:0,history:{},friends:[],friendsData:[],dayClosed:false,calm:false,reviews:{},deadlineOn:true,tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
+let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,uid:null,myCode:'',theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,aboutSeen:false,owned:[],frame:'',freezes:0,history:{},friends:[],friendsData:[],dayClosed:false,calm:false,reviews:{},deadlineOn:true,focusMinutes:25,tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
 const XP_PER_LEVEL=100;
 const demoLeaders = [{name:'Иван',xp:2450,avatar:'😎'},{name:'Мария',xp:2100,avatar:'🦊'},{name:'Алексей',xp:1850,avatar:'🐯'},{name:'Анна',xp:1520,avatar:'🦄'},{name:'Дмитрий',xp:1280,avatar:'🤖'}];
 const ADVICE={'Сон':'Ложись на 30 минут раньше. Сон — база дисциплины.','Телефон':'Убери телефон в другую комнату на 1 час.','Усталость':'Сделай 1 задание из 3. Меньше — но сегодня.','Нет плана':'Утром напиши 3 главные задачи. Остальное — по желанию.','Тяжело начать':'Правило 2 минут: открой файл и сделай 1 действие.','Ничего':'Отлично! Держи темп.'};
 
 function save(){try{localStorage.setItem('dd_state',JSON.stringify(state));syncSoon()}catch(e){}}
-function load(){const s=localStorage.getItem('dd_state');if(s){try{state=Object.assign(state,JSON.parse(s))}catch(e){}}if(!state.completedDays)state.completedDays=[];if(!state.friends)state.friends=[];if(!state.friendsData)state.friendsData=[];if(!state.reviews)state.reviews={}}
+function load(){const s=localStorage.getItem('dd_state');if(s){try{state=Object.assign(state,JSON.parse(s))}catch(e){}}if(!state.completedDays)state.completedDays=[];if(!state.friends)state.friends=[];if(!state.friendsData)state.friendsData=[];if(!state.reviews)state.reviews={}if(!state.focusMinutes)state.focusMinutes=25}
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function calcStreak(){const d=new Date();if(!state.completedDays.includes(dk(d)))d.setDate(d.getDate()-1);let n=0;while(state.completedDays.includes(dk(d))){n++;d.setDate(d.getDate()-1)}return n}
@@ -836,10 +872,31 @@ function removeFriend(uid){if(!confirm('Удалить друга?'))return;stat
 function renderFriendsBoard(){const el=document.getElementById('friendsBoard');const badge=document.getElementById('friendsBadge');if(!el)return;const list=(state.friendsData||[]).slice().sort((a,b)=>(b.xp||0)-(a.xp||0));badge.textContent=list.length;if(!list.length){el.innerHTML='<div class="empty">Пока никого. Добавь друга по коду.</div>';return}el.innerHTML='';list.slice(0,10).forEach((p,i)=>{const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';const div=document.createElement('div');div.className='leader-row';div.innerHTML='<div class="leader-rank">'+(i+1)+'</div><div class="leader-avatar">'+av+'</div><div class="leader-name">'+esc(p.name||'Игрок')+'</div><div class="leader-xp">'+(p.xp||0)+' XP</div>';el.appendChild(div)})}
 function renderFriendsList(){const el=document.getElementById('friendsList');if(!el)return;const list=(state.friendsData||[]);if(!list.length){el.innerHTML='<div class="friends-empty">Список пуст</div>';return}el.innerHTML='';list.forEach(p=>{const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';const div=document.createElement('div');div.className='friend-row';div.innerHTML='<div class="f-av">'+av+'</div><div class="f-nm">'+esc(p.name||'Игрок')+'</div><div class="f-xp">'+(p.xp||0)+' XP</div><div class="f-del" onclick="removeFriend(\''+p.uid+'\')">✕</div>';el.appendChild(div)})}
 function shareCode(){const text='Добавь меня в Discipline Development! Мой код: '+state.myCode+' — соревнуемся по XP. https://clck.ru/3WRvWN';if(navigator.share){navigator.share({title:'Discipline Development', text:text}).catch(()=>{})}else{navigator.clipboard.writeText(text).then(()=>showToast('Скопировано')).catch(()=>showToast(state.myCode))}}
+
+/* ===== ФОКУС с выбором времени ===== */
 let fEnd=null,fT=null;
 const fFmt=ms=>{const t=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')};
-function fReset(){clearInterval(fT);fEnd=null;document.getElementById('fTime').textContent='25:00';document.getElementById('fBtn').textContent='Старт'}
-function toggleFocus(){if(fEnd){fReset();return}fEnd=Date.now()+25*60000;document.getElementById('fBtn').textContent='Стоп';document.getElementById('fTime').textContent=fFmt(25*60000);fT=setInterval(()=>{const m=fEnd-Date.now();if(m<=0){fReset();logXP(30);save();updateAll();showToast('Фокус завершён · +30 XP');if(navigator.vibrate)navigator.vibrate(60)}else document.getElementById('fTime').textContent=fFmt(m)},500)}
+function renderFocusChips(){const m=state.focusMinutes||25;document.querySelectorAll('.focus-chip').forEach(c=>{c.classList.toggle('on',parseInt(c.dataset.min)===m)})}
+function setFocusMinutes(m){if(fEnd){showToast('Останови текущий фокус');return}state.focusMinutes=m;save();document.getElementById('fTime').textContent=String(m).padStart(2,'0')+':00';renderFocusChips()}
+function applyCustomFocus(){if(fEnd){showToast('Останови текущий фокус');return}const v=parseInt(document.getElementById('focusCustomInput').value);if(!v||v<1||v>240){showToast('1–240 мин');return}state.focusMinutes=v;save();document.getElementById('fTime').textContent=String(v).padStart(2,'0')+':00';document.querySelectorAll('.focus-chip').forEach(c=>c.classList.remove('on'));}
+function fReset(){clearInterval(fT);fEnd=null;document.getElementById('fTime').textContent=String(state.focusMinutes||25).padStart(2,'0')+':00';document.getElementById('fBtn').textContent='Старт'}
+function toggleFocus(){
+    if(fEnd){fReset();return}
+    const mins=state.focusMinutes||25;
+    fEnd=Date.now()+mins*60000;
+    document.getElementById('fBtn').textContent='Стоп';
+    document.getElementById('fTime').textContent=fFmt(mins*60000);
+    fT=setInterval(()=>{
+        const m=fEnd-Date.now();
+        if(m<=0){
+            fReset();logXP(30);save();updateAll();
+            showToast('Фокус завершён · +30 XP');
+            sendNotification('Фокус завершён ⏱','Отдохни 5 минут и возвращайся.');
+            if(navigator.vibrate)navigator.vibrate(60);
+        }else document.getElementById('fTime').textContent=fFmt(m);
+    },500);
+}
+
 function applyTheme(){if(state.theme==='light'){document.body.className='light';document.getElementById('themeBtn').textContent='☀️';const tt=document.getElementById('themeToggle');if(tt)tt.classList.remove('on');document.querySelector('meta[name="theme-color"]').setAttribute('content','#e6e6e6')}else{document.body.className='dark';document.getElementById('themeBtn').textContent='🌙';const tt=document.getElementById('themeToggle');if(tt)tt.classList.add('on');document.querySelector('meta[name="theme-color"]').setAttribute('content','#000000')}}
 function toggleTheme(){document.documentElement.classList.add('tt');setTimeout(()=>document.documentElement.classList.remove('tt'),700);state.theme=state.theme==='dark'?'light':'dark';save();applyTheme();showToast(state.theme==='dark'?'Тёмная тема':'Светлая тема')}
 function toggleCalm(){state.calm=!state.calm;const t=document.getElementById('calmToggle');if(t)t.classList.toggle('on',state.calm);save();renderTasks();showToast(state.calm?'Спокойный режим включён':'Обычный режим')}
@@ -861,7 +918,7 @@ function renderLeaderboard(){const list=document.getElementById('leaderboardList
 function renderCalendar(){const grid=document.getElementById('calendarGrid');const monthLabel=document.getElementById('calendarMonth');if(!grid)return;const now=new Date();const year=now.getFullYear();const month=now.getMonth();const today=now.getDate();const mn=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];monthLabel.textContent=mn[month]+' '+year;const firstDay=new Date(year,month,1).getDay();const daysInMonth=new Date(year,month+1,0).getDate();const offset=firstDay===0?6:firstDay-1;grid.innerHTML='';for(let i=0;i<offset;i++){const empty=document.createElement('div');empty.className='calendar-day empty';grid.appendChild(empty)}for(let day=1;day<=daysInMonth;day++){const d=document.createElement('div');d.className='calendar-day';d.textContent=day;const dateKey=year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');if(state.completedDays.includes(dateKey))d.classList.add('done');if(day===today)d.classList.add('today');grid.appendChild(d)}}
 function markTodayCompleted(){const now=new Date();const dateKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');if(!state.completedDays.includes(dateKey)){state.completedDays.push(dateKey);state.streak=calcStreak();state.coins+=10;save();renderCalendar()}}
 
-function updateToday(){const total=state.tasks.length;const done=state.tasks.filter(t=>t.done).length;const el=document.getElementById('todayCount');if(el)el.textContent=done+' / '+total;const fill=document.getElementById('todayFill');if(fill)fill.style.width=total?((done/total)*100)+'%':'0%';const hint=document.getElementById('todayHint');const ring=document.getElementById('ringFill');const c=389.6;if(ring){ring.style.strokeDashoffset=total?(c*(1-done/total)):c}if(hint){if(total===0){hint.textContent='Добавь первое задание';hint.classList.remove('done')}else if(done===0){hint.textContent='Выполни первое задание';hint.classList.remove('done')}else if(done<total){hint.textContent='Осталось: '+(total-done);hint.classList.remove('done')}else{hint.textContent='🔥 День закрыт';hint.classList.add('done')}}if(total>0&&done===total&&!state.dayClosed){state.dayClosed=true;save();setTimeout(()=>{document.getElementById('dayText').textContent='Серия: '+(state.streak||1)+' дней. +10 🪙 на баланс.';document.getElementById('dayModal').classList.add('show')},400)}}
+function updateToday(){const total=state.tasks.length;const done=state.tasks.filter(t=>t.done).length;const el=document.getElementById('todayCount');if(el)el.textContent=done+' / '+total;const fill=document.getElementById('todayFill');if(fill)fill.style.width=total?((done/total)*100)+'%':'0%';const hint=document.getElementById('todayHint');const ring=document.getElementById('ringFill');const c=389.6;if(ring){ring.style.strokeDashoffset=total?(c*(1-done/total)):c}if(hint){if(total===0){hint.textContent='Добавь первое задание';hint.classList.remove('done')}else if(done===0){hint.textContent='Выполни первое задание';hint.classList.remove('done')}else if(done<total){hint.textContent='Осталось: '+(total-done);hint.classList.remove('done')}else{hint.textContent='🔥 День закрыт';hint.classList.add('done')}}if(total>0&&done===total&&!state.dayClosed){state.dayClosed=true;save();setTimeout(()=>{document.getElementById('dayText').textContent='Серия: '+(state.streak||1)+' дней. +10 🪙 на баланс.';document.getElementById('dayModal').classList.add('show');sendNotification('День закрыт 🔥','Серия: '+(state.streak||1)+' дней. Так держать!')},400)}}
 
 function calcIndex(){const last7=[];for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()-i);last7.push(state.history[dk(d)]||0)}const maxXP=Math.max(50,...last7);const stability=last7.reduce((a,b)=>a+b,0)/(maxXP*7)*100;const completion=state.tasks.length?state.tasks.filter(t=>t.done).length/state.tasks.length*100:0;const streak=Math.min(100,(state.streak||0)*10);return Math.max(0,Math.min(100,Math.round(stability*0.4+completion*0.4+streak*0.2)))}
 function updateIndex(){const v=calcIndex();const el=document.getElementById('indexValue');const label=document.getElementById('indexLabel');const fill=document.getElementById('indexFill');if(el)el.textContent=v;if(fill)fill.style.width=v+'%';if(label){if(v<20)label.textContent='Начни сегодня';else if(v<50)label.textContent='Есть база. Держи';else if(v<75)label.textContent='Хороший уровень';else label.textContent='Отличная дисциплина'}}
@@ -892,9 +949,41 @@ async function registerWith(method){if(method==='google'){if(window.firebaseSign
 function skipAuth(){state.user={name:'Гость',email:'',method:'Без регистрации'};save();document.getElementById('authOverlay').classList.add('hidden');setTimeout(()=>{if(!state.aboutSeen)showAbout();else if(!state.onboardingDone)showOnboarding();else{if(!state.trialStart)startTrial();else checkTrial()}},500)}
 function logout(){if(confirm('Выйти?')){if(window.firebaseSignOut)window.firebaseSignOut();state.user=null;save();location.reload()}}
 function updateProfile(){if(state.user){const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('profileName',state.charName||state.user.name);set('accountName',state.user.name);set('accountEmail',state.user.email||'Не указан')}const mc=document.getElementById('myCode');if(mc&&state.myCode)mc.textContent=state.myCode}
-function requestNotificationPermission(){if(!('Notification' in window)){showToast('Не поддерживается');return}Notification.requestPermission().then(p=>{if(p==='granted'){showToast('Включены');scheduleNotifications()}else showToast('Запрещены');updateNotifStatus()})}
-function sendNotification(title,body){if(Notification.permission!=='granted')return;if(!navigator.serviceWorker||!navigator.serviceWorker.ready){return}navigator.serviceWorker.ready.then(reg=>{reg.showNotification(title,{body:body,icon:'android-chrome-192x192.png',badge:'android-chrome-192x192.png',tag:'dd'})}).catch(()=>{})}
-function scheduleNotifications(){const now=new Date();const hour=now.getHours();const today=now.toDateString();if(hour===9&&localStorage.getItem('lastMorning')!==today){sendNotification('Доброе утро! ☀️','Пора прокачивать дисциплину.');localStorage.setItem('lastMorning',today)}if(hour===20&&localStorage.getItem('lastEvening')!==today){const done=state.tasks.filter(t=>t.done).length;if(done<state.tasks.length)sendNotification('Вечерний отчёт 🌙','Не закрыто: '+(state.tasks.length-done));localStorage.setItem('lastEvening',today)}}
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+function requestNotificationPermission(){
+    if(!('Notification' in window)){showToast('Не поддерживается');return}
+    Notification.requestPermission().then(p=>{
+        if(p==='granted'){showToast('Включены');sendNotification('Готово ✅','Уведомления работают.');}
+        else showToast('Запрещены');
+        updateNotifStatus();
+    });
+}
+function sendNotification(title,body){
+    if(!('Notification' in window)||Notification.permission!=='granted')return;
+    if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+        navigator.serviceWorker.ready.then(reg=>{
+            reg.showNotification(title,{body:body,icon:'android-chrome-192x192.png',badge:'android-chrome-192x192.png',tag:'dd-'+Date.now(),vibrate:[80,40,80]});
+        }).catch(()=>{try{new Notification(title,{body:body,icon:'android-chrome-192x192.png'})}catch(e){}});
+    } else {
+        try{new Notification(title,{body:body,icon:'android-chrome-192x192.png'})}catch(e){}
+    }
+}
+function testNotification(){sendNotification('Тест 🔔','Уведомления работают! '+new Date().toLocaleTimeString());showToast('Тест отправлен')}
+function scheduleNotifications(){
+    const now=new Date();const hour=now.getHours();const today=now.toDateString();
+    if(hour===9&&localStorage.getItem('lastMorning')!==today){
+        const done=state.tasks.filter(t=>t.done).length;
+        sendNotification('Доброе утро! ☀️', done?('Уже сделано: '+done+'. Продолжай!'):'Пора прокачивать дисциплину.');
+        localStorage.setItem('lastMorning',today);
+    }
+    if(hour===20&&localStorage.getItem('lastEvening')!==today){
+        const done=state.tasks.filter(t=>t.done).length;
+        if(done<state.tasks.length)sendNotification('Вечерний отчёт 🌙','Не закрыто: '+(state.tasks.length-done)+' задач.');
+        else sendNotification('День закрыт 🔥','Все задачи выполнены. Так держать!');
+        localStorage.setItem('lastEvening',today);
+    }
+}
 function checkDeadlines(){
     if(!state.deadlineOn)return;
     const now=new Date();
@@ -903,12 +992,19 @@ function checkDeadlines(){
         const d=new Date(t.due);
         const diff=(d-now)/60000;
         if(diff<=60&&diff>0){
-            sendNotification('Скоро срок ⏱',t.text);
+            sendNotification('Скоро срок ⏱','Через '+Math.round(diff)+' мин: '+t.text);
             t.notified=true;save();
         }
     });
 }
-function updateNotifStatus(){const el=document.getElementById('notifStatus');const btn=document.getElementById('notifBtn');if(!el)return;if(!('Notification' in window)){el.textContent='Не поддерживается';return}if(Notification.permission==='granted'){el.textContent='✅ Разрешены';btn.textContent='Тест';btn.onclick=()=>sendNotification('Тест','Работает!')}else{el.textContent='Не запрошено';btn.textContent='Разрешить';btn.onclick=requestNotificationPermission}}
+function updateNotifStatus(){
+    const el=document.getElementById('notifStatus');
+    const btn=document.getElementById('notifBtn');
+    if(!el)return;
+    if(!('Notification' in window)){el.textContent='Не поддерживается';return}
+    if(Notification.permission==='granted'){el.textContent='✅ Разрешены';btn.textContent='Тест';btn.onclick=()=>sendNotification('Тест 🔔','Уведомления работают!');}
+    else {el.textContent='Не запрошено';btn.textContent='Разрешить';btn.onclick=requestNotificationPermission;}
+}
 setInterval(()=>{scheduleNotifications();checkDeadlines()},60000);
 
 function checkTrial(){if(!state.trialStart){state.trialStart=Date.now();save()}const e=Date.now()-state.trialStart;if(e>=3*24*60*60*1000&&!state.subscribed)document.getElementById('paywallOverlay').classList.add('show')}
@@ -998,7 +1094,7 @@ function updateAll(){
     document.getElementById('profileTasks').textContent=state.tasks.filter(t=>t.done).length;
     const mc=document.getElementById('myCode');if(mc&&state.myCode)mc.textContent=state.myCode;
     if(state.charName){document.getElementById('charNameMain').textContent=state.charName;document.getElementById('charRankMain').textContent=rankTitle(state.level)+' · место #'+(state.place||'—')}
-    updateAllAvatars();renderStats();renderChars();updateToday();updateIndex();
+    updateAllAvatars();renderStats();renderChars();renderFocusChips();updateToday();updateIndex();
     const ct=document.getElementById('calmToggle');if(ct)ct.classList.toggle('on',state.calm);
     const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn);
 }
@@ -1008,6 +1104,7 @@ function switchTab(tab){document.querySelectorAll('.nav-item').forEach(i=>i.clas
 function showToast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
 
 load();rollover();applyFrame();applyTheme();renderTasks();renderCalendar();renderLeaderboard();renderFriendsBoard();updateAll();updateProfile();
+document.getElementById('fTime').textContent=String(state.focusMinutes||25).padStart(2,'0')+':00';
 if(state.user && state.aboutSeen && state.onboardingDone){document.getElementById('authOverlay').classList.add('hidden')}
 if(state.charName){document.getElementById('charNameMain').textContent=state.charName;document.getElementById('charRankMain').textContent=rankTitle(state.level)+' · место #'+(state.place||'—');document.getElementById('profileName').textContent=state.charName}
 if(!state.myCode)state.myCode=genCode(state.charName||'USER');
