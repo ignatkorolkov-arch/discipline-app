@@ -590,6 +590,7 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
 :is(body,body.light) .toast{top:auto;bottom:calc(100px + env(safe-area-inset-bottom))}
 @media (prefers-reduced-motion:reduce){.medal{animation:none}}
 :is(body,body.light) .ph .avatar{background:var(--bg);border:0;box-shadow:none}
+.msg-time{padding:8px 12px;border-radius:14px;border:0;background:var(--inner);color:var(--txt);font-size:14px;font-family:inherit;box-shadow:inset 0 0 0 1px var(--g-edge);outline:none}
 </style>
 </head>
 <body class="dark">
@@ -914,6 +915,7 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
                 <h3>Шрифт</h3>
                 <div class="fonts" id="fonts"></div>
             </div>
+            <div class="glass profile-item" onclick="openSubpage('messages')"><span>🔔 Сообщения</span><span class="arrow">›</span></div>
             <div class="glass profile-item" id="installItem" onclick="installApp()"><span>📲 Установить приложение</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="exportData()"><span>📤 Экспорт данных</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="importData()"><span>📥 Импорт данных</span><span class="arrow">›</span></div>
@@ -931,6 +933,29 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
                 <h3>Напоминание о дедлайне</h3>
                 <p style="margin-bottom:10px">За час до срока задачи</p>
                 <div class="toggle-row"><span>Включить</span><div class="toggle-switch on" id="deadlineToggle" onclick="toggleDeadline()"></div></div>
+            </div>
+        </div>
+        <div class="subpage" id="subpage-messages">
+            <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Сообщения</div></div>
+            <div class="glass subpage-card">
+                <h3>Время сообщений</h3>
+                <p style="margin-bottom:14px">Выбери, когда присылать напоминания.</p>
+                <div class="toggle-row">
+                    <span>Утро</span>
+                    <input type="time" id="msgMorning" class="msg-time" onchange="saveMsgTime('morning', this.value)">
+                </div>
+                <div class="toggle-row">
+                    <span>День</span>
+                    <input type="time" id="msgDay" class="msg-time" onchange="saveMsgTime('day', this.value)">
+                </div>
+                <div class="toggle-row">
+                    <span>Вечер</span>
+                    <input type="time" id="msgEvening" class="msg-time" onchange="saveMsgTime('evening', this.value)">
+                </div>
+            </div>
+            <div class="glass subpage-card">
+                <h3>Включить</h3>
+                <div class="toggle-row"><span>Присылать сообщения</span><div class="toggle-switch on" id="msgToggle" onclick="toggleMessages()"></div></div>
             </div>
         </div>
     </div>
@@ -990,7 +1015,7 @@ function generateCode(name){ const clean = (name || 'USER').replace(/[^A-Za-z0-9
 </script>
 
 <script>
-let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,uid:null,myCode:'',theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,aboutSeen:false,owned:[],accent:'',tint:false,font:'',sound:false,cnt:{tasks:0,focus:0},frame:'',freezes:0,history:{},friends:[],friendsData:[],dayClosed:false,calm:false,reviews:{},deadlineOn:true,tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
+let state={xp:0,level:1,streak:1,coins:0,goalName:"3000 приседаний",goalCurrent:0,goalTotal:3000,goalDoneToday:false,subscribed:false,trialStart:null,user:null,uid:null,myCode:'',theme:'dark',completedDays:[],charName:'',avatar:'👤',avatarUrl:'',goals:[],onboardingDone:false,aboutSeen:false,owned:[],accent:'',tint:false,font:'',sound:false,cnt:{tasks:0,focus:0},frame:'',freezes:0,history:{},friends:[],friendsData:[],dayClosed:false,calm:false,reviews:{},deadlineOn:true,msgOn:true,msgTimes:{morning:'09:00',day:'14:00',evening:'20:00'},msgSent:{},tasks:[{text:"Сделать домашку по математике",xp:50,done:false},{text:"Прочитать 20 страниц",xp:30,done:false},{text:"Тренировка 1.5 часа",xp:100,done:false}]};
 const XP_PER_LEVEL=100;
 const demoLeaders = [{name:'Иван',xp:2450,avatar:'😎'},{name:'Мария',xp:2100,avatar:'🦊'},{name:'Алексей',xp:1850,avatar:'🐯'},{name:'Анна',xp:1520,avatar:'🦄'},{name:'Дмитрий',xp:1280,avatar:'🤖'}];
 const ADVICE={'Сон':'Ложись на 30 минут раньше. Сон — база дисциплины.','Телефон':'Убери телефон в другую комнату на 1 час.','Усталость':'Сделай 1 задание из 3. Меньше — но сегодня.','Нет плана':'Утром напиши 3 главные задачи. Остальное — по желанию.','Тяжело начать':'Правило 2 минут: открой файл и сделай 1 действие.','Ничего':'Отлично! Держи темп.'};
@@ -1095,7 +1120,7 @@ function checkName(){const val=document.getElementById('charName').value.trim();
 function goToStep(step){document.querySelectorAll('.onboarding-step').forEach(s=>s.classList.remove('active'));document.getElementById('step'+step).classList.add('active');document.querySelectorAll('.onboarding-progress .dot').forEach((d,i)=>{if(i<step)d.classList.add('active');else d.classList.remove('active')});if(step===2)updateAllAvatars()}
 function finishOnboarding(){const name=document.getElementById('charName').value.trim();if(!name){showToast('Введи имя');return}state.charName=name;state.onboardingDone=true;if(!state.myCode)state.myCode=genCode(name);save();document.getElementById('charNameMain').textContent=name;document.getElementById('profileName').textContent=name;document.getElementById('myCode').textContent=state.myCode;document.getElementById('onboardingOverlay').classList.remove('show');updateAllAvatars();syncSoon();setTimeout(()=>{if(!state.trialStart)startTrial();else checkTrial()},500);setTimeout(refreshBoard,1500)}
 
-function renderLeaderboard(){const list=document.getElementById('leaderboardList');if(!list)return;const u=window.firebaseAuth&&window.firebaseAuth.currentUser,uid=u?u.uid:null;const src=boardGlobal?board.filter(p=>p.uid!==uid):demoLeaders;const all=src.map(p=>({name:p.name,xp:p.xp,avatar:p.avatar,avatarUrl:'',me:false}));if(state.charName)all.push({name:state.charName,xp:state.xp,avatar:state.avatar,avatarUrl:state.avatarUrl,me:true});all.sort((a,b)=>b.xp-a.xp);const idx=all.findIndex(p=>p.me);state.place=idx+1;const bd=document.getElementById('globalBadge');if(bd)bd.textContent=boardGlobal?'Мировой':'Демо';list.innerHTML='';all.map((p,i)=>({p,i})).filter(o=>o.i<7||o.p.me).forEach(({p,i})=>{const av=p.avatarUrl?'<img src="'+esc(p.avatarUrl)+'" alt="">':esc(p.avatar||'👤');const div=document.createElement('div');div.className='leader-row'+(p.me?' me':'');div.innerHTML='<div class="leader-rank">'+(i+1)+'</div><div class="leader-avatar">'+av+'</div><div class="leader-name">'+esc(p.name)+(p.me?' (ты)':'')+'</div><div class="leader-xp '+(p.me?'me':'')+'">'+p.xp+' XP</div>';list.appendChild(div)});const rk=document.getElementById('charRankMain');if(rk&&state.charName)rk.textContent=rankTitle(state.level)+' · место #'+state.place}
+function renderLeaderboard(){const list=document.getElementById('leaderboardList');if(!list)return;const u=window.firebaseAuth&&window.firebaseAuth.currentUser,uid=u?u.uid:null;const src=boardGlobal?board.filter(p=>p.uid!==uid):[];const all=src.map(p=>({name:p.name,xp:p.xp,avatar:p.avatar,avatarUrl:'',me:false}));if(state.charName)all.push({name:state.charName,xp:state.xp,avatar:state.avatar,avatarUrl:state.avatarUrl,me:true});all.sort((a,b)=>b.xp-a.xp);const idx=all.findIndex(p=>p.me);state.place=idx+1;const bd=document.getElementById('globalBadge');if(bd)bd.textContent=boardGlobal?'Мировой':'Демо';list.innerHTML='';if(!boardGlobal&&!all.length){list.innerHTML='<div class="empty">Загрузка рейтинга…</div>';const rk0=document.getElementById('charRankMain');if(rk0&&state.charName)rk0.textContent=rankTitle(state.level);return}all.map((p,i)=>({p,i})).filter(o=>o.i<7||o.p.me).forEach(({p,i})=>{const av=p.avatarUrl?'<img src="'+esc(p.avatarUrl)+'" alt="">':esc(p.avatar||'👤');const div=document.createElement('div');div.className='leader-row'+(p.me?' me':'');div.innerHTML='<div class="leader-rank">'+(i+1)+'</div><div class="leader-avatar">'+av+'</div><div class="leader-name">'+esc(p.name)+(p.me?' (ты)':'')+'</div><div class="leader-xp '+(p.me?'me':'')+'">'+p.xp+' XP</div>';list.appendChild(div)});const rk=document.getElementById('charRankMain');if(rk&&state.charName)rk.textContent=rankTitle(state.level)+' · место #'+state.place}
 function renderCalendar(){const grid=document.getElementById('calendarGrid');const monthLabel=document.getElementById('calendarMonth');if(!grid)return;const now=new Date();const year=now.getFullYear();const month=now.getMonth();const today=now.getDate();const mn=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];monthLabel.textContent=mn[month]+' '+year;const firstDay=new Date(year,month,1).getDay();const daysInMonth=new Date(year,month+1,0).getDate();const offset=firstDay===0?6:firstDay-1;grid.innerHTML='';for(let i=0;i<offset;i++){const empty=document.createElement('div');empty.className='calendar-day empty';grid.appendChild(empty)}for(let day=1;day<=daysInMonth;day++){const d=document.createElement('div');d.className='calendar-day';d.textContent=day;const dateKey=year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');if(state.completedDays.includes(dateKey))d.classList.add('done');if(day===today)d.classList.add('today');grid.appendChild(d)}}
 function markTodayCompleted(){const now=new Date();const dateKey=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');if(!state.completedDays.includes(dateKey)){state.completedDays.push(dateKey);state.streak=calcStreak();state.coins+=10;save();renderCalendar();burst();beep('done')}}
 
@@ -1147,7 +1172,51 @@ function checkDeadlines(){
     });
 }
 function updateNotifStatus(){const el=document.getElementById('notifStatus');const btn=document.getElementById('notifBtn');if(!el)return;if(!('Notification' in window)){el.textContent='Не поддерживается';return}if(Notification.permission==='granted'){el.textContent='✅ Разрешены';btn.textContent='Тест';btn.onclick=()=>sendNotification('Тест','Работает!')}else{el.textContent='Не запрошено';btn.textContent='Разрешить';btn.onclick=requestNotificationPermission}}
-setInterval(()=>{scheduleNotifications();checkDeadlines()},60000);
+/* ===== Сообщения по времени ===== */
+const MSG_TEXT = {
+    morning: { title: 'Доброе утро! ☀️', body: 'Пора прокачивать дисциплину. Начни с одного задания.' },
+    day:     { title: 'Как дела? 🌤',    body: 'Проверь задания. Даже одно выполненное — уже шаг.' },
+    evening: { title: 'Вечерний отчёт 🌙', body: 'Закрой день: посмотри, что выполнено, и отметь прогресс.' }
+};
+function openMsgSettings(){
+    const g = id => document.getElementById(id);
+    if(g('msgMorning')) g('msgMorning').value = state.msgTimes.morning;
+    if(g('msgDay'))     g('msgDay').value     = state.msgTimes.day;
+    if(g('msgEvening')) g('msgEvening').value = state.msgTimes.evening;
+    const t = g('msgToggle');
+    if(t) t.classList.toggle('on', !!state.msgOn);
+}
+function saveMsgTime(slot, value){
+    if(!value) return;
+    state.msgTimes[slot] = value;
+    save();
+    showToast('Время сохранено: ' + value);
+}
+function toggleMessages(){
+    state.msgOn = !state.msgOn;
+    const t = document.getElementById('msgToggle');
+    if(t) t.classList.toggle('on', state.msgOn);
+    save();
+    showToast(state.msgOn ? 'Сообщения включены' : 'Сообщения выключены');
+}
+function checkScheduledMessages(){
+    if(!state.msgOn) return;
+    if(!('Notification' in window) || Notification.permission !== 'granted') return;
+    const now = new Date();
+    const today = dk(now);
+    const hhmm = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    ['morning','day','evening'].forEach(slot => {
+        const t = state.msgTimes[slot];
+        if(!t) return;
+        if(hhmm === t && state.msgSent[slot] !== today){
+            const m = MSG_TEXT[slot];
+            sendNotification(m.title, m.body);
+            state.msgSent[slot] = today;
+            save();
+        }
+    });
+}
+setInterval(()=>{scheduleNotifications();checkDeadlines();checkScheduledMessages()},30000);
 
 function checkTrial(){if(!state.trialStart){state.trialStart=Date.now();save()}const e=Date.now()-state.trialStart;if(e>=3*24*60*60*1000&&!state.subscribed)document.getElementById('paywallOverlay').classList.add('show')}
 function startTrial(){document.getElementById('welcomeOverlay').classList.add('hidden');state.trialStart=Date.now();save();showToast("3 дня бесплатно")}
@@ -1216,7 +1285,8 @@ function renderShop(){document.getElementById('shopCoins').textContent=state.coi
 function buy(id){const it=SHOP.find(x=>x.id===id);if(state.coins<it.price){showToast('Не хватает коинов');return}state.coins-=it.price;if(it.type==='frame'){state.owned.push(id);state.frame=id;applyFrame()}else state.freezes++;save();updateAll();renderShop();showToast('Куплено')}
 function equip(id){state.frame=id;applyFrame();save();renderShop()}
 function applyFrame(){document.body.dataset.frame=state.frame||''}
-function openSubpage(n){document.getElementById('profileMain').classList.remove('active');document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('subpage-'+n).classList.add('active');if(n==='notifications')setTimeout(updateNotifStatus,50);if(n==='avatar')updateAllAvatars();if(n==='shop')renderShop();if(n==='ach')renderAch();if(n==='settings'){renderSwatches();renderFonts();const sg=document.getElementById('soundToggle');if(sg)sg.classList.toggle('on',!!state.sound);const tg=document.getElementById('tintToggle');if(tg)tg.classList.toggle('on',!!state.tint)}if(n==='friends')renderFriendsList();if(n==='review')setTimeout(updateReviewStats,50);const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn)}
+function openSubpage(n){document.getElementById('profileMain').classList.remove('active');document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('subpage-'+n).classList.add('active');if(n==='notifications')setTimeout(updateNotifStatus,50);
+    if(n==='messages')setTimeout(openMsgSettings,50);if(n==='avatar')updateAllAvatars();if(n==='shop')renderShop();if(n==='ach')renderAch();if(n==='settings'){renderSwatches();renderFonts();const sg=document.getElementById('soundToggle');if(sg)sg.classList.toggle('on',!!state.sound);const tg=document.getElementById('tintToggle');if(tg)tg.classList.toggle('on',!!state.tint)}if(n==='friends')renderFriendsList();if(n==='review')setTimeout(updateReviewStats,50);const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn)}
 function closeSubpage(){document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('profileMain').classList.add('active')}
 function updateAll(){
     state.level=Math.floor(state.xp/XP_PER_LEVEL)+1;
@@ -1258,6 +1328,7 @@ window.addEventListener('load',()=>setTimeout(()=>moveIndicator(0),50));
 setTimeout(refreshBoard,1500);
 setInterval(checkTrial,30000);
 setTimeout(fRestore,300);
+setTimeout(openMsgSettings,500);
 document.querySelectorAll('.toggle-switch').forEach(e=>{e.setAttribute('role','switch');e.tabIndex=0;e.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();e.click()}})});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&(e.target.id==='taskTextInput'||e.target.id==='taskDueInput')){e.preventDefault();saveTask()}if(e.key==='Escape')document.querySelectorAll('#taskModal.show,#levelModal.show').forEach(m=>m.classList.remove('show'))});
 if(matchMedia('(display-mode: standalone)').matches||navigator.standalone){const ii=document.getElementById('installItem');if(ii)ii.style.display='none'}
@@ -1271,3 +1342,4 @@ if(/Chrome\//.test(navigator.userAgent)&&!/CriOS|FxiOS|EdgiOS/.test(navigator.us
 </script>
 </body>
 </html>
+
