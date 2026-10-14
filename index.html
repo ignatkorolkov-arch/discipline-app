@@ -1829,14 +1829,65 @@ function markGoalDone(){if(state.dev){const dpi=document.getElementById('devPane
 if(state.goalDoneToday){showToast("Уже");return}state.goalDoneToday=true;state.goalCurrent=Math.min(state.goalTotal,state.goalCurrent+Math.ceil(state.goalTotal/30));logXP(50);state.coins+=20;const b=document.getElementById('goalDoneBtn');b.textContent="Выполнено";b.classList.add('done');markTodayCompleted();save();updateAll();showToast("+50 XP, +20 🪙")}
 function resetProgress(){if(confirm("Сбросить всё?")){localStorage.removeItem('dd_state');location.reload()}}
 const SHOP=[
+    /* === Рамки === */
+    {id:'ring',           name:'Рамка «Кольцо»',        price:100, type:'frame'},
+    {id:'double',         name:'Рамка «Двойная»',       price:200, type:'frame'},
+    {id:'glow',           name:'Рамка «Свечение»',      price:300, type:'frame'},
+    {id:'pulse',          name:'Рамка «Пульс»',         price:400, type:'frame'},
+    {id:'fire',           name:'Рамка «Огонь»',         price:500, type:'frame'},
+    {id:'cosmos',         name:'Рамка «Космос»',        price:650, type:'frame'},
+    {id:'frame-rainbow',  name:'Рамка «Радуга»',        price:500, type:'frame'},
+    {id:'frame-gold',     name:'Рамка «Золото»',        price:450, type:'frame'},
+    {id:'frame-pixel',    name:'Рамка «Пиксель»',       price:300, type:'frame'},
+    {id:'frame-matrix',   name:'Рамка «Матрица»',       price:400, type:'frame'},
 
-{id:'sound-retro',name:'Звук «Ретро 8-бит»',price:300,type:'sound'},{id:'sound-soft',name:'Звук «Мягкий»',price:250,type:'sound'},{id:'sound-cosmos',name:'Звук «Космос»',price:400,type:'sound'},{id:'sound-zen',name:'Звук «Дзен»',price:350,type:'sound'},
-{id:'frame-rainbow',name:'Рамка «Радуга»',price:500,type:'frame'},{id:'frame-gold',name:'Рамка «Золото»',price:450,type:'frame'},{id:'frame-pixel',name:'Рамка «Пиксель»',price:300,type:'frame'},{id:'frame-matrix',name:'Рамка «Матрица»',price:400,type:'frame'},{id:'effect-snow',name:'Эффект «Снег»',price:350,type:'effect'},{id:'effect-fire',name:'Эффект «Огонь»',price:400,type:'effect'},{id:'effect-lightning',name:'Эффект «Молния»',price:450,type:'effect'},{id:'effect-aura',name:'Эффект «Аура»',price:350,type:'effect'},{id:'theme-retro',name:'Тема «Ретро»',price:300,type:'theme'},{id:'theme-neon',name:'Тема «Неон»',price:350,type:'theme'},{id:'theme-mint',name:'Тема «Мята»',price:300,type:'theme'},{id:'theme-coffee',name:'Тема «Кофе»',price:300,type:'theme'},{id:'title-master',name:'Титул «Мастер дисциплины»',price:200,type:'title'},{id:'title-legend',name:'Титул «Легенда»',price:300,type:'title'},{id:'theme-cosmos',name:'Тема «Космос»',price:300,type:'theme'},{id:'theme-sakura',name:'Тема «Сакура»',price:300,type:'theme'},{id:'theme-pine',name:'Тема «Хвоя»',price:300,type:'theme'},{id:'theme-sunset',name:'Тема «Закат»',price:350,type:'theme'},{id:'theme-ice',name:'Тема «Лёд»',price:300,type:'theme'},{id:'theme-blood',name:'Тема «Кровь»',price:350,type:'theme'},{id:'ring',name:'Рамка «Кольцо»',price:100,type:'frame'},{id:'double',name:'Рамка «Двойная»',price:200,type:'frame'},{id:'glow',name:'Рамка «Свечение»',price:300,type:'frame'},{id:'pulse',name:'Рамка «Пульс»',price:400,type:'frame'},{id:'fire',name:'Рамка «Огонь»',price:500,type:'frame'},{id:'cosmos',name:'Рамка «Космос»',price:650,type:'frame'},{id:'freeze',name:'Заморозка серии',price:150,type:'item'},{id:'particles',name:'Эффект «Частицы»',price:350,type:'effect'},{id:'theme-dawn',name:'Тема «Рассвет»',price:250,type:'theme'}];
+    /* === Эффекты === */
+    {id:'particles',      name:'Эффект «Частицы»',      price:350, type:'effect'},
+    {id:'effect-snow',    name:'Эффект «Снег»',         price:350, type:'effect'},
+    {id:'effect-fire',    name:'Эффект «Огонь»',        price:400, type:'effect'},
+    {id:'effect-lightning', name:'Эффект «Молния»',     price:450, type:'effect'},
+    {id:'effect-aura',    name:'Эффект «Аура»',         price:350, type:'effect'},
+
+    /* === Темы === */
+    {id:'theme-cosmos',   name:'Тема «Космос»',         price:300, type:'theme'},
+    {id:'theme-sakura',   name:'Тема «Сакура»',         price:300, type:'theme'},
+    {id:'theme-pine',     name:'Тема «Хвоя»',           price:300, type:'theme'},
+    {id:'theme-sunset',   name:'Тема «Закат»',          price:350, type:'theme'},
+    {id:'theme-ice',      name:'Тема «Лёд»',            price:300, type:'theme'},
+    {id:'theme-blood',    name:'Тема «Кровь»',          price:350, type:'theme'},
+    {id:'theme-retro',    name:'Тема «Ретро»',          price:300, type:'theme'},
+    {id:'theme-neon',     name:'Тема «Неон»',           price:350, type:'theme'},
+    {id:'theme-mint',     name:'Тема «Мята»',           price:300, type:'theme'},
+    {id:'theme-coffee',   name:'Тема «Кофе»',           price:300, type:'theme'},
+
+    /* === Звуки === */
+    {id:'sound-retro',    name:'Звук «Ретро 8-бит»',    price:300, type:'sound'},
+    {id:'sound-soft',     name:'Звук «Мягкий»',         price:250, type:'sound'},
+    {id:'sound-cosmos',   name:'Звук «Космос»',         price:400, type:'sound'},
+    {id:'sound-zen',      name:'Звук «Дзен»',           price:350, type:'sound'},
+
+    /* === Титулы === */
+    {id:'title-master',   name:'Титул «Мастер дисциплины»', price:200, type:'title'},
+    {id:'title-legend',   name:'Титул «Легенда»',       price:300, type:'title'},
+
+    /* === Прочее === */
+    {id:'freeze',         name:'Заморозка серии',       price:150, type:'item'}
+];
 function renderShop(){
     const el = document.getElementById('shopCoins'); if(el) el.textContent = state.coins;
     const list = document.getElementById('shopList'); if(!list) return;
     state.owned = state.owned || [];
-    list.innerHTML = SHOP.map(it=>{
+
+    const GROUPS = [
+        { type:'frame',  title:'🖼️ Рамки'    },
+        { type:'effect', title:'✨ Эффекты'  },
+        { type:'theme',  title:'🎨 Темы'     },
+        { type:'sound',  title:'🎵 Звуки'    },
+        { type:'title',  title:'🏆 Титулы'   },
+        { type:'item',   title:'🧊 Прочее'   }
+    ];
+
+    function renderItem(it){
         let b;
         const owned = state.owned.includes(it.id);
         if(it.type === 'frame'){
@@ -1856,13 +1907,6 @@ function renderShop(){
                     ? '<button class="shop-btn on" onclick="clearShopTheme()">Сбросить</button>'
                     : '<button class="shop-btn" onclick="applyShopTheme(\'' + it.id + '\')">Применить</button>')
                 : '<button class="shop-btn" onclick="buy(\'' + it.id + '\')">' + it.price + ' 🪙</button>';
-        } else if(it.type === 'title'){
-            const active = state.title === it.id;
-            b = owned
-                ? (active
-                    ? '<button class="shop-btn on" onclick="clearTitle()">Снять</button>'
-                    : '<button class="shop-btn" onclick="applyTitle(\'' + it.id + '\')">Надеть</button>')
-                : '<button class="shop-btn" onclick="buy(\'' + it.id + '\')">' + it.price + ' 🪙</button>';
         } else if(it.type === 'sound'){
             const active = (state.soundSet || 'sound-default') === it.id;
             b = owned
@@ -1870,11 +1914,27 @@ function renderShop(){
                     ? '<button class="shop-btn on" onclick="clearSoundSet()">Сбросить</button>'
                     : '<button class="shop-btn" onclick="applySoundSet(\'' + it.id + '\')">Выбрать</button>')
                 : '<button class="shop-btn" onclick="buy(\'' + it.id + '\')">' + it.price + ' 🪙</button>';
+        } else if(it.type === 'title'){
+            const active = state.title === it.id;
+            b = owned
+                ? (active
+                    ? '<button class="shop-btn on" onclick="clearTitle()">Снять</button>'
+                    : '<button class="shop-btn" onclick="applyTitle(\'' + it.id + '\')">Надеть</button>')
+                : '<button class="shop-btn" onclick="buy(\'' + it.id + '\')">' + it.price + ' 🪙</button>';
         } else {
             b = '<button class="shop-btn" onclick="buy(\'' + it.id + '\')">' + it.price + ' 🪙</button>';
         }
-        return '<div class="glass profile-item"><span>' + it.name + (it.id === 'freeze' ? ' · ' + state.freezes + ' шт.' : '') + '</span>' + b + '</div>';
-    }).join('');
+        return '<div class="glass profile-item"><span>' + it.name + (it.id === 'freeze' ? ' · ' + (state.freezes||0) + ' шт.' : '') + '</span>' + b + '</div>';
+    }
+
+    let html = '';
+    GROUPS.forEach(g => {
+        const items = SHOP.filter(it => it.type === g.type);
+        if(!items.length) return;
+        html += '<div style="margin:18px 4px 8px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sub);position:relative;z-index:2">' + g.title + '</div>';
+        html += items.map(renderItem).join('');
+    });
+    list.innerHTML = html;
 }
 
 function toggleEffect(id){
@@ -1916,42 +1976,16 @@ function clearShopTheme(){
     showToast('Тема сброшена');
 }/* ===== THEMES_V7 ===== */
 const THEMES_V7 = {
-    'theme-cosmos': { name:'Космос',
-        bg:'radial-gradient(120% 100% at 20% 0%, #0d1b3a 0%, #050814 45%, #000 100%)',
-        gBg:'linear-gradient(145deg, rgba(120,180,255,.10), rgba(60,100,200,.03) 45%, rgba(120,180,255,.06))',
-        gEdge:'rgba(120,180,255,.22)', inner:'rgba(120,180,255,.06)',
-        accent:'#64d2ff', tint:true, light:false,
-        amb1:'#3a6bd6', amb2:'#1a2c5c', amb3:'#5a8ae8' },
-    'theme-sakura': { name:'Сакура',
-        bg:'radial-gradient(120% 100% at 20% 0%, #ffeaf1 0%, #ffd9e6 50%, #fff3f7 100%)',
-        gBg:'linear-gradient(145deg, rgba(255,255,255,.75), rgba(255,220,235,.25) 50%, rgba(255,255,255,.65))',
-        gEdge:'rgba(220,120,160,.28)', inner:'rgba(255,180,205,.18)',
-        accent:'#ff4d8d', tint:true, light:true,
-        amb1:'#ffb3cf', amb2:'#ff8fb8', amb3:'#ffd6e5' },
-    'theme-pine': { name:'Хвоя',
-        bg:'radial-gradient(120% 100% at 20% 0%, #0a1f14 0%, #04120a 55%, #000 100%)',
-        gBg:'linear-gradient(145deg, rgba(80,220,140,.10), rgba(40,120,80,.03) 45%, rgba(80,220,140,.06))',
-        gEdge:'rgba(80,220,140,.22)', inner:'rgba(80,220,140,.06)',
-        accent:'#30d158', tint:true, light:false,
-        amb1:'#1e6b3a', amb2:'#0a2e18', amb3:'#2f9e5a' },
-    'theme-sunset': { name:'Закат',
-        bg:'linear-gradient(160deg, #2a0e2e 0%, #6b1e3a 30%, #d14a2a 65%, #ffb347 100%)',
-        gBg:'linear-gradient(145deg, rgba(255,180,120,.18), rgba(255,90,60,.06) 50%, rgba(255,180,120,.12))',
-        gEdge:'rgba(255,180,120,.35)', inner:'rgba(255,180,120,.10)',
-        accent:'#ff7043', tint:true, light:false,
-        amb1:'#ff7043', amb2:'#c73e6b', amb3:'#ffb347' },
-    'theme-ice': { name:'Лёд',
-        bg:'radial-gradient(120% 100% at 20% 0%, #eaf6ff 0%, #cfe8fa 55%, #f5fbff 100%)',
-        gBg:'linear-gradient(145deg, rgba(255,255,255,.85), rgba(200,225,255,.35) 50%, rgba(255,255,255,.75))',
-        gEdge:'rgba(100,160,220,.28)', inner:'rgba(160,200,240,.20)',
-        accent:'#0a84ff', tint:true, light:true,
-        amb1:'#a8d4ff', amb2:'#7fb8e8', amb3:'#d6ecff' },
-    'theme-blood': { name:'Кровь',
-        bg:'radial-gradient(120% 100% at 20% 0%, #1a0208 0%, #2e0510 45%, #000 100%)',
-        gBg:'linear-gradient(145deg, rgba(255,60,60,.12), rgba(140,20,30,.04) 45%, rgba(255,60,60,.08))',
-        gEdge:'rgba(220,40,50,.32)', inner:'rgba(220,40,50,.08)',
-        accent:'#ff3b30', tint:true, light:false,
-        amb1:'#8a0f1a', amb2:'#3a0510', amb3:'#c81828' }
+    'theme-cosmos': { name:'Космос', bg:'radial-gradient(120% 100% at 20% 0%, #0d1b3a 0%, #050814 45%, #000 100%)', gBg:'linear-gradient(145deg, rgba(120,180,255,.10), rgba(60,100,200,.03) 45%, rgba(120,180,255,.06))', gEdge:'rgba(120,180,255,.22)', inner:'rgba(120,180,255,.06)', accent:'#64d2ff', tint:true, light:false, amb1:'#3a6bd6', amb2:'#1a2c5c', amb3:'#5a8ae8' },
+    'theme-sakura': { name:'Сакура', bg:'radial-gradient(120% 100% at 20% 0%, #ffeaf1 0%, #ffd9e6 50%, #fff3f7 100%)', gBg:'linear-gradient(145deg, rgba(255,255,255,.75), rgba(255,220,235,.25) 50%, rgba(255,255,255,.65))', gEdge:'rgba(220,120,160,.28)', inner:'rgba(255,180,205,.18)', accent:'#ff4d8d', tint:true, light:true, amb1:'#ffb3cf', amb2:'#ff8fb8', amb3:'#ffd6e5' },
+    'theme-pine':   { name:'Хвоя',   bg:'radial-gradient(120% 100% at 20% 0%, #0a1f14 0%, #04120a 55%, #000 100%)', gBg:'linear-gradient(145deg, rgba(80,220,140,.10), rgba(40,120,80,.03) 45%, rgba(80,220,140,.06))', gEdge:'rgba(80,220,140,.22)', inner:'rgba(80,220,140,.06)', accent:'#30d158', tint:true, light:false, amb1:'#1e6b3a', amb2:'#0a2e18', amb3:'#2f9e5a' },
+    'theme-sunset': { name:'Закат',  bg:'linear-gradient(160deg, #2a0e2e 0%, #6b1e3a 30%, #d14a2a 65%, #ffb347 100%)', gBg:'linear-gradient(145deg, rgba(255,180,120,.18), rgba(255,90,60,.06) 50%, rgba(255,180,120,.12))', gEdge:'rgba(255,180,120,.35)', inner:'rgba(255,180,120,.10)', accent:'#ff7043', tint:true, light:false, amb1:'#ff7043', amb2:'#c73e6b', amb3:'#ffb347' },
+    'theme-ice':    { name:'Лёд',    bg:'radial-gradient(120% 100% at 20% 0%, #eaf6ff 0%, #cfe8fa 55%, #f5fbff 100%)', gBg:'linear-gradient(145deg, rgba(255,255,255,.85), rgba(200,225,255,.35) 50%, rgba(255,255,255,.75))', gEdge:'rgba(100,160,220,.28)', inner:'rgba(160,200,240,.20)', accent:'#0a84ff', tint:true, light:true, amb1:'#a8d4ff', amb2:'#7fb8e8', amb3:'#d6ecff' },
+    'theme-blood':  { name:'Кровь',  bg:'radial-gradient(120% 100% at 20% 0%, #1a0208 0%, #2e0510 45%, #000 100%)', gBg:'linear-gradient(145deg, rgba(255,60,60,.12), rgba(140,20,30,.04) 45%, rgba(255,60,60,.08))', gEdge:'rgba(220,40,50,.32)', inner:'rgba(220,40,50,.08)', accent:'#ff3b30', tint:true, light:false, amb1:'#8a0f1a', amb2:'#3a0510', amb3:'#c81828' },
+    'theme-retro':  { name:'Ретро',  bg:'linear-gradient(160deg, #1a0f2e 0%, #3a1060 50%, #0a0420 100%)', gBg:'linear-gradient(145deg, rgba(255,80,200,.14), rgba(120,60,255,.05) 45%, rgba(255,80,200,.10))', gEdge:'rgba(255,80,200,.35)', inner:'rgba(255,80,200,.08)', accent:'#ff2ec4', tint:true, light:false, amb1:'#a020c0', amb2:'#3a1060', amb3:'#ff2ec4' },
+    'theme-neon':   { name:'Неон',   bg:'linear-gradient(160deg, #050514 0%, #0a0a2a 50%, #000010 100%)', gBg:'linear-gradient(145deg, rgba(0,255,255,.14), rgba(255,0,200,.08) 50%, rgba(0,255,255,.10))', gEdge:'rgba(0,255,255,.45)', inner:'rgba(0,255,255,.08)', accent:'#00e5ff', tint:true, light:false, amb1:'#00e5ff', amb2:'#ff2ec4', amb3:'#00c0ff' },
+    'theme-mint':   { name:'Мята',   bg:'radial-gradient(120% 100% at 20% 0%, #e6fff6 0%, #c8f5e0 55%, #f0fffa 100%)', gBg:'linear-gradient(145deg, rgba(255,255,255,.80), rgba(180,240,210,.35) 50%, rgba(255,255,255,.70))', gEdge:'rgba(80,200,150,.30)', inner:'rgba(120,220,180,.18)', accent:'#10b981', tint:true, light:true, amb1:'#7ee8b8', amb2:'#4fd8a0', amb3:'#b8f5d8' },
+    'theme-coffee': { name:'Кофе',   bg:'radial-gradient(120% 100% at 20% 0%, #2a1a12 0%, #1a0f0a 55%, #0a0503 100%)', gBg:'linear-gradient(145deg, rgba(200,140,80,.14), rgba(120,70,30,.05) 45%, rgba(200,140,80,.10))', gEdge:'rgba(200,140,80,.32)', inner:'rgba(200,140,80,.08)', accent:'#d4a373', tint:true, light:false, amb1:'#8a5a2e', amb2:'#3a2010', amb3:'#c88a4a' }
 };
 
 function applyShopTheme(id){
