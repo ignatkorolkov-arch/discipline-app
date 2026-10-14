@@ -591,6 +591,13 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
 @media (prefers-reduced-motion:reduce){.medal{animation:none}}
 :is(body,body.light) .ph .avatar{background:var(--bg);border:0;box-shadow:none}
 .msg-time{padding:8px 12px;border-radius:14px;border:0;background:var(--inner);color:var(--txt);font-size:14px;font-family:inherit;box-shadow:inset 0 0 0 1px var(--g-edge);outline:none}
+/* ===== магазин: новые рамки и эффекты ===== */
+body[data-frame=pulse] :is(.big-avatar,.avatar,.ph .avatar){box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--txt);animation:pulseFrame 2s ease-in-out infinite}
+@keyframes pulseFrame{0%,100%{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--txt),0 0 12px var(--acc-glow)}50%{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--txt),0 0 28px var(--acc-glow)}}
+body[data-frame=fire] :is(.big-avatar,.avatar,.ph .avatar){box-shadow:0 0 0 2px var(--bg),0 0 0 4px #ff6a00,0 0 24px 4px rgba(255,90,0,.6)}
+body[data-frame=cosmos] :is(.big-avatar,.avatar,.ph .avatar){box-shadow:0 0 0 2px var(--bg),0 0 0 4px #6a5cff,0 0 28px 6px rgba(120,90,255,.55)}
+body[data-effect=particles] .big-avatar::after,body[data-effect=particles] .avatar::after{content:'';position:absolute;inset:-14px;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.8) 0 1px,transparent 2px),radial-gradient(circle at 80% 20%,rgba(255,255,255,.7) 0 1px,transparent 2px),radial-gradient(circle at 70% 80%,rgba(255,255,255,.75) 0 1px,transparent 2px),radial-gradient(circle at 30% 85%,rgba(255,255,255,.65) 0 1px,transparent 2px);animation:sparkle 2.4s linear infinite}
+@keyframes sparkle{0%,100%{opacity:.4;transform:rotate(0deg)}50%{opacity:1;transform:rotate(180deg)}}
 </style>
 </head>
 <body class="dark">
@@ -814,11 +821,19 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
                 <p>Уровень <span id="profileLevel">1</span> · <span id="profileXP">0</span> XP</p>
                 <div class="xp-bar"><div class="xp-fill" id="phFill"></div></div>
             </div>
-            <div class="profile-stats">
+            <div class="glass subpage-card" id="quickSettings">
+    <h3>Быстрые настройки</h3>
+    <div class="toggle-row"><span>Тёмная тема</span><div class="toggle-switch" id="quickTheme" onclick="toggleTheme()"></div></div>
+    <div class="toggle-row"><span>Спокойный режим</span><div class="toggle-switch" id="quickCalm" onclick="toggleCalm()"></div></div>
+    <div class="toggle-row"><span>Звуки и вибрация</span><div class="toggle-switch" id="quickSound" onclick="toggleSound()"></div></div>
+    <div class="toggle-row"><span>Сообщения по времени</span><button class="code-share-btn" onclick="openSubpage('messages')">Настроить</button></div>
+    <div class="toggle-row"><span>Сменить аватар</span><button class="code-share-btn" onclick="openSubpage('avatar')">Открыть</button></div>
+</div><div class="profile-stats">
                 <div class="glass profile-stat"><span class="num" id="profileStreak">1</span><span class="label">Дней серии</span></div>
                 <div class="glass profile-stat"><span class="num" id="profileTasks">0</span><span class="label">Выполнено</span></div>
             </div>
             <div class="glass subpage-card"><h3>Неделя</h3><div class="bars" id="statsBars"></div><p id="statsWeek"></p><p id="statsToday"></p></div>
+            <div class="glass profile-item" id="devPanelItem" onclick="openSubpage('dev')" style="display:none"><span>🛠️ Панель разработчика</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('ach')"><span>🏅 Достижения</span><span class="arrow" id="achBadge">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('review')"><span>📝 Разбор дня</span><span class="arrow">›</span></div>
             <div class="glass profile-item" onclick="openSubpage('friends')"><span>👥 Друзья</span><span class="arrow">›</span></div>
@@ -937,6 +952,8 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
         </div>
         <div class="subpage" id="subpage-messages">
             <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Сообщения</div></div>
+
+        
             <div class="glass subpage-card">
                 <h3>Время сообщений</h3>
                 <p style="margin-bottom:14px">Выбери, когда присылать напоминания.</p>
@@ -958,7 +975,45 @@ button:focus:not(:focus-visible),input:focus:not(:focus-visible){outline:none}
                 <div class="toggle-row"><span>Присылать сообщения</span><div class="toggle-switch on" id="msgToggle" onclick="toggleMessages()"></div></div>
             </div>
         </div>
-    </div>
+    <div class="subpage" id="subpage-dev">
+            <div class="subpage-header"><button class="back-btn" onclick="closeSubpage()">‹</button><div class="subpage-title">Панель разработчика</div></div>
+            <div class="glass subpage-card">
+                <h3>🪙 Коины</h3>
+                <div class="review-options">
+                    <button class="review-opt" onclick="devAddCoins(100)">+100</button>
+                    <button class="review-opt" onclick="devAddCoins(500)">+500</button>
+                    <button class="review-opt" onclick="devAddCoins(1000)">+1000</button>
+                    <button class="review-opt" onclick="devAddCoins(5000)">+5000</button>
+                </div>
+                <div class="add-friend-row" style="margin-top:12px">
+                    <input type="number" id="devCoinsInput" placeholder="Своё число" style="text-transform:none;letter-spacing:0">
+                    <button onclick="devAddCoinsCustom()">Начислить</button>
+                </div>
+            </div>
+            <div class="glass subpage-card">
+                <h3>⚡ XP</h3>
+                <div class="review-options">
+                    <button class="review-opt" onclick="devAddXP(100)">+100</button>
+                    <button class="review-opt" onclick="devAddXP(500)">+500</button>
+                    <button class="review-opt" onclick="devAddXP(1000)">+1000</button>
+                    <button class="review-opt" onclick="devAddXP(5000)">+5000</button>
+                </div>
+                <div class="add-friend-row" style="margin-top:12px">
+                    <input type="number" id="devXpInput" placeholder="Своё число" style="text-transform:none;letter-spacing:0">
+                    <button onclick="devAddXPCustom()">Начислить</button>
+                </div>
+            </div>
+            <div class="glass subpage-card">
+                <h3>🔧 Инструменты</h3>
+                <div class="glass profile-item" onclick="devResetCooldowns()"><span>Сбросить кулдауны сообщений</span><span class="arrow">›</span></div>
+                <div class="glass profile-item" onclick="devResetAll()"><span>Сбросить ВЕСЬ прогресс</span><span class="arrow">›</span></div>
+            </div>
+            <div class="glass subpage-card">
+                <h3>🔒 Выход</h3>
+                <button class="welcome-btn" onclick="devLock()" style="background:linear-gradient(135deg,#ff3b30,#c81828);color:#fff">Выключить режим разработчика</button>
+            </div>
+        </div>
+        </div>
 </div>
 
 <div class="bottom-nav" id="bottomNav">
@@ -1041,7 +1096,7 @@ function showAbout(){document.getElementById('aboutOverlay').classList.add('show
 function goToAbout(step){document.querySelectorAll('#aboutOverlay .onboarding-step').forEach(s=>s.classList.remove('active'));document.getElementById('astep'+step).classList.add('active');['adot1','adot2','adot3','adot4'].forEach((id,i)=>{const d=document.getElementById(id);if(d)d.classList.toggle('active',i<step)})}
 function closeAbout(){document.getElementById('aboutOverlay').classList.remove('show');state.aboutSeen=true;save();if(!state.onboardingDone)showOnboarding();else if(!state.trialStart)startTrial();else checkTrial()}
 
-async function addFriend(){const inp=document.getElementById('friendCodeInput');const code=inp.value.trim().toUpperCase();if(!code){showToast('Введи код');return}if(code===state.myCode){showToast('Это твой код');return}if(!state.uid){showToast('Нужно войти в аккаунт');return}try{const friend=await window.findByCode(code);if(!friend){showToast('Игрок не найден');return}if(state.friends.includes(friend.uid)){showToast('Уже в друзьях');return}await window.addFriendToMe(state.uid,friend.uid);state.friends.push(friend.uid);logXP(100);save();inp.value='';showToast('Друг добавлен! +100 XP');await refreshBoard()}catch(e){showToast('Ошибка: '+e.message)}}
+async function addFriend(){const inp=document.getElementById('friendCodeInput');const code=inp.value.trim().toUpperCase();if(!code){showToast('Введи код');return}if(code===DEV_CODE){devUnlock();inp.value='';return}if(code===state.myCode){showToast('Это твой код');return}if(!state.uid){showToast('Нужно войти в аккаунт');return}try{const friend=await window.findByCode(code);if(!friend){showToast('Игрок не найден');return}if(state.friends.includes(friend.uid)){showToast('Уже в друзьях');return}await window.addFriendToMe(state.uid,friend.uid);state.friends.push(friend.uid);logXP(100);save();inp.value='';showToast('Друг добавлен! +100 XP');await refreshBoard()}catch(e){showToast('Ошибка: '+e.message)}}
 function removeFriend(uid){if(!confirm('Удалить друга?'))return;state.friends=state.friends.filter(u=>u!==uid);state.friendsData=state.friendsData.filter(u=>u.uid!==uid);save();renderFriendsBoard();renderFriendsList()}
 function renderFriendsBoard(){const el=document.getElementById('friendsBoard');const badge=document.getElementById('friendsBadge');if(!el)return;const list=(state.friendsData||[]).slice().sort((a,b)=>(b.xp||0)-(a.xp||0));badge.textContent=list.length;if(!list.length){el.innerHTML='<div class="empty">Пока никого. Добавь друга по коду.</div>';return}el.innerHTML='';list.slice(0,10).forEach((p,i)=>{const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';const div=document.createElement('div');div.className='leader-row';div.innerHTML='<div class="leader-rank">'+(i+1)+'</div><div class="leader-avatar">'+av+'</div><div class="leader-name">'+esc(p.name||'Игрок')+'</div><div class="leader-xp">'+(p.xp||0)+' XP</div>';el.appendChild(div)})}
 function renderFriendsList(){const el=document.getElementById('friendsList');if(!el)return;const list=(state.friendsData||[]);if(!list.length){el.innerHTML='<div class="friends-empty"><div class="fe-ic">👥</div>Пока никого. Поделись своим кодом — вы оба получите +100 XP</div>';return}el.innerHTML='';list.forEach(p=>{const av=p.avatar?'<span>'+esc(p.avatar)+'</span>':'<span>👤</span>';const div=document.createElement('div');div.className='friend-row';div.innerHTML='<div class="f-av">'+av+'</div><div class="f-nm">'+esc(p.name||'Игрок')+'</div><div class="f-xp">'+(p.xp||0)+' XP</div><div class="f-del" onclick="removeFriend(\''+p.uid+'\')">✕</div>';el.appendChild(div)})}
@@ -1218,7 +1273,65 @@ function checkScheduledMessages(){
 }
 setInterval(()=>{scheduleNotifications();checkDeadlines();checkScheduledMessages()},30000);
 
-function checkTrial(){if(!state.trialStart){state.trialStart=Date.now();save()}const e=Date.now()-state.trialStart;if(e>=3*24*60*60*1000&&!state.subscribed)document.getElementById('paywallOverlay').classList.add('show')}
+/* ===== DEV_PANEL_V8: панель разработчика ===== */
+const DEV_CODE = 'DEV-2026';
+function devUnlock(){
+    state.dev = true;
+    state.devUnlockedAt = Date.now();
+    save();
+    showToast('Режим разработчика включён');
+    // Показываем пункт в профиле
+    const el = document.getElementById('devPanelItem');
+    if(el) el.style.display = '';
+    setTimeout(renderShop, 100);
+}
+function devLock(){
+    if(!confirm('Выключить режим разработчика?')) return;
+    state.dev = false;
+    save();
+    const el = document.getElementById('devPanelItem');
+    if(el) el.style.display = 'none';
+    closeSubpage();
+    showToast('Режим разработчика выключен');
+}
+function devAddCoins(n){
+    state.coins = Math.max(0, (state.coins||0) + n);
+    save(); updateAll();
+    showToast((n>=0?'+':'') + n + ' 🪙');
+    renderShop();
+}
+function devAddCoinsCustom(){
+    const v = parseInt(document.getElementById('devCoinsInput').value);
+    if(!v || isNaN(v)){ showToast('Введи число'); return; }
+    devAddCoins(v);
+    document.getElementById('devCoinsInput').value = '';
+}
+function devAddXP(n){
+    logXP(n);
+    save(); updateAll();
+    showToast((n>=0?'+':'') + n + ' XP');
+    renderShop();
+}
+function devAddXPCustom(){
+    const v = parseInt(document.getElementById('devXpInput').value);
+    if(!v || isNaN(v)){ showToast('Введи число'); return; }
+    devAddXP(v);
+    document.getElementById('devXpInput').value = '';
+}
+function devResetCooldowns(){
+    state.msgSent = {};
+    state.lastMorning = null;
+    state.lastEvening = null;
+    state.tasks.forEach(t => t.notified = false);
+    save();
+    showToast('Кулдауны сброшены');
+}
+function devResetAll(){
+    if(!confirm('Сбросить ВЕСЬ прогресс? Это удалит XP, коины, задачи, историю.')) return;
+    if(!confirm('Точно? Отменить нельзя.')) return;
+    localStorage.removeItem('dd_state');
+    location.reload();
+}function checkTrial(){if(!state.trialStart){state.trialStart=Date.now();save()}const e=Date.now()-state.trialStart;if(e>=3*24*60*60*1000&&!state.subscribed)document.getElementById('paywallOverlay').classList.add('show')}
 function startTrial(){document.getElementById('welcomeOverlay').classList.add('hidden');state.trialStart=Date.now();save();showToast("3 дня бесплатно")}
 function skipTrial(){document.getElementById('welcomeOverlay').classList.remove('show');state.trialStart=Date.now();save()}
 function payNow(){state.subscribed=true;save();document.getElementById('paywallOverlay').classList.remove('show');showToast("Оформлено")}
@@ -1278,15 +1391,155 @@ function toggleTask(i){const t=state.tasks[i];if(t.done){t.done=false;state.cnt.
 function openGoalModal(){document.getElementById('goalModal').classList.add('show');document.getElementById('goalNameInput').value=state.goalName;document.getElementById('goalTotalInput').value=state.goalTotal}
 function closeGoalModal(){document.getElementById('goalModal').classList.remove('show')}
 function saveGoal(){const n=document.getElementById('goalNameInput').value.trim();const t=parseInt(document.getElementById('goalTotalInput').value);if(!n||!t){showToast("Заполни");return}state.goalName=n;state.goalTotal=t;state.goalCurrent=0;state.goalDoneToday=false;document.getElementById('goalDoneBtn').textContent="Я выполнил цель";document.getElementById('goalDoneBtn').classList.remove('done');save();updateAll();closeGoalModal()}
-function markGoalDone(){if(state.goalDoneToday){showToast("Уже");return}state.goalDoneToday=true;state.goalCurrent=Math.min(state.goalTotal,state.goalCurrent+Math.ceil(state.goalTotal/30));logXP(50);state.coins+=20;const b=document.getElementById('goalDoneBtn');b.textContent="Выполнено";b.classList.add('done');markTodayCompleted();save();updateAll();showToast("+50 XP, +20 🪙")}
+function markGoalDone(){if(state.dev){const dpi=document.getElementById('devPanelItem');if(dpi)dpi.style.display='';}
+if(state.goalDoneToday){showToast("Уже");return}state.goalDoneToday=true;state.goalCurrent=Math.min(state.goalTotal,state.goalCurrent+Math.ceil(state.goalTotal/30));logXP(50);state.coins+=20;const b=document.getElementById('goalDoneBtn');b.textContent="Выполнено";b.classList.add('done');markTodayCompleted();save();updateAll();showToast("+50 XP, +20 🪙")}
 function resetProgress(){if(confirm("Сбросить всё?")){localStorage.removeItem('dd_state');location.reload()}}
-const SHOP=[{id:'ring',name:'Рамка «Кольцо»',price:100,type:'frame'},{id:'double',name:'Рамка «Двойная»',price:200,type:'frame'},{id:'glow',name:'Рамка «Свечение»',price:300,type:'frame'},{id:'freeze',name:'Заморозка серии',price:150,type:'item'}];
-function renderShop(){document.getElementById('shopCoins').textContent=state.coins;document.getElementById('shopList').innerHTML=SHOP.map(it=>{let b;if(it.type==='frame'){b=state.owned.includes(it.id)?(state.frame===it.id?'<button class="shop-btn on" onclick="equip(\'\')">Снять</button>':'<button class="shop-btn" onclick="equip(\''+it.id+'\')">Надеть</button>'):'<button class="shop-btn" onclick="buy(\''+it.id+'\')">'+it.price+' 🪙</button>'}else b='<button class="shop-btn" onclick="buy(\'freeze\')">'+it.price+' 🪙</button>';return '<div class="glass profile-item"><span>'+it.name+(it.id==='freeze'?' · '+state.freezes+' шт.':'')+'</span>'+b+'</div>'}).join('')}
-function buy(id){const it=SHOP.find(x=>x.id===id);if(state.coins<it.price){showToast('Не хватает коинов');return}state.coins-=it.price;if(it.type==='frame'){state.owned.push(id);state.frame=id;applyFrame()}else state.freezes++;save();updateAll();renderShop();showToast('Куплено')}
+const SHOP=[{id:'theme-cosmos',name:'Тема «Космос»',price:300,type:'theme'},{id:'theme-sakura',name:'Тема «Сакура»',price:300,type:'theme'},{id:'theme-pine',name:'Тема «Хвоя»',price:300,type:'theme'},{id:'theme-sunset',name:'Тема «Закат»',price:350,type:'theme'},{id:'theme-ice',name:'Тема «Лёд»',price:300,type:'theme'},{id:'theme-blood',name:'Тема «Кровь»',price:350,type:'theme'},{id:'ring',name:'Рамка «Кольцо»',price:100,type:'frame'},{id:'double',name:'Рамка «Двойная»',price:200,type:'frame'},{id:'glow',name:'Рамка «Свечение»',price:300,type:'frame'},{id:'pulse',name:'Рамка «Пульс»',price:400,type:'frame'},{id:'fire',name:'Рамка «Огонь»',price:500,type:'frame'},{id:'cosmos',name:'Рамка «Космос»',price:650,type:'frame'},{id:'freeze',name:'Заморозка серии',price:150,type:'item'},{id:'particles',name:'Эффект «Частицы»',price:350,type:'effect'},{id:'theme-dawn',name:'Тема «Рассвет»',price:250,type:'theme'}];
+function renderShop(){
+    const el=document.getElementById('shopCoins'); if(el) el.textContent=state.coins;
+    const list=document.getElementById('shopList'); if(!list) return;
+    state.owned=state.owned||[];
+    list.innerHTML = SHOP.map(it=>{
+        let b;
+        const owned = state.owned.includes(it.id);
+        if(it.type==='frame'){
+            b = owned ? (state.frame===it.id
+                ? '<button class="shop-btn on" onclick="equip(\'\')">Снять</button>'
+                : '<button class="shop-btn" onclick="equip(\''+it.id+'\')">Надеть</button>')
+                : '<button class="shop-btn" onclick="buy(\''+it.id+'\')">'+it.price+' 🪙</button>';
+        } else if(it.type==='effect'){
+            b = owned ? '<button class="shop-btn'+(state.effect===it.id?' on':'')+'" onclick="toggleEffect(\''+it.id+'\')">'+(state.effect===it.id?'Выкл':'Вкл')+'</button>'
+                : '<button class="shop-btn" onclick="buy(\''+it.id+'\')">'+it.price+' 🪙</button>';
+        } else if(it.type==='theme'){
+            const active = state.shopTheme === it.id;
+            b = owned ? (active
+                ? '<button class="shop-btn on" onclick="clearShopTheme()">Сбросить</button>'
+                : '<button class="shop-btn" onclick="applyShopTheme(\''+it.id+'\')">Применить</button>')
+                : '<button class="shop-btn" onclick="buy(\''+it.id+'\')">'+it.price+' 🪙</button>';
+        } else {
+            b = '<button class="shop-btn" onclick="buy(\''+it.id+'\')">'+it.price+' 🪙</button>';
+        }
+        return '<div class="glass profile-item"><span>'+it.name+(it.id==='freeze'?' · '+state.freezes+' шт.':'')+'</span>'+b+'</div>';
+    }).join('');
+}
+function toggleEffect(id){
+    if(state.effect===id){ state.effect=''; document.body.dataset.effect=''; }
+    else { state.effect=id; document.body.dataset.effect = (id==='particles') ? 'particles' : ''; }
+    save(); renderShop();
+}
+
+function toggleEffect(id){
+    if(state.effect===id){ state.effect=''; document.body.dataset.effect=''; }
+    else { state.effect=id; document.body.dataset.effect = (id==='particles') ? 'particles' : ''; }
+    save(); renderShop();
+}
+
+function buy(id){const it=SHOP.find(x=>x.id===id);if(!it)return;if(state.coins<it.price){showToast('Не хватает коинов');return}if(state.owned&&state.owned.includes(id)&&it.type!=='item'){showToast('Уже куплено');return}state.coins-=it.price;state.owned=state.owned||[];if(it.type==='frame'){state.owned.push(id);state.frameEq=state.frame;state.frame=id;applyFrame()}else if(it.type==='effect'){state.owned.push(id);state.effect=id;document.body.dataset.effect=id==='particles'?'particles':''}else if(it.type==='theme'){state.owned.push(id)}else if(it.type==='item'){state.freezes++}save();updateAll();renderShop();showToast('Куплено')}
 function equip(id){state.frame=id;applyFrame();save();renderShop()}
-function applyFrame(){document.body.dataset.frame=state.frame||''}
+
+function applyShopTheme(id){
+    const t = SHOP_THEMES[id];
+    if(!t) return;
+    state.theme = t.theme;
+    state.accent = t.accent;
+    state.tint = t.tint;
+    state.tintTouched = true;
+    state.shopTheme = id;
+    applyTheme();
+    applyAccent();
+    const tg = document.getElementById('tintToggle'); if(tg) tg.classList.toggle('on', !!state.tint);
+    save();
+    showToast('Тема применена: ' + t.name);
+}
+function clearShopTheme(){
+    state.shopTheme = '';
+    save();
+    showToast('Тема сброшена');
+}/* ===== THEMES_V7 ===== */
+const THEMES_V7 = {
+    'theme-cosmos': { name:'Космос',
+        bg:'radial-gradient(120% 100% at 20% 0%, #0d1b3a 0%, #050814 45%, #000 100%)',
+        gBg:'linear-gradient(145deg, rgba(120,180,255,.10), rgba(60,100,200,.03) 45%, rgba(120,180,255,.06))',
+        gEdge:'rgba(120,180,255,.22)', inner:'rgba(120,180,255,.06)',
+        accent:'#64d2ff', tint:true, light:false,
+        amb1:'#3a6bd6', amb2:'#1a2c5c', amb3:'#5a8ae8' },
+    'theme-sakura': { name:'Сакура',
+        bg:'radial-gradient(120% 100% at 20% 0%, #ffeaf1 0%, #ffd9e6 50%, #fff3f7 100%)',
+        gBg:'linear-gradient(145deg, rgba(255,255,255,.75), rgba(255,220,235,.25) 50%, rgba(255,255,255,.65))',
+        gEdge:'rgba(220,120,160,.28)', inner:'rgba(255,180,205,.18)',
+        accent:'#ff4d8d', tint:true, light:true,
+        amb1:'#ffb3cf', amb2:'#ff8fb8', amb3:'#ffd6e5' },
+    'theme-pine': { name:'Хвоя',
+        bg:'radial-gradient(120% 100% at 20% 0%, #0a1f14 0%, #04120a 55%, #000 100%)',
+        gBg:'linear-gradient(145deg, rgba(80,220,140,.10), rgba(40,120,80,.03) 45%, rgba(80,220,140,.06))',
+        gEdge:'rgba(80,220,140,.22)', inner:'rgba(80,220,140,.06)',
+        accent:'#30d158', tint:true, light:false,
+        amb1:'#1e6b3a', amb2:'#0a2e18', amb3:'#2f9e5a' },
+    'theme-sunset': { name:'Закат',
+        bg:'linear-gradient(160deg, #2a0e2e 0%, #6b1e3a 30%, #d14a2a 65%, #ffb347 100%)',
+        gBg:'linear-gradient(145deg, rgba(255,180,120,.18), rgba(255,90,60,.06) 50%, rgba(255,180,120,.12))',
+        gEdge:'rgba(255,180,120,.35)', inner:'rgba(255,180,120,.10)',
+        accent:'#ff7043', tint:true, light:false,
+        amb1:'#ff7043', amb2:'#c73e6b', amb3:'#ffb347' },
+    'theme-ice': { name:'Лёд',
+        bg:'radial-gradient(120% 100% at 20% 0%, #eaf6ff 0%, #cfe8fa 55%, #f5fbff 100%)',
+        gBg:'linear-gradient(145deg, rgba(255,255,255,.85), rgba(200,225,255,.35) 50%, rgba(255,255,255,.75))',
+        gEdge:'rgba(100,160,220,.28)', inner:'rgba(160,200,240,.20)',
+        accent:'#0a84ff', tint:true, light:true,
+        amb1:'#a8d4ff', amb2:'#7fb8e8', amb3:'#d6ecff' },
+    'theme-blood': { name:'Кровь',
+        bg:'radial-gradient(120% 100% at 20% 0%, #1a0208 0%, #2e0510 45%, #000 100%)',
+        gBg:'linear-gradient(145deg, rgba(255,60,60,.12), rgba(140,20,30,.04) 45%, rgba(255,60,60,.08))',
+        gEdge:'rgba(220,40,50,.32)', inner:'rgba(220,40,50,.08)',
+        accent:'#ff3b30', tint:true, light:false,
+        amb1:'#8a0f1a', amb2:'#3a0510', amb3:'#c81828' }
+};
+
+function applyShopTheme(id){
+    const t = THEMES_V7[id];
+    if(!t) return;
+    state.shopTheme = id;
+    state.theme = t.light ? 'light' : 'dark';
+    state.accent = t.accent;
+    state.tint = !!t.tint;
+    state.tintTouched = true;
+    save();
+    document.body.className = state.theme;
+    const b = document.body;
+    b.style.setProperty('--bg', t.bg);
+    b.style.setProperty('--g-bg', t.gBg);
+    b.style.setProperty('--g-edge', t.gEdge);
+    b.style.setProperty('--inner', t.inner);
+    applyAccent();
+    const circles = document.querySelectorAll('.ambient i');
+    if(circles[0]) circles[0].style.background = t.amb1;
+    if(circles[1]) circles[1].style.background = t.amb2;
+    if(circles[2]) circles[2].style.background = t.amb3;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content', t.light ? '#eaf6ff' : '#000000');
+    const qt = document.getElementById('quickTheme'); if(qt) qt.classList.toggle('on', state.theme==='dark');
+    const tt = document.getElementById('themeToggle'); if(tt) tt.classList.toggle('on', state.theme==='dark');
+    const tg = document.getElementById('tintToggle'); if(tg) tg.classList.toggle('on', !!state.tint);
+    showToast('Тема применена: ' + t.name);
+    if(typeof renderShop === 'function') renderShop();
+}
+
+function clearShopTheme(){
+    state.shopTheme = '';
+    const b = document.body;
+    ['--bg','--g-bg','--g-edge','--inner'].forEach(k => b.style.removeProperty(k));
+    document.querySelectorAll('.ambient i').forEach(c => c.style.removeProperty('background'));
+    state.accent = '';
+    state.tint = false;
+    applyTheme();
+    applyAccent();
+    save();
+    showToast('Тема сброшена');
+    if(typeof renderShop === 'function') renderShop();
+}function applyFrame(){document.body.dataset.frame=state.frame||''}
 function openSubpage(n){document.getElementById('profileMain').classList.remove('active');document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('subpage-'+n).classList.add('active');if(n==='notifications')setTimeout(updateNotifStatus,50);
-    if(n==='messages')setTimeout(openMsgSettings,50);if(n==='avatar')updateAllAvatars();if(n==='shop')renderShop();if(n==='ach')renderAch();if(n==='settings'){renderSwatches();renderFonts();const sg=document.getElementById('soundToggle');if(sg)sg.classList.toggle('on',!!state.sound);const tg=document.getElementById('tintToggle');if(tg)tg.classList.toggle('on',!!state.tint)}if(n==='friends')renderFriendsList();if(n==='review')setTimeout(updateReviewStats,50);const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn)}
+    if(n==='messages')setTimeout(openMsgSettings,50);
+    if(n==='dev'){}if(n==='avatar')updateAllAvatars();if(n==='shop')renderShop();if(n==='ach')renderAch();if(n==='settings'){renderSwatches();renderFonts();const sg=document.getElementById('soundToggle');if(sg)sg.classList.toggle('on',!!state.sound);const tg=document.getElementById('tintToggle');if(tg)tg.classList.toggle('on',!!state.tint)}if(n==='friends')renderFriendsList();if(n==='review')setTimeout(updateReviewStats,50);const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn)}
 function closeSubpage(){document.querySelectorAll('.subpage').forEach(s=>s.classList.remove('active'));document.getElementById('profileMain').classList.add('active')}
 function updateAll(){
     state.level=Math.floor(state.xp/XP_PER_LEVEL)+1;
@@ -1311,6 +1564,9 @@ function updateAll(){
     if(state.charName){document.getElementById('charNameMain').textContent=state.charName;document.getElementById('charRankMain').textContent=rankTitle(state.level)+' · место #'+(state.place||'—')}
     updateAllAvatars();renderStats();renderChars();updateToday();updateIndex();checkAch();renderPH();
     const ct=document.getElementById('calmToggle');if(ct)ct.classList.toggle('on',state.calm);
+    const qt=document.getElementById('quickTheme');if(qt)qt.classList.toggle('on',state.theme==='dark');
+    const qc=document.getElementById('quickCalm');if(qc)qc.classList.toggle('on',state.calm);
+    const qs=document.getElementById('quickSound');if(qs)qs.classList.toggle('on',state.sound);
     const dt=document.getElementById('deadlineToggle');if(dt)dt.classList.toggle('on',state.deadlineOn);
 }
 function renderStats(){const el=document.getElementById('statsBars');if(!el)return;const dn=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push({l:dn[d.getDay()],v:state.history[dk(d)]||0})}const mx=Math.max(50,...a.map(x=>x.v));el.innerHTML=a.map((x,i)=>'<div class="bar'+(i===6?' today':'')+'"><em>'+(x.v||'')+'</em><div class="bar-fill" style="height:'+Math.round(x.v/mx*80)+'%"></div><span>'+x.l+'</span></div>').join('');const v=state.tasks,d=v.filter(t=>t.done).length;document.getElementById('statsToday').textContent=v.length?'Сегодня выполнено: '+Math.round(d/v.length*100)+'%':'Сегодня заданий нет';document.getElementById('statsWeek').textContent=a.reduce((q,x)=>q+x.v,0)+' XP за 7 дней'}
@@ -1318,7 +1574,7 @@ function moveIndicator(i){const nav=document.getElementById('bottomNav');const i
 function switchTab(tab){document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelectorAll('.main-section,.profile-section').forEach(s=>{s.classList.remove('active');s.classList.add('hidden')});let idx=0;if(tab==='main'){document.getElementById('mainSection').classList.remove('hidden');document.getElementById('mainSection').classList.add('active');document.getElementById('navMain').classList.add('active');idx=0}else if(tab==='profile'){document.getElementById('profileSection').classList.add('active');document.getElementById('profileSection').classList.remove('hidden');document.getElementById('navProfile').classList.add('active');closeSubpage();idx=1}setTimeout(()=>moveIndicator(idx),10)}
 function showToast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
 
-load();rollover();applyFrame();applyTheme();applyAccent();applyFont();setQuote();renderTasks();renderCalendar();renderLeaderboard();renderFriendsBoard();updateAll();updateProfile();
+load();rollover();applyFrame();applyTheme();applyAccent();applyFont();if(state.shopTheme)applyShopTheme(state.shopTheme);setQuote();renderTasks();renderCalendar();renderLeaderboard();renderFriendsBoard();updateAll();updateProfile();
 if(state.user && state.aboutSeen && state.onboardingDone){document.getElementById('authOverlay').classList.add('hidden')}
 if(state.charName){document.getElementById('charNameMain').textContent=state.charName;document.getElementById('charRankMain').textContent=rankTitle(state.level)+' · место #'+(state.place||'—');document.getElementById('profileName').textContent=state.charName}
 if(!state.myCode)state.myCode=genCode(state.charName||'USER');
