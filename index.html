@@ -1361,16 +1361,37 @@ const SOUND_SETS = {
 
 let AC=null;
 function beep(k){
-    if(!state.sound) return;
+    if(!state || !state.sound) return;
     try{
-        AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if(!window.AC){
+            window.AC = new Ctx();
+        }
+        if(window.AC.state === 'suspended'){
+            window.AC.resume();
+        }
+        const AC = window.AC;
         const t = AC.currentTime;
         const setId = state.soundSet || 'sound-default';
-        const set = SOUND_SETS[setId] || SOUND_SETS['sound-default'];
-        set.play(AC, t, k);
+        const set = (window.SOUND_SETS && window.SOUND_SETS[setId]) || (typeof SOUND_SETS !== 'undefined' && SOUND_SETS[setId]) || null;
+        if(set && typeof set.play === 'function'){
+            set.play(AC, t, k);
+        } else {
+            // fallback: простой сигнал, если набора нет
+            const o = AC.createOscillator();
+            const g = AC.createGain();
+            o.type = 'sine';
+            o.frequency.value = k==='up'?660:k==='done'?880:740;
+            o.connect(g); g.connect(AC.destination);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(0.08, t + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+            o.start(t); o.stop(t + 0.25);
+        }
         if(navigator.vibrate) navigator.vibrate(k==='up'?[30,40,60]:15);
     }catch(e){ console.warn('beep error', e); }
 }
+
 
 async function registerWith(method){if(method==='google'){if(window.firebaseSignInGoogle)window.firebaseSignInGoogle().catch(err=>showToast('Ошибка: '+err.message));else showToast('Firebase загружается...');return}if(method==='email'){const email=document.getElementById('authEmail').value.trim();const name=document.getElementById('authName').value.trim();const password=document.getElementById('authPassword').value;if(!email||!password){showToast('Заполни email и пароль');return}if(password.length<6){showToast('Пароль минимум 6');return}try{let userCredential;try{userCredential=await window.firebaseSignInEmail(window.firebaseAuth,email,password)}catch(err){if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential')userCredential=await window.firebaseCreateUser(window.firebaseAuth,email,password);else throw err}if(name&&!userCredential.user.displayName)await window.firebaseUpdateProfile(userCredential.user,{displayName:name});showToast('Добро пожаловать!')}catch(error){showToast('Ошибка: '+error.message)}}}
 function skipAuth(){state.user={name:'Гость',email:'',method:'Без регистрации'};save();document.getElementById('authOverlay').classList.add('hidden');setTimeout(()=>{if(!state.aboutSeen)showAbout();else if(!state.onboardingDone)showOnboarding();else{if(!state.trialStart)startTrial();else checkTrial()}},500)}
@@ -1808,6 +1829,7 @@ function markGoalDone(){if(state.dev){const dpi=document.getElementById('devPane
 if(state.goalDoneToday){showToast("Уже");return}state.goalDoneToday=true;state.goalCurrent=Math.min(state.goalTotal,state.goalCurrent+Math.ceil(state.goalTotal/30));logXP(50);state.coins+=20;const b=document.getElementById('goalDoneBtn');b.textContent="Выполнено";b.classList.add('done');markTodayCompleted();save();updateAll();showToast("+50 XP, +20 🪙")}
 function resetProgress(){if(confirm("Сбросить всё?")){localStorage.removeItem('dd_state');location.reload()}}
 const SHOP=[
+
 {id:'sound-retro',name:'Звук «Ретро 8-бит»',price:300,type:'sound'},{id:'sound-soft',name:'Звук «Мягкий»',price:250,type:'sound'},{id:'sound-cosmos',name:'Звук «Космос»',price:400,type:'sound'},{id:'sound-zen',name:'Звук «Дзен»',price:350,type:'sound'},
 {id:'frame-rainbow',name:'Рамка «Радуга»',price:500,type:'frame'},{id:'frame-gold',name:'Рамка «Золото»',price:450,type:'frame'},{id:'frame-pixel',name:'Рамка «Пиксель»',price:300,type:'frame'},{id:'frame-matrix',name:'Рамка «Матрица»',price:400,type:'frame'},{id:'effect-snow',name:'Эффект «Снег»',price:350,type:'effect'},{id:'effect-fire',name:'Эффект «Огонь»',price:400,type:'effect'},{id:'effect-lightning',name:'Эффект «Молния»',price:450,type:'effect'},{id:'effect-aura',name:'Эффект «Аура»',price:350,type:'effect'},{id:'theme-retro',name:'Тема «Ретро»',price:300,type:'theme'},{id:'theme-neon',name:'Тема «Неон»',price:350,type:'theme'},{id:'theme-mint',name:'Тема «Мята»',price:300,type:'theme'},{id:'theme-coffee',name:'Тема «Кофе»',price:300,type:'theme'},{id:'title-master',name:'Титул «Мастер дисциплины»',price:200,type:'title'},{id:'title-legend',name:'Титул «Легенда»',price:300,type:'title'},{id:'theme-cosmos',name:'Тема «Космос»',price:300,type:'theme'},{id:'theme-sakura',name:'Тема «Сакура»',price:300,type:'theme'},{id:'theme-pine',name:'Тема «Хвоя»',price:300,type:'theme'},{id:'theme-sunset',name:'Тема «Закат»',price:350,type:'theme'},{id:'theme-ice',name:'Тема «Лёд»',price:300,type:'theme'},{id:'theme-blood',name:'Тема «Кровь»',price:350,type:'theme'},{id:'ring',name:'Рамка «Кольцо»',price:100,type:'frame'},{id:'double',name:'Рамка «Двойная»',price:200,type:'frame'},{id:'glow',name:'Рамка «Свечение»',price:300,type:'frame'},{id:'pulse',name:'Рамка «Пульс»',price:400,type:'frame'},{id:'fire',name:'Рамка «Огонь»',price:500,type:'frame'},{id:'cosmos',name:'Рамка «Космос»',price:650,type:'frame'},{id:'freeze',name:'Заморозка серии',price:150,type:'item'},{id:'particles',name:'Эффект «Частицы»',price:350,type:'effect'},{id:'theme-dawn',name:'Тема «Рассвет»',price:250,type:'theme'}];
 function renderShop(){
@@ -2363,25 +2385,30 @@ if(/Chrome\//.test(navigator.userAgent)&&!/CriOS|FxiOS|EdgiOS/.test(navigator.us
     document.addEventListener('touchstart',  unlockAudio, { once: true, passive: true });
     document.addEventListener('keydown',     unlockAudio, { once: true });
 
-    // === 3. Тап-звук на каждый pointerdown ===
-    document.addEventListener('pointerdown', function(e){
-        try{
-            if(!state || !state.sound) return;
-            if(!window.AC || window.AC.state === 'suspended') return;
-            const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
-            if(tag === 'input' || tag === 'select' || tag === 'textarea') return;
-            const t = window.AC.currentTime;
-            const o = window.AC.createOscillator();
-            const g = window.AC.createGain();
-            o.type = 'sine';
-            o.frequency.value = 880;
-            o.connect(g); g.connect(window.AC.destination);
-            g.gain.setValueAtTime(0, t);
-            g.gain.linearRampToValueAtTime(0.03, t + 0.005);
-            g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
-            o.start(t); o.stop(t + 0.07);
-        }catch(err){}
-    }, { passive: true });
+    // === 3. Тап-звук: любой клик играет tick выбранного набора ===
+document.addEventListener('pointerdown', function(e){
+    try{
+        if(!state || !state.sound) return;
+        // Пропускаем поля ввода — чтобы не мешало печатать
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+        if(tag === 'input' || tag === 'select' || tag === 'textarea') return;
+        // Разблокируем аудио на первом тапе
+        if(typeof window.__audioUnlocked === 'undefined' || !window.__audioUnlocked){
+            window.__audioUnlocked = true;
+            try{
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                if(Ctx && (!window.AC || window.AC.state === 'suspended')){
+                    window.AC = window.AC || new Ctx();
+                    if(window.AC.state === 'suspended') window.AC.resume();
+                }
+            }catch(err){}
+        }
+        // Играем tick из текущего набора
+        if(typeof window.beep === 'function'){
+            window.beep('tick');
+        }
+    }catch(err){}
+}, { passive: true });
 
     // === 4. Синхронизация тумблеров звука ===
     setTimeout(function(){
