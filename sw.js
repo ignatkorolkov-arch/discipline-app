@@ -1,59 +1,28 @@
-﻿const CACHE_NAME = 'discipline-v' + Date.now();
-const FILES_TO_CACHE = [
-    './',
-    './index.html',
-    './manifest.json'
-];
+const CACHE = 'vkushnoesh-v1';
+const ASSETS = ['./', './index.html', './manifest.json'];
 
-self.addEventListener('install', (event) => {
-    console.log('[SW] Установка новой версии...');
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(FILES_TO_CACHE);
-        })
-    );
-    self.skipWaiting();
+self.addEventListener('install', e => {
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(() => {})));
 });
 
-self.addEventListener('activate', (event) => {
-    console.log('[SW] Активация...');
-    event.waitUntil(
-        caches.keys().then((keys) => {
-            return Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-            );
-        })
-    );
-    self.clients.claim();
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+  );
+  self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-    const url = event.request.url;
-    // НЕ перехватываем Google, Firebase Auth и другие внешние сервисы
-    if (url.includes('accounts.google.com') || 
-        url.includes('firebaseapp.com') || 
-        url.includes('googleapis.com') ||
-        url.includes('gstatic.com')) {
-        return; // пропускаем запрос напрямую
-    }
-    
-    // Для HTML — всегда свежая версия
-    if (event.request.mode === 'navigate' || url.endsWith('index.html')) {
-        event.respondWith(
-            fetch(event.request)
-                .then((response) => {
-                    const copy = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-                    return response;
-                })
-                .catch(() => caches.match(event.request))
-        );
-        return;
-    }
-    
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  // Google Apps Script — не кешируем
+  if (req.url.includes('script.google.com')) return;
+  e.respondWith(
+    caches.match(req).then(cached => cached || fetch(req).then(res => {
+      const copy = res.clone();
+      caches.open(CACHE).then(c => c.put(req, copy)).catch(() => {});
+      return res;
+    }).catch(() => cached))
+  );
 });
