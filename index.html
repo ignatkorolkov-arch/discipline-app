@@ -99,6 +99,11 @@ body.dark .sheet{background:rgba(20,20,22,.7)}body.light .sheet{background:rgba(
 .cin{display:flex;gap:8px;padding:6px 16px calc(10px + env(safe-area-inset-bottom,0px))}.cin input{flex:1;padding:13px 16px;border-radius:99px;background:var(--in);box-shadow:inset 0 0 0 1px var(--ge);border:0;outline:none;color:var(--txt);font-size:14px}
 .cin button{flex:0 0 46px;height:46px;border-radius:50%;background:var(--acc);color:var(--af);display:grid;place-items:center}
 .err{color:#ff6b60;font-size:12.5px;margin-top:8px;min-height:18px}
+.pre,.sw{border-radius:20px;background:var(--in);box-shadow:inset 0 0 0 1px var(--ge)}.pres,.sws{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.pre{display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:12px;font-weight:600}.pre i{width:12px;height:12px;border-radius:50%}
+.sw{width:34px;height:34px;border-radius:50%;position:relative}.sw.on{outline:2px solid var(--txt);outline-offset:3px}.sw.rb{background:conic-gradient(#ff375f,#ff9f0a,#ffd60a,#30d158,#64d2ff,#0a84ff,#bf5af2,#ff375f);overflow:hidden}.sw input{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+.tg{display:flex;justify-content:space-between;align-items:center;padding-top:14px}.tg span{font-size:14px;font-weight:500}
+.tsw{width:50px;height:28px;border-radius:14px;background:rgba(120,120,140,.35);position:relative;transition:.3s}.tsw::after{content:'';position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .3s;box-shadow:0 2px 6px rgba(0,0,0,.3)}.tsw.on{background:var(--accent,var(--txt))}.tsw.on::after{left:24px}
 .toast{position:fixed;left:50%;bottom:calc(130px + env(safe-area-inset-bottom));transform:translateX(-50%);padding:13px 22px;border-radius:24px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s;z-index:300;max-width:90%;text-align:center;background:var(--bg);box-shadow:inset 0 0 0 1px var(--ge),0 10px 30px var(--sh)}
 .toast.show{opacity:1}.toast.act{pointer-events:auto}.toast .u{margin-left:8px;color:var(--accent,var(--txt));font-weight:700;text-decoration:underline;padding:6px}
 .cal{text-align:left}.ch2{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.ch2 b{font-size:17px;text-transform:capitalize}
@@ -119,8 +124,7 @@ body.dark .sheet{background:rgba(20,20,22,.7)}body.light .sheet{background:rgba(
 <main id="app"></main><div class="dock" id="dock"></div><div id="modal"></div><div class="toast" id="toast"></div><input type="file" id="fp" accept="image/*" hidden>
 <script>
 /* ========== НАСТРОЙКА API ========== */
-/* Замените на URL вашего Apps Script (Deploy → Web app → /exec) */
-var API = 'https://script.google.com/macros/s/AKfycbw_AN1LNEOQyIi1IstGjvgU2gIbrlH0A8swfAM9_vkqJYyDmYRO8nqIqSyA0wBmz44Vzw/exec';
+var API = 'https://script.google.com/macros/s/AKfycbxsxOykqYvUfURTaSWjNPxfA89Witgsq_odHeCSso2A14VvY1rsjHiDciq1wZM4siTw/exec';
 
 /* ========== ИКОНКИ ========== */
 var IC={home:'<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',plus:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8v8M8 12h8"/>',list:'<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>',brand:'<path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/>',out:'<path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/>',arrow:'<path d="M7 17L17 7M9 7h8v8"/>',send:'<path d="M5 12h14M13 6l6 6-6 6"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',phone:'<path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-2-1-4-3-5-5l2-2-2-4z"/>',refresh:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>'};
@@ -130,7 +134,7 @@ var ART={dish:'<circle cx="160" cy="90" r="50" fill="url(#gm2)" stroke="rgba(255
 function art(k){return '<svg class="art" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="url(#gbg)"/>'+(ART[k]||ART.dish)+'</svg>'}
 function pic(s){return s.img?'<img class="art" alt="" src="'+s.img+'" loading="lazy">':art(s.k)}
 
-/* ========== ДАННЫЕ ЗАВЕДЕНИЯ ========== */
+/* ========== ДАННЫЕ ========== */
 var B={
   name:'ВкусноЕшь, кулинария',
   tag:'Кулинария, пекарня, кондитерские изделия и напитки. Готовое, выпечка, торты, кофе и лимонады. Оплата картой, наличными и по QR-коду.',
@@ -161,7 +165,6 @@ var B={
   ]
 };
 
-/* ========== КАТЕГОРИИ ========== */
 var DEF=[
   {id:'s1',n:'Готовая еда',p:0,t:1,k:'dish',w:'Горячее, гарниры, мясо по-французски, плов.',h:'Что заказать'},
   {id:'s2',n:'Выпечка',p:0,t:1,k:'bread',w:'Беляши, чебуреки, пирожки, булочки, ватрушки.',h:'Какая выпечка'},
@@ -213,7 +216,7 @@ function ok(){tone(660,.25);setTimeout(function(){tone(880,.3)},90)}
 var tm;function toast(msg){var e=$('toast');e.innerHTML='';var s=document.createElement('span');s.textContent=msg;e.appendChild(s);e.classList.add('show');clearTimeout(tm);tm=setTimeout(function(){e.classList.remove('show')},2500)}
 function burst(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;var box=document.createElement('div');box.className='cf';document.body.appendChild(box);var col=L.accent||'#fff';for(var i=0;i<24;i++){var q=document.createElement('i'),a=Math.random()*6.28,d=90+Math.random()*150;q.style.cssText='--x:'+Math.cos(a)*d+'px;--y:'+(Math.sin(a)*d-80)+'px;--r:'+(Math.random()*720-360)+'deg;background:'+(i%3?col:'#8a8a8a')+';animation-delay:'+Math.random()*.12+'s';box.appendChild(q)}setTimeout(function(){box.remove()},1500)}
 
-/* ========== API: ЧТЕНИЕ И ЗАПИСЬ ========== */
+/* ========== API ========== */
 function loadRemoteBook(cb){
   if(REMOTE_LOADING){if(cb)cb();return}
   REMOTE_LOADING=true;REMOTE_ERROR='';
@@ -221,14 +224,11 @@ function loadRemoteBook(cb){
     .then(function(r){return r.json()})
     .then(function(j){
       var rows = Array.isArray(j)?j:(j.data||j.rows||[]);
-      // Если первая строка — заголовки, отбрасываем
       var start = (rows.length && (String(rows[0][0]).toLowerCase()==='id' || String(rows[0][0]).toLowerCase()==='дата'))?1:0;
       REMOTE_BOOK = rows.slice(start).filter(function(r){return r && r.length}).map(function(row,idx){
-        // Поддержка двух форматов: массив колонок или объект
         if(!Array.isArray(row)){
           return {id:String(row.id||idx),shop:row.shop||B.name,status:row.status||'new',time:row.time||'—',date:row.date||'—',svc:[{n:row.svc||row.service||'Заказ',note:''}],name:row.name||'Клиент',phone:row.phone||'—',comment:row.comment||'',price:+row.price||0};
         }
-        // Формат CarKeyz: [?, date, name, car, service, ?, time, status, comment?, price?]
         return {
           id:'r'+idx,
           shop:B.name,
@@ -249,7 +249,6 @@ function loadRemoteBook(cb){
 }
 
 function sendOrder(b){
-  // Отправляем FormData — как в исходном CarKeyz, чтобы работало со старым Apps Script
   var fd=new FormData();
   fd.append('name',b.name);
   fd.append('phone',b.phone);
@@ -320,10 +319,40 @@ function book(){
 
 function mine(){return topbar()+'<h1>Мои заказы</h1>'+(S.book.length?S.book.map(function(b){return bk(b,'client')}).join(''):'<div class="empty glass"><h3>Пока пусто</h3><p>Оформите заказ — он появится здесь.</p><button class="cta" data-a="go" data-v="book">Оформить</button></div>')}
 
-function prof(){return topbar()+'<h1>Профиль</h1><div class="col"><input class="fld" data-f="name" placeholder="Имя" value="'+esc(S.cl.name)+'"><input class="fld" data-f="phone" type="tel" placeholder="Телефон" value="'+esc(S.cl.phone)+'"></div>'
-  +'<h2>Вход для мастера</h2>'
-  +'<button class="ai-card glass" data-a="owner" style="margin-top:0"><div class="aibox">'+ic('brand')+'</div><div><b>Кабинет мастера</b><span>Введите PIN, чтобы видеть заказы клиентов.</span></div></button>'
-  +'<h2>Оформление</h2><div class="glass ed"><div class="tg"><span>Тёмная тема</span><button class="tsw'+(S.theme==='dark'?' on':'')+'" data-a="theme"></button></div><div class="tg"><span>Звуки</span><button class="tsw'+(L.sound?' on':'')+'" data-a="u-snd"></button></div></div>'}
+var PALETTE=[
+  ['Моно',''],
+  ['Янтарь','#ff9f0a'],
+  ['Томат','#ff5a36'],
+  ['Малина','#ff4d8d'],
+  ['Мята','#30d158'],
+  ['Океан','#0a84ff'],
+  ['Фиалка','#8b5cf6'],
+  ['Золото','#ffc83d']
+];
+
+function prof(){
+  var pre = PALETTE.map(function(p){
+    return '<button class="pre" data-a="u-pre" data-v="'+p[1]+'"><i style="background:'+(p[1]||'linear-gradient(135deg,#fff 50%,#000 50%)')+'"></i>'+p[0]+'</button>';
+  }).join('');
+  
+  var sw = PALETTE.map(function(p){
+    return '<button class="sw'+(L.accent===p[1]?' on':'')+'" data-a="u-acc" data-v="'+p[1]+'" style="background:'+(p[1]||'linear-gradient(135deg,#fff 50%,#000 50%)')+'"></button>';
+  }).join('');
+
+  return topbar()+'<h1>Профиль</h1>'
+    +'<div class="col"><input class="fld" data-f="name" placeholder="Имя" value="'+esc(S.cl.name)+'"><input class="fld" data-f="phone" type="tel" placeholder="Телефон" value="'+esc(S.cl.phone)+'"></div>'
+    +'<div class="glass ed" style="margin-top:18px">'
+      +'<h3 style="font-size:15px">Оформление</h3>'
+      +'<p style="font-size:12.5px;color:var(--sub);margin-top:4px">Цвет кнопок и подсветки.</p>'
+      +'<div class="pres">'+pre+'</div>'
+      +'<div class="sws">'+sw+'</div>'
+      +'<label class="sw rb" style="margin-top:14px;display:inline-block"><input type="color" value="'+(L.accent||'#ff9f0a')+'" data-f="u-color"></label>'
+      +'<div class="tg"><span>Подсветка фона</span><button class="tsw'+(L.tint?' on':'')+'" data-a="u-tint"></button></div>'
+      +'<div class="tg"><span>Звуки</span><button class="tsw'+(L.sound?' on':'')+'" data-a="u-snd"></button></div>'
+    +'</div>'
+    +'<h2>Вход для мастера</h2>'
+    +'<button class="ai-card glass" data-a="owner" style="margin-top:0"><div class="aibox">'+ic('brand')+'</div><div><b>Кабинет мастера</b><span>Введите PIN, чтобы видеть заказы клиентов.</span></div></button>'
+}
 
 function ownerBook(){
   if(REMOTE_BOOK===null && !REMOTE_LOADING){
@@ -339,6 +368,8 @@ function ownerBook(){
     +(REMOTE_ERROR?'<div class="empty glass"><p style="margin:0;color:#ff6b60">Ошибка: '+esc(REMOTE_ERROR)+'</p></div>':'')
     +(list.length?list.map(function(b){return bk(b,'owner')}).join(''):(!REMOTE_LOADING&&!REMOTE_ERROR?'<div class="empty glass"><h3>Заказов нет</h3><p>Когда клиент оформит — заявка появится здесь.</p></div>':''))
 }
+
+function ownerBrand(){return topbar()+'<h1>Сервис</h1><div class="ed glass"><h3 style="font-size:15px">PIN-код мастера</h3><div class="col"><input class="fld" id="op" type="password" maxlength="8" placeholder="Текущий PIN"><input class="fld" id="np2" type="password" maxlength="8" placeholder="Новый PIN"></div><div class="err" id="perr"></div><button class="cta" data-a="pin-change" style="width:100%;margin-top:6px">Сменить PIN</button></div><div class="ed glass"><h3 style="font-size:15px">API</h3><p style="font-size:12px;color:var(--sub);word-break:break-all">'+esc(API)+'</p></div>'}
 
 function pinSheet(){
   $('modal').innerHTML='<div class="veil" data-a="close"><div class="sheet"><h3 style="font-size:21px;margin-bottom:6px">Кабинет мастера</h3><p style="color:var(--sub);margin-bottom:16px;font-size:14px">Введите PIN (по умолчанию 1234)</p><input class="fld" id="pinin" type="password" maxlength="8" placeholder="••••" style="text-align:center;font-size:22px;letter-spacing:.4em"><div class="err" id="pinerr"></div><button class="cta" data-a="pin" style="width:100%;margin-top:8px">Войти</button></div></div>';
@@ -366,11 +397,11 @@ return h+'<nav class="nav" id="nav"><div class="ind" id="ind"></div>'+T.map(func
 var IL=null,IW=0;
 function moveInd(){var n=$('nav'),i=$('ind');if(!n||!i)return;var a=n.querySelector('.ni.on');if(!a)return;var nr=n.getBoundingClientRect(),ar=a.getBoundingClientRect(),l=ar.left-nr.left,w=ar.width;if(IL!==null&&Math.abs(IL-l)>2){i.style.transition='none';i.style.left=IL+'px';i.style.width=IW+'px';void i.offsetWidth;i.style.transition=''}i.style.left=l+'px';i.style.width=w+'px';IL=l;IW=w}
 
-var SCR={home:home,book:book,mine:mine,prof:prof,'o-book':ownerBook,'o-brand':function(){return topbar()+'<h1>Сервис</h1><div class="ed glass"><h3 style="font-size:15px">PIN-код мастера</h3><div class="col"><input class="fld" id="op" type="password" maxlength="8" placeholder="Текущий PIN"><input class="fld" id="np2" type="password" maxlength="8" placeholder="Новый PIN"></div><div class="err" id="perr"></div><button class="cta" data-a="pin-change" style="width:100%;margin-top:6px">Сменить PIN</button></div><div class="ed glass"><h3 style="font-size:15px">API</h3><p style="font-size:12px;color:var(--sub);word-break:break-all">'+esc(API)+'</p></div>'}};
+var SCR={home:home,book:book,mine:mine,prof:prof,'o-book':ownerBook,'o-brand':ownerBrand};
 function render(keep){var y=scrollY;$('app').innerHTML=SCR[S.tab]();$('dock').innerHTML=dock();moveInd();scrollTo(0,keep?y:0);setTimeout(moveInd,30)}
 function go(t){if(t==='logout'){S.role='client';t='home';REMOTE_BOOK=null}if(t==='o-book'){if(!REMOTE_BOOK)loadRemoteBook(function(){render(true)})}S.tab=t;render()}
 
-/* ========== ЧАТ «МАША» ========== */
+/* ========== ЧАТ ========== */
 var CH={log:[]};
 var SYM=[{re:/торт|пирожн|корзинк|кулич|десерт/i,ids:['s3','s4'],say:'Из сладкого — торты, пирожные, корзинки, куличи. На праздник можем сделать торт.'},{re:/беляш|чебурек|пирожок|выпечк|булочк|ватрушк/i,ids:['s2'],say:'Выпечка: беляши, чебуреки, пирожки, булочки.'},{re:/салат/i,ids:['s10'],say:'Салаты свежие, домашние.'},{re:/кофе|капучино|латте/i,ids:['s5'],say:'Кофе с собой.'},{re:/чай/i,ids:['s6'],say:'Чай с собой.'},{re:/лимонад|коктейл|мохито/i,ids:['s7'],say:'Лимонады и молочные коктейли.'},{re:/пицц/i,ids:['s8'],say:'Пицца: гавайская, мохито и др.'},{re:/плов|горяч|обед|гарнир/i,ids:['s1'],say:'Горячее: плов, гарниры.'},{re:/блин|колдун/i,ids:['s11'],say:'Блинчики, колдуны.'},{re:/праздник|стол|гост/i,ids:['s12','s4'],say:'Соберём стол на праздник.'}];
 function parsePhone(t){var m=t.match(/\+?\d[\d\s\-()]{8,}\d/);if(m){var d=m[0].replace(/\D/g,'');if(d.length>=10)return m[0].trim()}return null}
@@ -393,6 +424,12 @@ say('ai','Опишите, что нужно (торт, выпечка, кофе)
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-a]');if(!b)return;
   var a=b.dataset.a,v=b.dataset.v,id=b.dataset.id;
+
+  if(a==='u-pre'){L.accent=v;if(!v)L.tint=false;applyLook();save();render(true);return}
+  if(a==='u-acc'){L.accent=v;applyLook();save();render(true);return}
+  if(a==='u-tint'){L.tint=!L.tint;applyLook();save();render(true);return}
+  if(a==='u-snd'){L.sound=!L.sound;save();render(true);return}
+
   if(a==='theme'){S.theme=S.theme==='dark'?'light':'dark';applyLook();save();render(true);return}
   if(a==='go'){go(v);return}
   if(a==='svc'){if(S.sel[id]){delete S.sel[id];delete S.notes[id]}else S.sel[id]=true;render(true);return}
@@ -414,13 +451,13 @@ document.addEventListener('click',function(e){
   if(a==='bk-no'){updateStatus(id,'no');if(REMOTE_BOOK){var q2=REMOTE_BOOK.find(function(z){return String(z.id)===String(id)});if(q2)q2.status='no'}render(true);return}
   if(a==='bk-del'){deleteOrder(id);if(REMOTE_BOOK)REMOTE_BOOK=REMOTE_BOOK.filter(function(z){return String(z.id)!==String(id)});render(true);return}
   if(a==='pin-change'){var op=($('op').value||'').trim(),np=($('np2').value||'').trim();if(op===S.pin&&np.length>=4){S.pin=np;save();toast('PIN изменён');render(true)}else $('perr').textContent='Неверный PIN или короткий новый';return}
-  if(a==='u-snd'){L.sound=!L.sound;save();render(true);return}
 });
 document.addEventListener('input',function(e){var f=e.target.closest('[data-f]');if(!f)return;var k=f.dataset.f,id=f.dataset.id,v=f.value;
   if(k==='name')S.cl.name=v;
   if(k==='phone')S.cl.phone=v;
   if(k==='comment')S.comment=v;
   if(k==='note')S.notes[id]=v;
+  if(k==='u-color'){L.accent=v;applyLook();save();render(true)}
   save();
 });
 document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='ci'){send()}});
